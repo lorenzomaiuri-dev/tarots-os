@@ -1,14 +1,8 @@
 import { MMKV } from 'react-native-mmkv';
+import { STORAGE_KEYS } from "../constants";
 
 // storage
 export const storage = new MMKV();
-
-// keys
-export const STORAGE_KEYS = {
-  SETTINGS: 'app_settings',
-  HISTORY: 'reading_history',
-  DAILY_CARD: 'daily_card_state',
-};
 
 // Wrapper to save JSON with typing
 export const StorageService = {

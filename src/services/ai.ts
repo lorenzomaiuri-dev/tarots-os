@@ -1,6 +1,5 @@
 import { AIModelConfig } from '../types/ai';
-
-const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1/chat/completions';
+import { AI_CONFIG } from "../constants";
 
 interface ChatMessage {
   role: 'system' | 'user';
@@ -17,19 +16,18 @@ export const generateInterpretation = async (
   }
 
   try {
-    const response = await fetch(OPENROUTER_BASE_URL, {
+    const response = await fetch(`${AI_CONFIG.BASE_URL}/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${config.apiKey}`,
-        'HTTP-Referer': 'https://github.com/lorenzomaiuri-dev/tarots-ai',
-        'X-Title': 'Tarots AI',
+        'HTTP-Referer': AI_CONFIG.SITE_URL,
+        'X-Title': AI_CONFIG.APP_NAME,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: config.modelId,
         messages: messages,
-        temperature: 0.7, // Not too creative
-        // TODO: FROM CONFIG
+        temperature: AI_CONFIG.TEMPERATURE,
       }),
     });
 
