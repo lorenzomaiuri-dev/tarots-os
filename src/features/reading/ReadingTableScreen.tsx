@@ -14,6 +14,7 @@ import { SpreadVisualizer } from '../../components/SpreadVisualizer';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { useHistoryStore } from '../../store/useHistoryStore';
 import { useInterpretation } from '../../hooks/useInterpretation';
+import { useHaptics } from '../../hooks/useHaptics';
 import { getDeck } from '../../services/deckRegistry';
 import { drawCards } from '../../services/rng';
 import { DrawnCard, ReadingSession, Spread } from '../../types/reading';
@@ -24,6 +25,7 @@ type ReadingTableRouteProp = RouteProp<RootStackParamList, 'ReadingTable'>;
 const ReadingTableScreen = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const haptics = useHaptics();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<ReadingTableRouteProp>();
 
@@ -76,7 +78,7 @@ const ReadingTableScreen = () => {
       positionId: slotId,
       isReversed: results[0].isReversed
     };
-
+    haptics.medium(); 
     setDrawnCards(prev => [...prev, newCard]);
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, Button, useTheme, IconButton, Surface } from 'react-native-paper';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
@@ -9,11 +9,11 @@ import { AI_CONFIG } from "../../constants";
 import { ScreenContainer } from '../ScreenContainer';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { useDailyDraw } from '../../hooks/useDailyDraw';
+import { useHaptics } from '../../hooks/useHaptics';
 import { CardFlip } from '../../components/CardFlip';
 import { useInterpretation } from '../../hooks/useInterpretation';
 import { InterpretationModal } from '../../components/InterpretationModal';
 import { Spread } from '../../types/reading';
-import { useState } from 'react';
 
 // TODO: SPREADS CONFIG
 const DAILY_SPREAD: Spread = {
@@ -30,6 +30,7 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   
   const { activeDeckId } = useSettingsStore();
+  const haptics = useHaptics();
   const { dailyCard, drawNow, isLoading: isDrawLoading } = useDailyDraw();
   const [modalVisible, setModalVisible] = useState(false);
   const { result, isLoading: isAiLoading, error, interpretReading } = useInterpretation();
