@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import HomeScreen from '../features/home/HomeScreen';
 import DeckSelectionScreen from '../features/deck-selection/DeckSelectionScreen';
 import SettingsScreen from '../features/settings/SettingsScreen';
+import SpreadSelectionScreen from '../features/reading/SpreadSelectionScreen';
+import ReadingTableScreen from '../features/reading/ReadingTableScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,6 +43,16 @@ export const AppNavigator = () => {
         name="Settings" 
         component={SettingsScreen} 
         options={{ title: t('common:settings_title', 'Settings') }} 
+      />
+      <Stack.Screen 
+        name="SpreadSelection" 
+        component={SpreadSelectionScreen} 
+        options={{ title: t('common:new_reading_title', 'New Reading') }} 
+      />
+      <Stack.Screen 
+        name="ReadingTable" 
+        component={ReadingTableScreen} 
+        options={{ title: t('common:reading_title', 'Reading') }} 
       />
     </Stack.Navigator>
   );

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "one-card",
+    "icon": "card-text-outline",
+    "slots": [
+      { "id": "main", "label": "main" }
+    ]
+  },
+  {
+    "id": "three-card",
+    "icon": "cards-outline",
+    "slots": [
+      { "id": "past", "label": "past" },
+      { "id": "present", "label": "present" },
+      { "id": "future", "label": "future" }
+    ]
+  },
+  {
+    "id": "relationship",
+    "icon": "heart-outline",
+    "slots": [
+      { "id": "you", "label": "you" },
+      { "id": "partner", "label": "partner" },
+      { "id": "dynamic", "label": "dynamic" },
+      { "id": "outcome", "label": "outcome" }
+    ]
+  },
+  {
+    "id": "five-card-cross",
+    "icon": "plus-circle-outline",
+    "slots": [
+      { "id": "present", "label": "present" },
+      { "id": "obstacle", "label": "obstacle" },
+      { "id": "advice", "label": "advice" },
+      { "id": "outcome", "label": "outcome" },
+      { "id": "potential", "label": "potential" }
+    ]
+  }
+]

@@ -137,7 +137,7 @@ const HomeScreen = () => {
             icon="cards-playing-outline"
             contentStyle={{ height: 56 }}
             style={styles.actionButton}
-            onPress={() => console.log('Navigate to Spread Selection')}
+            onPress={() => navigation.navigate('SpreadSelection')} 
           >
             {t('common:new_reading', 'New Reading')}
           </Button>
