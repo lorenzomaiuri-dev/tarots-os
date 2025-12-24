@@ -9,6 +9,9 @@ import { AI_CONFIG } from "../../constants";
 import { ScreenContainer } from '../ScreenContainer';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { CardImage } from '../../components/CardImage';
+import { useDailyDraw } from '../../hooks/useDailyDraw';
+import { CardFlip } from '../../components/CardFlip';
+import { Animated } from 'react-native';
 
 const HomeScreen = () => {
   const { t } = useTranslation();
@@ -16,6 +19,7 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   
   const { activeDeckId } = useSettingsStore();
+  const { dailyCard, drawNow, isLoading } = useDailyDraw();
 
   return (
     <ScreenContainer style={styles.container}>
@@ -41,27 +45,45 @@ const HomeScreen = () => {
           <Text variant="titleLarge" style={styles.sectionTitle}>
             {t('common:daily_card_title', 'Daily Card')}
           </Text>
-          <Text variant="bodySmall" style={{ marginBottom: 16, opacity: 0.6 }}>
-            {t('common:daily_card_subtitle', "Your day in a card")}
+          <Text variant="bodySmall" style={{ marginBottom: 24, opacity: 0.6 }}>
+            {dailyCard 
+              ? t(`decks:${activeDeckId}.cards.${dailyCard.cardId}.name`, 'Name of the card you extracted')
+              : t('common:daily_card_subtitle', "Uncover your card for the day")
+            }
           </Text>
 
           <View style={styles.dailyCardPlaceholder}>
              {/* 
-                TODO: Check logic if card is already drawn. 
-                If yes -> Show CardImage with Seed.
-                If no -> Show Back of card and "Tap to Draw"
+                - If dailyCard is null, show back.
+                - When the pressed, call drawNow().
+                - drawNow set the dailyCard -> CardFlip see the ID and get flipped
              */}
-             <CardImage 
-               deckId={activeDeckId} 
-               style={{ width: 120, height: 200 }} 
+             <CardFlip 
+               deckId={activeDeckId}
+               cardId={dailyCard?.cardId || null}
+               isReversed={dailyCard?.isReversed}
+               onFlip={drawNow}
+               width={160}
+               height={260}
              />
-             <Button 
-                mode="contained-tonal" 
-                style={{ marginTop: 16 }}
-                onPress={() => console.log('Go to Daily Logic')}
-             >
-               {t('common:draw_daily', 'Draw Now')}
-             </Button>
+
+             {/* ADDITIONAL INFO */}
+             {dailyCard && (
+               <View style={{ marginTop: 20, alignItems: 'center' }}>
+                 <Text variant="titleMedium" style={{ fontWeight: 'bold', color: theme.colors.primary }}>
+                   {dailyCard.isReversed ? t('common:reversed', "Reversed") : t('common:upright', "Upright")}
+                 </Text>
+                 
+                 <Button 
+                   icon="creation" 
+                   mode="contained-tonal" 
+                   style={{ marginTop: 12 }}
+                   onPress={() => console.log('Open AI...')}
+                 >
+                   Interpreta
+                 </Button>
+               </View>
+             )}
           </View>
         </Surface>
 
