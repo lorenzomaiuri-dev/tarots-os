@@ -8,10 +8,21 @@ import { AI_CONFIG } from "../../constants";
 
 import { ScreenContainer } from '../ScreenContainer';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { CardImage } from '../../components/CardImage';
 import { useDailyDraw } from '../../hooks/useDailyDraw';
 import { CardFlip } from '../../components/CardFlip';
-import { Animated } from 'react-native';
+import { useInterpretation } from '../../hooks/useInterpretation';
+import { InterpretationModal } from '../../components/InterpretationModal';
+import { Spread } from '../../types/reading';
+import { useState } from 'react';
+
+// TODO: SPREADS CONFIG
+const DAILY_SPREAD: Spread = {
+  id: 'one-card',
+  slots: [{ id: 'daily' }]
+};
+
+// TODO: CONST
+const question: string = "What is the main energy for my day?"
 
 const HomeScreen = () => {
   const { t } = useTranslation();
@@ -19,7 +30,26 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   
   const { activeDeckId } = useSettingsStore();
-  const { dailyCard, drawNow, isLoading } = useDailyDraw();
+  const { dailyCard, drawNow, isLoading: isDrawLoading } = useDailyDraw();
+  const [modalVisible, setModalVisible] = useState(false);
+  const { result, isLoading: isAiLoading, error, interpretReading } = useInterpretation();
+
+  const handleInterpret = () => {
+    if (!dailyCard) return;
+    
+    setModalVisible(true);
+    
+    // TODO: Use result from history
+    // Regenerate if null
+    if (!result) {
+      interpretReading(
+        activeDeckId,
+        DAILY_SPREAD,
+        [dailyCard], // one card
+        question
+      );
+    }
+  };
 
   return (
     <ScreenContainer style={styles.container}>
@@ -78,9 +108,9 @@ const HomeScreen = () => {
                    icon="creation" 
                    mode="contained-tonal" 
                    style={{ marginTop: 12 }}
-                   onPress={() => console.log('Open AI...')}
+                   onPress={handleInterpret}
                  >
-                   Interpreta
+                   {t('common:interpretation', "Interpretation")}
                  </Button>
                </View>
              )}
@@ -123,6 +153,16 @@ const HomeScreen = () => {
         </View>
 
       </ScrollView>
+
+      {/* AI MODAL */}
+      <InterpretationModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        isLoading={isAiLoading}
+        content={result}
+        error={error}
+        title={t('common:daily_reading_title', 'Daily Reading')}
+      />
     </ScreenContainer>
   );
 };

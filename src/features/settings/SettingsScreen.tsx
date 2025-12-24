@@ -89,6 +89,7 @@ const SettingsScreen = () => {
       </List.Section>
 
       {/* --- DIALOG --- */}
+      {/* TODO: ADD BASE URL TO CONFIG */}
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: theme.colors.elevation.level3 }}>
           <Dialog.Title>{t('common:ai_configuration_title', "AI Configuration")}</Dialog.Title>
