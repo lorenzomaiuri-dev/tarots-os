@@ -61,11 +61,6 @@ const HomeScreen = () => {
             {new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })}
           </Text>
         </View>
-        <IconButton 
-          icon="cog-outline" 
-          size={24} 
-          onPress={() => navigation.navigate('Settings')} 
-        />
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -146,7 +141,7 @@ const HomeScreen = () => {
             mode="outlined" 
             icon="history"
             style={styles.actionButton}
-            onPress={() => console.log('Navigate to History')}
+            onPress={() => navigation.navigate('MainTabs', { screen: 'HistoryTab' })}
           >
             {t('common:history', 'History')}
           </Button>

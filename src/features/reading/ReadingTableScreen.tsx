@@ -105,7 +105,7 @@ const ReadingTableScreen = () => {
       };
       
       addReading(session);
-      navigation.navigate('Home');
+      navigation.navigate('MainTabs', { screen: 'HomeTab' });
   };
 
   if (!spread) return null;

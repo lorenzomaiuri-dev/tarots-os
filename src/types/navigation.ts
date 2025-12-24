@@ -1,13 +1,15 @@
-import HomeScreen from '../features/home/HomeScreen';
-import DeckSelectionScreen from '../features/deck-selection/DeckSelectionScreen';
-import SettingsScreen from '../features/settings/SettingsScreen';
-import SpreadSelectionScreen from '../features/reading/SpreadSelectionScreen';
-import ReadingTableScreen from '../features/reading/ReadingTableScreen';
+export type BottomTabParamList = {
+  HomeTab: undefined;
+  HistoryTab: undefined;
+  SettingsTab: undefined;
+};
 
 export type RootStackParamList = {
+  MainTabs: { screen: string };
   Home: undefined;
   DeckSelection: undefined;
   ReadingTable: { spreadId: string };
   SpreadSelection: undefined;
+  ReadingDetail: { readingId: string };
   Settings: undefined;
 };
