@@ -13,13 +13,11 @@ import {
   RadioButton
 } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
-import { File, Paths } from 'expo-file-system';
-import * as DocumentPicker from 'expo-document-picker';
-import * as Sharing from 'expo-sharing';
 import { ScreenContainer } from '../ScreenContainer';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { DEFAULTS } from '../../constants';
 import { useHistoryStore } from '../../store/useHistoryStore';
+import { BackupService } from "../../services/backup";
 
 const SettingsScreen = () => {
   const { t } = useTranslation();
@@ -27,82 +25,47 @@ const SettingsScreen = () => {
   const { preferences, updatePreferences, aiConfig, setAiConfig } = useSettingsStore();
 
   const handleExport = async () => {
-    // 1. Prepare data
-    const data = JSON.stringify({
-      history: useHistoryStore.getState().readings,
-      version: 1,
-      exportDate: new Date().toISOString()
-    }, null, 2);
-
     try {
-      // 2. Define File Reference in Cache
-      const backupFile = new File(Paths.cache, 'tarots_ai_backup.json');
+      const data = {
+        history: useHistoryStore.getState().readings,
+        version: 1,
+        exportDate: new Date().toISOString()
+      };
 
-      // 3. Create and Write
-      // Note: If the file already exists, create() might throw. 
-      // We can delete it first or handle it safely.
-      if (backupFile.exists) {
-        backupFile.delete();
-      }
-      
-      backupFile.create();
-      backupFile.write(data);
-
-      // 4. Share/Save
-      if (await Sharing.isAvailableAsync()) {
-        await Sharing.shareAsync(backupFile.uri, {
-          mimeType: 'application/json',
-          dialogTitle: t('common:save', 'Save'),
-          UTI: 'public.json'
-        });
-      }
+      await BackupService.exportJson(data, 'tarots_ai_backup.json');
     } catch (e) {
-      console.error(e);
-      Alert.alert(t('common:error', 'Error'), t('common:error_backup', 'Cannot create backup'));
+      Alert.alert(t('common:error'), t('common:error_backup'));
     }
   };
 
   const handleImport = async () => {
     try {
-      // 1. Choose file
-      const result = await DocumentPicker.getDocumentAsync({
-        type: 'application/json',
-      });
-
-      if (result.canceled) return;
-
-      // 2. Read the picked asset from URI
-      const pickedFile = new File(result.assets[0].uri);
+      const parsed = await BackupService.importJson<{ history: any[] }>();
       
-      // 3. Read content
-      const content = pickedFile.textSync();
-      const parsed = JSON.parse(content);
+      if (!parsed) return; // User cancelled
 
-      // 4. Validate file
+      // Validation logic stays in the component/store layer
       if (!parsed.history || !Array.isArray(parsed.history)) {
         throw new Error("Invalid file format");
       }
 
-      // 5. Restore
       Alert.alert(
-        t('common:restore', 'Restore'),
-        `${t('common:found', 'Found')} ${parsed.history.length} ${t('common:readings', 'readings')}.`,
+        t('common:restore'),
+        `${t('common:found')} ${parsed.history.length} ${t('common:readings')}.`,
         [
-          { text: t('common:cancel', 'Cancel'), style: "cancel" },
+          { text: t('common:cancel'), style: "cancel" },
           { 
-            text: t('common:restore', 'Restore'), 
+            text: t('common:restore'), 
             style: "destructive",
             onPress: () => {
               useHistoryStore.setState({ readings: parsed.history });
-              Alert.alert(t('common:success', 'Success'), t('common:success_message_backup', 'History restored'));
+              Alert.alert(t('common:success'), t('common:success_message_backup'));
             }
           }
         ]
       );
-
     } catch (e) {
-      console.error(e);
-      Alert.alert(t('common:error', 'Error'), t('common:error_invalid_file', 'Invalid file or corrupted'));
+      Alert.alert(t('common:error'), t('common:error_invalid_file'));
     }
   };
 
