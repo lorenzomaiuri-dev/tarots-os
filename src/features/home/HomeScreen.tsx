@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, Alert } from 'react-native';
 import { Text, Button, useTheme, Surface, IconButton, Avatar } from 'react-native-paper';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,9 @@ import { useDailyDraw } from '../../hooks/useDailyDraw';
 import { useHaptics } from '../../hooks/useHaptics';
 import { CardFlip } from '../../components/CardFlip';
 import { useInterpretation } from '../../hooks/useInterpretation';
+import { useHistoryStore } from '../../store/useHistoryStore';
 import { InterpretationModal } from '../../components/InterpretationModal';
-import { Spread } from '../../types/reading';
+import { ReadingSession, Spread } from '../../types/reading';
 
 const { width } = Dimensions.get('window');
 
@@ -30,9 +31,11 @@ const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   
   const { activeDeckId } = useSettingsStore();
+  const { addReading } = useHistoryStore();
   const haptics = useHaptics();
   const { dailyCard, drawNow, isLoading: isDrawLoading } = useDailyDraw();
   const [modalVisible, setModalVisible] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const { result, isLoading: isAiLoading, error, interpretReading } = useInterpretation();
 
   const handleInterpret = () => {
@@ -41,6 +44,24 @@ const HomeScreen = () => {
     if (!result) {
       interpretReading(activeDeckId, DAILY_SPREAD, [dailyCard], question);
     }
+  };
+
+  const handleSaveToJournal = () => {
+    if (!dailyCard || !result) return;
+    
+    const session: ReadingSession = {
+      id: Date.now().toString(),
+      timestamp: Date.now(),
+      spreadId: 'one-card',
+      deckId: activeDeckId,
+      cards: [dailyCard],
+      aiInterpretation: result,
+      userNotes: ''
+    };
+    
+    addReading(session);
+    setIsSaved(true);
+    Alert.alert(t('common:saved', 'Saved'), t('common:saved_to_journal', 'Saved to journal'));
   };
 
   const formattedDate = new Date().toLocaleDateString(undefined, { 
@@ -167,6 +188,28 @@ const HomeScreen = () => {
         content={result}
         error={error}
         title={t('common:daily_reading_title', 'Daily Insight')}
+        actions={
+          !isSaved ? (
+            <Button 
+              mode="contained-tonal" 
+              icon="notebook-plus-outline" 
+              onPress={handleSaveToJournal}
+              style={{ width: '100%' }}
+            >
+              {t('common:save_to_journal', "Save to Journal")}
+            </Button>
+          ) : (
+            <Button 
+              mode="outlined" 
+              icon="check" 
+              disabled 
+              style={{ width: '100%', borderColor: theme.colors.primary }}
+              textColor={theme.colors.primary}
+            >
+              {t('common:saved', "Salvato")}
+            </Button>
+          )
+        }
       />
     </ScreenContainer>
   );

@@ -12,6 +12,7 @@ interface Props {
   content: string | null;
   error: string | null;
   title?: string;
+  actions?: React.ReactNode;
 }
 
 export const InterpretationModal: React.FC<Props> = ({ 
@@ -20,7 +21,8 @@ export const InterpretationModal: React.FC<Props> = ({
   isLoading, 
   content, 
   error,
-  title
+  title,
+  actions
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -99,6 +101,13 @@ export const InterpretationModal: React.FC<Props> = ({
                  <Markdown style={markdownStyles(theme)}>
                     {content || ''}
                  </Markdown>
+
+                 {/* --- ACTIONS SECTION */}
+                 {actions && (
+                   <View style={styles.actionsContainer}>
+                     {actions}
+                   </View>
+                 )}
                  
                  <View style={styles.scrollDecoration}>
                     <View style={styles.dot} />
@@ -261,4 +270,11 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: '#FFF',
   },
+  actionsContainer: {
+    marginTop: 24,
+    paddingTop: 24,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.1)',
+    alignItems: 'center'
+  }
 });
