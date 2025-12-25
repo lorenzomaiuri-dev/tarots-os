@@ -11,7 +11,7 @@ export const generateInterpretation = async (
   }
 
   try {
-    const response = await fetch(`${AI_CONFIG.BASE_URL}/chat/completions`, {
+    const response = await fetch(`${config.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${config.apiKey}`,

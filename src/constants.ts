@@ -5,6 +5,7 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const DEFAULTS = {
+  BASE_URL: 'https://openrouter.ai/api/v1',
   ACTIVE_DECK: 'rider-waite',
   THEME: 'system',
   AI_MODEL: 'tngtech/deepseek-r1t2-chimera:free',
@@ -12,7 +13,6 @@ export const DEFAULTS = {
 } as const;
 
 export const AI_CONFIG = {
-  BASE_URL: 'https://openrouter.ai/api/v1',
   APP_NAME: 'Tarots AI',
   SITE_URL: 'https://github.com/lorenzomaiuri-dev/tarots-ai',
   TEMPERATURE: 0.7  // TODO: from config, Not too creative

@@ -110,11 +110,13 @@ const SettingsScreen = () => {
   const [visible, setVisible] = useState(false);
   const [tempApiKey, setTempApiKey] = useState('');
   const [tempModelId, setTempModelId] = useState('');
+  const [tempBaseUrl, setTempBaseUrl] = useState('');
 
   // Open Dialog: Load from store
   const showDialog = () => {
     setTempApiKey(aiConfig.apiKey || '');
     setTempModelId(aiConfig.modelId || DEFAULTS.AI_MODEL);
+    setTempBaseUrl(aiConfig.baseUrl || DEFAULTS.BASE_URL);
     setVisible(true);
   };
 
@@ -124,7 +126,8 @@ const SettingsScreen = () => {
   const saveConfig = () => {
     setAiConfig({
       apiKey: tempApiKey.trim(),
-      modelId: tempModelId.trim() || DEFAULTS.AI_MODEL
+      modelId: tempModelId.trim() || DEFAULTS.AI_MODEL,
+      baseUrl: tempBaseUrl.trim() || DEFAULTS.BASE_URL
     });
     hideDialog();
   };
@@ -160,7 +163,8 @@ const SettingsScreen = () => {
         <List.Subheader>{t('common:ai', "AI")}</List.Subheader>
         <List.Item 
           title={t('common:provider_configuration_title', "Provider Configuration")}
-          description={aiConfig.apiKey ? `${t('common:connected', "Connected")}: ${aiConfig.modelId}` : t('common:touch_to_configure', "Touch to configure")}
+          description={`${aiConfig.modelId || DEFAULTS.AI_MODEL}\n${aiConfig.baseUrl || DEFAULTS.BASE_URL}`}
+          descriptionNumberOfLines={2}
           left={(props) => <List.Icon {...props} icon="cloud-outline" />}
           right={(props) => <List.Icon {...props} icon="chevron-right" />}
           onPress={showDialog}
@@ -192,22 +196,32 @@ const SettingsScreen = () => {
       </List.Section>
 
       {/* --- DIALOG --- */}
-      {/* TODO: ADD BASE URL TO CONFIG */}
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: theme.colors.elevation.level3 }}>
           <Dialog.Title>{t('common:ai_configuration_title', "AI Configuration")}</Dialog.Title>
           <Dialog.Content>
-            <Text variant="bodySmall" style={{ marginBottom: 10, opacity: 1 }}>
-              {t('common:ai_configuration_description', "Insert your API Key to enable AI interpretation of your cards")}
+            <Text variant="bodySmall" style={{ marginBottom: 10, opacity: 0.7 }}>
+              {t('common:ai_configuration_description', "Insert your API Key and endpoint to enable AI interpretation")}
             </Text>
             
+            <TextInput
+              label={t('common:ai_base_url_label', "Base URL (OpenAI compatible)")}
+              value={tempBaseUrl}
+              onChangeText={setTempBaseUrl}
+              mode="outlined"
+              placeholder="https://api.openai.com/v1"
+              style={{ marginBottom: 12 }}
+              keyboardType="url"
+              autoCapitalize="none"
+            />
+
             <TextInput
               label={t('common:ai_api_key_input_label', "API Key")}
               value={tempApiKey}
               onChangeText={setTempApiKey}
               mode="outlined"
               secureTextEntry
-              style={{ marginBottom: 16 }}
+              style={{ marginBottom: 12 }}
             />
 
             <TextInput
@@ -215,8 +229,13 @@ const SettingsScreen = () => {
               value={tempModelId}
               onChangeText={setTempModelId}
               mode="outlined"
-              placeholder={DEFAULTS.AI_MODEL}              
+              placeholder={DEFAULTS.AI_MODEL}
+              autoCapitalize="none"
             />
+
+            <Text variant="labelSmall" style={{ marginTop: 8, color: theme.colors.outline }}>
+              {t('common:ai_endpoint_hint', "E.g., for Ollama use: http://YOUR_IP:11434/v1")}
+            </Text>
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={hideDialog}>{t('common:cancel', "Cancel")}</Button>
