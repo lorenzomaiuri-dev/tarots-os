@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { View, ScrollView, StyleSheet, Dimensions } from 'react-native';
-import { Text, useTheme, Surface, ProgressBar, Divider, Avatar, IconButton } from 'react-native-paper';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Text, useTheme, Surface, ProgressBar, Avatar } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { ScreenContainer } from '../ScreenContainer';
 import { useHistoryStore } from '../../store/useHistoryStore';
@@ -15,15 +15,25 @@ const StatsScreen = () => {
   const { readings } = useHistoryStore();
   const { activeDeckId } = useSettingsStore();
 
+  // 1. Get the current deck configuration
   const deck = useMemo(() => getDeck(activeDeckId), [activeDeckId]);
+
+  // 2. Calculate stats (filtered by deckId inside the utility)
   const stats = useMemo(() => calculateStats(readings, activeDeckId), [readings, activeDeckId]);
+
+  // 3. CRASH PROTECTION: Ensure topCardId exists in the current deck's card list
+  // This prevents trying to translate/render a Card ID that doesn't exist in the active deck
+  const isValidTopCard = useMemo(() => {
+    if (!stats.topCardId || !deck) return false;
+    return deck.cards.some(c => c.id === stats.topCardId);
+  }, [stats.topCardId, deck]);
 
   // Map suit/group keys to mystical icons
   const getGroupIcon = (key: string) => {
     switch (key.toLowerCase()) {
       case 'swords': return 'sword';
       case 'cups': return 'cup-water';
-      case 'wands': return 'auto-fix'; // or 'magic-staff'
+      case 'wands': return 'auto-fix';
       case 'pentacles': return 'pentagram';
       case 'major': return 'star-shooting';
       default: return 'cards-diamond';
@@ -58,7 +68,7 @@ const StatsScreen = () => {
         </View>
 
         {/* TOP CARD SPOTLIGHT */}
-        {stats.topCardId && (
+        {isValidTopCard && stats.topCardId && (
             <Surface style={styles.spotlightCard} elevation={2}>
                 <View style={[styles.spotlightGlow, { backgroundColor: theme.colors.primary, opacity: 0.1 }]} />
                 <Text variant="labelMedium" style={styles.spotlightHeader}>
@@ -76,7 +86,7 @@ const StatsScreen = () => {
                     
                     <View style={styles.spotlightText}>
                         <Text variant="titleLarge" style={styles.topCardName}>
-                            {t(`decks:${activeDeckId}.cards.${stats.topCardId}.name`)}
+                            {t(`decks:${activeDeckId}.cards.${stats.topCardId}.name`, { defaultValue: 'Unknown Card' })}
                         </Text>
                         <View style={styles.countBadge}>
                             <Text style={styles.countBadgeText}>
@@ -97,7 +107,7 @@ const StatsScreen = () => {
             {t('common:elemental_balance_title', 'Elemental Balance')}
           </Text>
           
-          {deck && Object.entries(deck.info.groups).map(([groupKey, config]) => {
+          {deck?.info?.groups && Object.entries(deck.info.groups).map(([groupKey, config]: [string, any]) => {
             const count = stats.suitCounts[groupKey] || 0;
             const percentage = stats.totalCards > 0 ? count / stats.totalCards : 0;
 
@@ -127,6 +137,12 @@ const StatsScreen = () => {
               </View>
             );
           })}
+          
+          {stats.totalReadings === 0 && (
+            <Text style={{ textAlign: 'center', opacity: 0.5, marginTop: 10 }}>
+                {t('common:no_data_yet', 'Begin your journey to see patterns.')}
+            </Text>
+          )}
         </Surface>
 
       </ScrollView>
@@ -137,6 +153,7 @@ const StatsScreen = () => {
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 60,
+    paddingHorizontal: 16,
   },
   headerContainer: {
     marginTop: 20,
