@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 // Configuration for visual sizing
 const CARD_WIDTH = 100;
 const CARD_HEIGHT = 160;
-const GUTTER = 20; // Space between cards
+const GUTTER = 20;
 
 interface Props {
   spread: Spread;
@@ -44,17 +44,13 @@ export const SpreadVisualizer: React.FC<Props> = ({
   return (
     <ScrollView 
       horizontal 
-      contentContainerStyle={{ width: Math.max(canvasWidth, 400) }} // Min width to avoid cramped feel
+      contentContainerStyle={{ width: Math.max(canvasWidth, 400) }}
       showsHorizontalScrollIndicator={false}
-      style={styles.container}
     >
-      <ScrollView 
-        contentContainerStyle={{ height: Math.max(canvasHeight, 500) }} 
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={{ height: Math.max(canvasHeight, 500) }}>
         <View style={[styles.tableMat, { width: canvasWidth, height: canvasHeight }]}>
           
-          {spread.slots.map((slot) => {
+          {spread.slots.map((slot, index) => {
             const layout = slot.layout || { x: 0, y: 0 };
             const drawn = drawnCards.find(c => c.positionId === slot.id);
             
@@ -64,66 +60,85 @@ export const SpreadVisualizer: React.FC<Props> = ({
 
             // Handle rotation (e.g., Celtic Cross crossing card)
             const rotation = layout.rotation || 0;
+            const isRotated = rotation !== 0;
+
+            // Z-Index: ensure crossing cards (usually higher index) are on top
+            const zIndex = (layout.zIndex ?? index) + 10;
 
             return (
               <View 
                 key={slot.id} 
+                pointerEvents="box-none" // Allows tapping cards underneath
                 style={[
                   styles.slotContainer, 
-                  { top, left, width: CARD_WIDTH, height: CARD_HEIGHT }
+                  { top, left, width: CARD_WIDTH, height: CARD_HEIGHT, zIndex }
                 ]}
               >
-                {/* Visual Label (only if empty) */}
+                {/* 
+                  LABEL POSITIONING:
+                  If the card is rotated (crossing), move the label to the side 
+                  so it doesn't overlap the vertical card's label.
+                */}
                 {!drawn && (
+                  <View 
+                    pointerEvents="none"
+                    style={[
+                      styles.labelPill, 
+                      { backgroundColor: theme.colors.surfaceVariant },
+                      isRotated ? styles.labelRotated : styles.labelStandard
+                    ]}
+                  >
                     <Text 
-                        variant="labelSmall" 
-                        style={styles.slotLabel}
-                        numberOfLines={1}
+                      variant="labelSmall" 
+                      style={{ color: theme.colors.onSurfaceVariant, fontSize: 9, textAlign: 'center' }}
+                      numberOfLines={2}
                     >
-                        {t(`spreads:${spread.id}.positions.${slot.label}.label`)}
+                      {t(`spreads:${spread.id}.positions.${slot.id}.label`)}
                     </Text>
+                  </View>
                 )}
-                {/* TODO: FIX TEXT AND BADGE IN OVERLAPPING CARDS */}
 
                 <TouchableOpacity 
-                    onPress={() => !drawn && onSlotPress(slot.id)}
+                    onPress={() => onSlotPress(slot.id)}
                     activeOpacity={0.9}
+                    // Rotate the touchable itself so the hitbox matches the visual
                     style={{ transform: [{ rotate: `${rotation}deg` }] }}
                 >
-                    <View style={[
-                        styles.cardPlaceholder, 
-                        !drawn && { borderColor: theme.colors.onSurfaceDisabled }
-                    ]}>
+                    <View style={styles.cardPlaceholder}>
                         <CardFlip
                             deckId={deckId}
                             cardId={drawn?.cardId || null}
                             isReversed={drawn?.isReversed}
-                            onFlip={() => !drawn && onSlotPress(slot.id)}
+                            onFlip={() => onSlotPress(slot.id)}
                             width={CARD_WIDTH}
                             height={CARD_HEIGHT}
                         />
                     </View>
                 </TouchableOpacity>
 
-                {/* Show small badge for number order */}
-                <View style={[styles.badge, { backgroundColor: theme.colors.primary }]}>
-                  <Text 
-                      numberOfLines={1} 
-                      style={{ 
-                          fontSize: 11,
-                          color: theme.colors.onPrimary, 
-                          fontWeight: 'bold',
-                          textAlign: 'center'
-                      }}
-                  >
-                      {slot.id}
+                {/* 
+                  BADGE POSITIONING:
+                  If rotated, move badge to the top-right instead of bottom-right
+                */}
+                <View 
+                  pointerEvents="none"
+                  style={[
+                    styles.badge, 
+                    { 
+                      backgroundColor: theme.colors.primary,
+                      borderColor: theme.colors.surface,
+                    },
+                    isRotated ? { top: -5, right: -5 } : { bottom: -5, right: -5 }
+                  ]}
+                >
+                  <Text style={{ fontSize: 10, color: theme.colors.onPrimary, fontWeight: 'bold' }}>
+                    {index + 1}
                   </Text>
-              </View>
+                </View>
 
               </View>
             );
           })}
-
         </View>
       </ScrollView>
     </ScrollView>
@@ -131,11 +146,8 @@ export const SpreadVisualizer: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   tableMat: {
-    // optional: add a felt texture or color here
+    position: 'relative',
   },
   slotContainer: {
     position: 'absolute',
@@ -144,29 +156,33 @@ const styles = StyleSheet.create({
   },
   cardPlaceholder: {
     borderRadius: 8,
-    // borderStyle: 'dashed',
-    // borderWidth: 1,
   },
-  slotLabel: {
+  labelPill: {
     position: 'absolute',
-    top: -20,
-    width: 120,
-    textAlign: 'center',
-    opacity: 0.7,
-    fontSize: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    zIndex: 50,
+    elevation: 3,
+    maxWidth: 90,
+  },
+  labelStandard: {
+    top: -25,
+    alignSelf: 'center',
+  },
+  labelRotated: {
+    left: CARD_WIDTH - 20, // Push to the right side
+    top: CARD_HEIGHT / 2 - 10,
   },
   badge: {
     position: 'absolute',
-    bottom: -8,
-    right: -8,
-    minWidth: 24,
-    height: 24,
-    borderRadius: 12,
-    paddingHorizontal: 6,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 10,
-    borderWidth: 1.5,
-    borderColor: 'white', 
+    borderWidth: 2,
+    zIndex: 60,
+    elevation: 4,
   }
 });
