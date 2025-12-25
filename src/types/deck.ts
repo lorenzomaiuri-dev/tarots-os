@@ -1,6 +1,11 @@
 export type CardType = 'major' | 'minor' | 'oracle' | 'other';
 export type CardSuit = 'wands' | 'cups' | 'swords' | 'pentacles' | 'none';
 
+export interface DeckGroup {
+  color: string;
+  labelKey: string; // The i18n key found in common.json
+}
+
 export interface CardMeta {
   type: CardType;
   suit?: CardSuit;
@@ -10,16 +15,18 @@ export interface CardMeta {
 }
 
 export interface Card {
-  id: string;          // es: "maj_00"
+  id: string;
   sortIndex: number;
-  image: string;       // es: "maj_00.jpg"
+  image: string;
   meta: CardMeta;
 }
 
 export interface DeckInfo {
-  id: string;          // es: "rider-waite"
+  id: string;
   author?: string;
   totalCards: number;
+  // Dynamic groups mapping: e.g. "major" -> { color: "#...", labelKey: "..." }
+  groups: Record<string, DeckGroup>; 
 }
 
 export interface Deck {

@@ -7,6 +7,7 @@ import { useHistoryStore } from '../../store/useHistoryStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { calculateStats } from '../../utils/statistics';
 import { CardImage } from '../../components/CardImage';
+import { getDeck } from '../../services/deckRegistry';
 
 const StatsScreen = () => {
   const { t } = useTranslation();
@@ -14,20 +15,11 @@ const StatsScreen = () => {
   const { readings } = useHistoryStore();
   const { activeDeckId } = useSettingsStore();
 
+  // 1. Get the deck definition
+  const deck = useMemo(() => getDeck(activeDeckId), [activeDeckId]);
+  
+  // 2. Calculate stats
   const stats = useMemo(() => calculateStats(readings, activeDeckId), [readings, activeDeckId]);
-
-  const SuitBar = ({ label, count, color, icon }: any) => {
-    const percentage = stats.totalCards > 0 ? count / stats.totalCards : 0;
-    return (
-      <View style={{ marginBottom: 12 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-          <Text variant="bodyMedium">{label}</Text>
-          <Text variant="bodyMedium" style={{ fontWeight: 'bold' }}>{Math.round(percentage * 100)}%</Text>
-        </View>
-        <ProgressBar progress={percentage} color={color} style={{ height: 8, borderRadius: 4 }} />
-      </View>
-    );
-  };
 
   return (
     <ScreenContainer>
@@ -86,17 +78,36 @@ const StatsScreen = () => {
 
         <Divider style={{ marginVertical: 24 }} />
 
-        {/* SUIT DISTRIBUTION */}
+        {/* DYNAMIC SUIT DISTRIBUTION */}
         <View style={styles.section}>
-            <Text variant="titleMedium" style={styles.sectionTitle}>{t('common:elemental_balance_title', 'Elemental Balance')}</Text>
-            
-            <SuitBar label={t('common:major_arcana_stats_title', 'Major (Spirit)')} count={stats.suitCounts.major} color="#9C27B0" />
-            <SuitBar label={t('common:wands_stats_title', 'Wands (Fire/Action)')} count={stats.suitCounts.wands} color="#D84315" />
-            <SuitBar label={t('common:cups_stats_title', 'Cups (Water/Emotions)')} count={stats.suitCounts.cups} color="#1976D2" />
-            <SuitBar label={t('common:swords_stats_title', 'Swords (Air/Thoughts)')} count={stats.suitCounts.swords} color="#455A64" />
-            <SuitBar label={t('common:pentacles_stats_title', 'Pentacles (Earth/Material)')} count={stats.suitCounts.pentacles} color="#2E7D32" />
-        </View>
+          <Text variant="titleMedium" style={styles.sectionTitle}>
+            {t('common:elemental_balance_title', 'Elemental Balance')}
+          </Text>
+          
+          {deck && Object.entries(deck.info.groups).map(([groupKey, config]) => {
+            const count = stats.suitCounts[groupKey] || 0;
+            const percentage = stats.totalCards > 0 ? count / stats.totalCards : 0;
 
+            return (
+              <View key={groupKey} style={{ marginBottom: 12 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <Text variant="bodyMedium">
+                    {/* Translate using the labelKey from JSON */}
+                    {t(`common:${config.labelKey}`, groupKey)}
+                  </Text>
+                  <Text variant="bodyMedium" style={{ fontWeight: 'bold' }}>
+                    {Math.round(percentage * 100)}%
+                  </Text>
+                </View>
+                <ProgressBar 
+                  progress={percentage} 
+                  color={config.color} 
+                  style={{ height: 8, borderRadius: 4 }} 
+                />
+              </View>
+            );
+          })}
+        </View>
       </ScrollView>
     </ScreenContainer>
   );
