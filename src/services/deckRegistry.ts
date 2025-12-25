@@ -1,60 +1,72 @@
 import { Deck, DeckInfo } from '../types/deck';
+import i18n, { loadDeckTranslations } from '../locales/i18n';
 
-// --- STATIC IMPORT ---
-// TODO: DYNAMIC IMPORT
-
-// RIDER WAITE (Default)
-import riderWaiteData from '../data/rider-waite/deck.json'; 
-import riderWaiteImages from '../data/rider-waite/images';
-
-// OTHER DECKS...
-
-// --- REGISTRY ---
-
-type DeckRegistryEntry = {
+// 1. Define the structure of our deck loader
+type DeckBundle = {
   data: Deck;
-  images: Record<string, any>; // Map id_image -> require()
+  images: Record<string, any>;
+  translations: {
+    en: any;
+    it: any;
+  };
 };
 
-const REGISTRY: Record<string, DeckRegistryEntry> = {
-  'rider-waite': {
-    data: riderWaiteData as Deck,
-    images: riderWaiteImages,
-  },
+// 2. The "Static Manifest" 
+// (Metro requires paths to be explicit, but we map them here)
+const DECK_MANIFEST: Record<string, () => DeckBundle> = {
+  'rider-waite': () => ({
+    data: require('../data/decks/rider-waite/deck.json'),
+    images: require('../data/decks//rider-waite/images').default,
+    translations: {
+      en: require('../locales/en/decks/rider-waite.json'),
+      it: require('../locales/it/decks/rider-waite.json'),
+    },
+  }),
+  // Add new decks here...
+  // 'thoth': () => ({ ... })
 };
+
+// Internal cache to avoid re-loading
+const loadedDecks: Record<string, DeckBundle> = {};
 
 /**
- * Get all decks.
+ * Loads a deck and its translations into memory
  */
+export const loadDeck = (deckId: string): DeckBundle | null => {
+  if (loadedDecks[deckId]) return loadedDecks[deckId];
+
+  const loader = DECK_MANIFEST[deckId];
+  if (!loader) return null;
+
+  const bundle = loader();
+  
+  // Register translations with i18next for all supported languages
+  Object.entries(bundle.translations).forEach(([lang, data]) => {
+    loadDeckTranslations(deckId, lang, data);
+  });
+
+  loadedDecks[deckId] = bundle;
+  return bundle;
+};
+
 export const getAvailableDecks = (): DeckInfo[] => {
-  return Object.values(REGISTRY).map((entry) => entry.data.info);
+  // We execute the loaders to get info, or maintain a separate metadata list
+  return Object.keys(DECK_MANIFEST).map(id => {
+    const bundle = loadDeck(id);
+    return bundle!.data.info;
+  });
 };
 
-/**
- * Get full Deck.
- */
 export const getDeck = (deckId: string): Deck | null => {
-  return REGISTRY[deckId]?.data || null;
+  return loadDeck(deckId)?.data || null;
 };
 
-/**
- * Get image source for card
- */
 export const getCardImageSource = (deckId: string, imageId: string): any => {
-  const deck = REGISTRY[deckId];
-  if (!deck || !deck.images[imageId]) {
-    console.warn(`Immagine non trovata: ${deckId}/${imageId}`);
-    // TODO: PLACEHOLDER
-    return null; 
-  }
-  return deck.images[imageId];
+  const bundle = loadDeck(deckId);
+  return bundle?.images[imageId] || null;
 };
 
-/**
- * Get back card image
- */
 export const getCardBackImage = (deckId: string): any => {
-    // TODO: PLACEHOLDER AND SPECIAL HANDLING
-    const deck = REGISTRY[deckId];
-    return deck?.images['back_image'] || null;
+    const bundle = loadDeck(deckId);
+    return bundle?.images['back_image'] || null;
 }

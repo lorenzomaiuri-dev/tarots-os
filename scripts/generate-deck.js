@@ -4,11 +4,11 @@
  * Usage: node scripts/generate-deck.js <deck-id>
  * Example: node scripts/generate-deck.js rider-waite
  * 
- * Pre-requisite: Images must be in /assets/<deck-id>/
+ * Pre-requisite: Images must be in /assets/decks/<deck-id>/
  * Output: 
- *  - src/data/<deck-id>/deck.json (Structure)
- *  - src/data/<deck-id>/images.ts (Static Requires)
- *  - src/data/<deck-id>/locales_template.json (Translation keys)
+ *  - src/data/decks/<deck-id>/deck.json (Structure)
+ *  - src/data/decks/<deck-id>/images.ts (Static Requires)
+ *  - src/data/decks/<deck-id>/locales_template.json (Translation keys)
  */
 
 const fs = require('fs');
@@ -82,7 +82,7 @@ files.forEach(file => {
   const data = parseFile(file);
   
   if (data.isBack) {
-    imageImports.push(`  'back_image': require('../../../assets/${DECK_ID}/${file}'),`);
+    imageImports.push(`  'back_image': require('../../../../assets/${DECK_ID}/${file}'),`);
     return;
   }
 
@@ -95,8 +95,8 @@ files.forEach(file => {
   });
 
   // Add to Image Imports Map
-  // Note: Path is relative to src/data/<deck-id>/images.ts
-  imageImports.push(`  '${data.id}': require('../../../assets/${DECK_ID}/${data.filename}'),`);
+  // Note: Path is relative to src/data/decks/<deck-id>/images.ts
+  imageImports.push(`  '${data.id}': require('../../../../assets/${DECK_ID}/${data.filename}'),`);
 
   // Add to Translation Template
   translationKeys[data.id] = {
