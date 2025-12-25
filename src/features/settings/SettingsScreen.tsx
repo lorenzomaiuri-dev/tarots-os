@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Linking } from 'react-native';
+import { View, Linking, Alert } from 'react-native';
 import { 
   List, 
   Switch, 
@@ -9,8 +9,7 @@ import {
   TextInput, 
   Button, 
   Text,
-  useTheme,
-  Alert
+  useTheme
 } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { File, Paths } from 'expo-file-system';
