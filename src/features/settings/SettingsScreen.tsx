@@ -10,7 +10,7 @@ import {
   Button, 
   Text,
   useTheme,
-  RadioButton // Aggiunto per la selezione del tema
+  RadioButton
 } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { File, Paths } from 'expo-file-system';
@@ -224,23 +224,43 @@ const SettingsScreen = () => {
 
       {/* --- DIALOG THEME --- */}
       <Portal>
-        <Dialog visible={themeDialogVisible} onDismiss={() => setThemeDialogVisible(false)}>
-          <Dialog.Title>{t('common:select_theme', "Select Theme")}</Dialog.Title>
+        <Dialog 
+          visible={themeDialogVisible} 
+          onDismiss={() => setThemeDialogVisible(false)}
+          style={{ backgroundColor: theme.colors.surface, borderRadius: 12 }}
+        >
+          <Dialog.Title style={{ color: theme.colors.onSurface }}>
+            {t('common:select_theme', "Select Theme")}
+          </Dialog.Title>
           <Dialog.Content>
             <RadioButton.Group 
               onValueChange={value => {
-                updatePreferences({ theme: value });
+                updatePreferences({ theme: value as 'light' | 'dark' | 'system' });
                 setThemeDialogVisible(false);
               }} 
               value={preferences.theme || 'system'}
             >
-              <RadioButton.Item label={t('common:theme_system', "System")} value="system" />
-              <RadioButton.Item label={t('common:theme_light', "Light")} value="light" />
-              <RadioButton.Item label={t('common:theme_dark', "Dark")} value="dark" />
+              <RadioButton.Item 
+                label={t('common:theme_system', "System")} 
+                value="system" 
+                labelStyle={{ color: theme.colors.onSurface }}
+              />
+              <RadioButton.Item 
+                label={t('common:theme_light', "Light")} 
+                value="light" 
+                labelStyle={{ color: theme.colors.onSurface }}
+              />
+              <RadioButton.Item 
+                label={t('common:theme_dark', "Dark")} 
+                value="dark" 
+                labelStyle={{ color: theme.colors.onSurface }}
+              />
             </RadioButton.Group>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setThemeDialogVisible(false)}>{t('common:cancel', "Cancel")}</Button>
+            <Button onPress={() => setThemeDialogVisible(false)}>
+              {t('common:cancel', "Cancel")}
+            </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
