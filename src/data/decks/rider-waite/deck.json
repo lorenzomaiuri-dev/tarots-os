@@ -1,0 +1,795 @@
+{
+  "info": {
+    "id": "rider-waite",
+    "totalCards": 78,
+    "groups": {
+      "major": { "color": "#9C27B0", "labelKey": "major_arcana_stats_title" },
+      "wands": { "color": "#D84315", "labelKey": "wands_stats_title" },
+      "cups": { "color": "#1976D2", "labelKey": "cups_stats_title" },
+      "swords": { "color": "#455A64", "labelKey": "swords_stats_title" },
+      "pentacles": { "color": "#2E7D32", "labelKey": "pentacles_stats_title" }
+    }  
+  },
+  "cards": [
+    {
+      "id": "maj_00",
+      "image": "maj_00",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 0
+      },
+      "sortIndex": 0
+    },
+    {
+      "id": "maj_01",
+      "image": "maj_01",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 1
+      },
+      "sortIndex": 1
+    },
+    {
+      "id": "maj_02",
+      "image": "maj_02",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 2
+      },
+      "sortIndex": 2
+    },
+    {
+      "id": "maj_03",
+      "image": "maj_03",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 3
+      },
+      "sortIndex": 3
+    },
+    {
+      "id": "maj_04",
+      "image": "maj_04",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 4
+      },
+      "sortIndex": 4
+    },
+    {
+      "id": "maj_05",
+      "image": "maj_05",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 5
+      },
+      "sortIndex": 5
+    },
+    {
+      "id": "maj_06",
+      "image": "maj_06",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 6
+      },
+      "sortIndex": 6
+    },
+    {
+      "id": "maj_07",
+      "image": "maj_07",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 7
+      },
+      "sortIndex": 7
+    },
+    {
+      "id": "maj_08",
+      "image": "maj_08",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 8
+      },
+      "sortIndex": 8
+    },
+    {
+      "id": "maj_09",
+      "image": "maj_09",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 9
+      },
+      "sortIndex": 9
+    },
+    {
+      "id": "maj_10",
+      "image": "maj_10",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 10
+      },
+      "sortIndex": 10
+    },
+    {
+      "id": "maj_11",
+      "image": "maj_11",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 11
+      },
+      "sortIndex": 11
+    },
+    {
+      "id": "maj_12",
+      "image": "maj_12",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 12
+      },
+      "sortIndex": 12
+    },
+    {
+      "id": "maj_13",
+      "image": "maj_13",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 13
+      },
+      "sortIndex": 13
+    },
+    {
+      "id": "maj_14",
+      "image": "maj_14",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 14
+      },
+      "sortIndex": 14
+    },
+    {
+      "id": "maj_15",
+      "image": "maj_15",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 15
+      },
+      "sortIndex": 15
+    },
+    {
+      "id": "maj_16",
+      "image": "maj_16",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 16
+      },
+      "sortIndex": 16
+    },
+    {
+      "id": "maj_17",
+      "image": "maj_17",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 17
+      },
+      "sortIndex": 17
+    },
+    {
+      "id": "maj_18",
+      "image": "maj_18",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 18
+      },
+      "sortIndex": 18
+    },
+    {
+      "id": "maj_19",
+      "image": "maj_19",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 19
+      },
+      "sortIndex": 19
+    },
+    {
+      "id": "maj_20",
+      "image": "maj_20",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 20
+      },
+      "sortIndex": 20
+    },
+    {
+      "id": "maj_21",
+      "image": "maj_21",
+      "meta": {
+        "type": "major",
+        "suit": null,
+        "number": 21
+      },
+      "sortIndex": 21
+    },
+    {
+      "id": "wands_01",
+      "image": "wands_01",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 1
+      },
+      "sortIndex": 22
+    },
+    {
+      "id": "wands_02",
+      "image": "wands_02",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 2
+      },
+      "sortIndex": 23
+    },
+    {
+      "id": "wands_03",
+      "image": "wands_03",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 3
+      },
+      "sortIndex": 24
+    },
+    {
+      "id": "wands_04",
+      "image": "wands_04",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 4
+      },
+      "sortIndex": 25
+    },
+    {
+      "id": "wands_05",
+      "image": "wands_05",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 5
+      },
+      "sortIndex": 26
+    },
+    {
+      "id": "wands_06",
+      "image": "wands_06",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 6
+      },
+      "sortIndex": 27
+    },
+    {
+      "id": "wands_07",
+      "image": "wands_07",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 7
+      },
+      "sortIndex": 28
+    },
+    {
+      "id": "wands_08",
+      "image": "wands_08",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 8
+      },
+      "sortIndex": 29
+    },
+    {
+      "id": "wands_09",
+      "image": "wands_09",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 9
+      },
+      "sortIndex": 30
+    },
+    {
+      "id": "wands_10",
+      "image": "wands_10",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 10
+      },
+      "sortIndex": 31
+    },
+    {
+      "id": "wands_11",
+      "image": "wands_11",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 11
+      },
+      "sortIndex": 32
+    },
+    {
+      "id": "wands_12",
+      "image": "wands_12",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 12
+      },
+      "sortIndex": 33
+    },
+    {
+      "id": "wands_13",
+      "image": "wands_13",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 13
+      },
+      "sortIndex": 34
+    },
+    {
+      "id": "wands_14",
+      "image": "wands_14",
+      "meta": {
+        "type": "minor",
+        "suit": "wands",
+        "number": 14
+      },
+      "sortIndex": 35
+    },
+    {
+      "id": "cups_01",
+      "image": "cups_01",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 1
+      },
+      "sortIndex": 36
+    },
+    {
+      "id": "cups_02",
+      "image": "cups_02",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 2
+      },
+      "sortIndex": 37
+    },
+    {
+      "id": "cups_03",
+      "image": "cups_03",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 3
+      },
+      "sortIndex": 38
+    },
+    {
+      "id": "cups_04",
+      "image": "cups_04",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 4
+      },
+      "sortIndex": 39
+    },
+    {
+      "id": "cups_05",
+      "image": "cups_05",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 5
+      },
+      "sortIndex": 40
+    },
+    {
+      "id": "cups_06",
+      "image": "cups_06",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 6
+      },
+      "sortIndex": 41
+    },
+    {
+      "id": "cups_07",
+      "image": "cups_07",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 7
+      },
+      "sortIndex": 42
+    },
+    {
+      "id": "cups_08",
+      "image": "cups_08",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 8
+      },
+      "sortIndex": 43
+    },
+    {
+      "id": "cups_09",
+      "image": "cups_09",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 9
+      },
+      "sortIndex": 44
+    },
+    {
+      "id": "cups_10",
+      "image": "cups_10",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 10
+      },
+      "sortIndex": 45
+    },
+    {
+      "id": "cups_11",
+      "image": "cups_11",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 11
+      },
+      "sortIndex": 46
+    },
+    {
+      "id": "cups_12",
+      "image": "cups_12",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 12
+      },
+      "sortIndex": 47
+    },
+    {
+      "id": "cups_13",
+      "image": "cups_13",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 13
+      },
+      "sortIndex": 48
+    },
+    {
+      "id": "cups_14",
+      "image": "cups_14",
+      "meta": {
+        "type": "minor",
+        "suit": "cups",
+        "number": 14
+      },
+      "sortIndex": 49
+    },
+    {
+      "id": "swords_01",
+      "image": "swords_01",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 1
+      },
+      "sortIndex": 50
+    },
+    {
+      "id": "swords_02",
+      "image": "swords_02",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 2
+      },
+      "sortIndex": 51
+    },
+    {
+      "id": "swords_03",
+      "image": "swords_03",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 3
+      },
+      "sortIndex": 52
+    },
+    {
+      "id": "swords_04",
+      "image": "swords_04",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 4
+      },
+      "sortIndex": 53
+    },
+    {
+      "id": "swords_05",
+      "image": "swords_05",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 5
+      },
+      "sortIndex": 54
+    },
+    {
+      "id": "swords_06",
+      "image": "swords_06",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 6
+      },
+      "sortIndex": 55
+    },
+    {
+      "id": "swords_07",
+      "image": "swords_07",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 7
+      },
+      "sortIndex": 56
+    },
+    {
+      "id": "swords_08",
+      "image": "swords_08",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 8
+      },
+      "sortIndex": 57
+    },
+    {
+      "id": "swords_09",
+      "image": "swords_09",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 9
+      },
+      "sortIndex": 58
+    },
+    {
+      "id": "swords_10",
+      "image": "swords_10",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 10
+      },
+      "sortIndex": 59
+    },
+    {
+      "id": "swords_11",
+      "image": "swords_11",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 11
+      },
+      "sortIndex": 60
+    },
+    {
+      "id": "swords_12",
+      "image": "swords_12",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 12
+      },
+      "sortIndex": 61
+    },
+    {
+      "id": "swords_13",
+      "image": "swords_13",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 13
+      },
+      "sortIndex": 62
+    },
+    {
+      "id": "swords_14",
+      "image": "swords_14",
+      "meta": {
+        "type": "minor",
+        "suit": "swords",
+        "number": 14
+      },
+      "sortIndex": 63
+    },
+    {
+      "id": "pentacles_01",
+      "image": "pentacles_01",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 1
+      },
+      "sortIndex": 64
+    },
+    {
+      "id": "pentacles_02",
+      "image": "pentacles_02",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 2
+      },
+      "sortIndex": 65
+    },
+    {
+      "id": "pentacles_03",
+      "image": "pentacles_03",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 3
+      },
+      "sortIndex": 66
+    },
+    {
+      "id": "pentacles_04",
+      "image": "pentacles_04",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 4
+      },
+      "sortIndex": 67
+    },
+    {
+      "id": "pentacles_05",
+      "image": "pentacles_05",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 5
+      },
+      "sortIndex": 68
+    },
+    {
+      "id": "pentacles_06",
+      "image": "pentacles_06",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 6
+      },
+      "sortIndex": 69
+    },
+    {
+      "id": "pentacles_07",
+      "image": "pentacles_07",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 7
+      },
+      "sortIndex": 70
+    },
+    {
+      "id": "pentacles_08",
+      "image": "pentacles_08",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 8
+      },
+      "sortIndex": 71
+    },
+    {
+      "id": "pentacles_09",
+      "image": "pentacles_09",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 9
+      },
+      "sortIndex": 72
+    },
+    {
+      "id": "pentacles_10",
+      "image": "pentacles_10",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 10
+      },
+      "sortIndex": 73
+    },
+    {
+      "id": "pentacles_11",
+      "image": "pentacles_11",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 11
+      },
+      "sortIndex": 74
+    },
+    {
+      "id": "pentacles_12",
+      "image": "pentacles_12",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 12
+      },
+      "sortIndex": 75
+    },
+    {
+      "id": "pentacles_13",
+      "image": "pentacles_13",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 13
+      },
+      "sortIndex": 76
+    },
+    {
+      "id": "pentacles_14",
+      "image": "pentacles_14",
+      "meta": {
+        "type": "minor",
+        "suit": "pentacles",
+        "number": 14
+      },
+      "sortIndex": 77
+    }
+  ]
+}
