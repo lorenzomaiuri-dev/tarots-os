@@ -1,7 +1,14 @@
 {
   "info": {
     "id": "marseille",
-    "totalCards": 78
+    "totalCards": 78,
+    "groups": {
+      "major": { "color": "#9C27B0", "labelKey": "major_arcana_stats_title" },
+      "wands": { "color": "#D84315", "labelKey": "wands_stats_title" },
+      "cups": { "color": "#1976D2", "labelKey": "cups_stats_title" },
+      "swords": { "color": "#455A64", "labelKey": "swords_stats_title" },
+      "pentacles": { "color": "#2E7D32", "labelKey": "pentacles_stats_title" }
+    }
   },
   "cards": [
     {
