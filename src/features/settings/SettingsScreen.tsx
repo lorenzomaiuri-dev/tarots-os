@@ -197,10 +197,20 @@ const SettingsScreen = () => {
 
       {/* --- DIALOG --- */}
       <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: theme.colors.elevation.level3 }}>
-          <Dialog.Title>{t('common:ai_configuration_title', "AI Configuration")}</Dialog.Title>
+        <Dialog 
+          visible={visible} 
+          onDismiss={hideDialog} 
+          style={{ backgroundColor: theme.colors.surface, borderRadius: 12 }}
+        >
+          <Dialog.Title style={{ color: theme.colors.onSurface }}>
+            {t('common:ai_configuration_title', "AI Configuration")}
+          </Dialog.Title>
+          
           <Dialog.Content>
-            <Text variant="bodySmall" style={{ marginBottom: 10, opacity: 0.7 }}>
+            <Text 
+              variant="bodySmall" 
+              style={{ marginBottom: 16, color: theme.colors.onSurfaceVariant }}
+            >
               {t('common:ai_configuration_description', "Insert your API Key and endpoint to enable AI interpretation")}
             </Text>
             
@@ -210,7 +220,7 @@ const SettingsScreen = () => {
               onChangeText={setTempBaseUrl}
               mode="outlined"
               placeholder="https://api.openai.com/v1"
-              style={{ marginBottom: 12 }}
+              style={{ marginBottom: 12, backgroundColor: theme.colors.surface }}
               keyboardType="url"
               autoCapitalize="none"
             />
@@ -221,7 +231,7 @@ const SettingsScreen = () => {
               onChangeText={setTempApiKey}
               mode="outlined"
               secureTextEntry
-              style={{ marginBottom: 12 }}
+              style={{ marginBottom: 12, backgroundColor: theme.colors.surface }}
             />
 
             <TextInput
@@ -231,15 +241,28 @@ const SettingsScreen = () => {
               mode="outlined"
               placeholder={DEFAULTS.AI_MODEL}
               autoCapitalize="none"
+              style={{ backgroundColor: theme.colors.surface }}
             />
 
-            <Text variant="labelSmall" style={{ marginTop: 8, color: theme.colors.outline }}>
+            <Text 
+              variant="labelSmall" 
+              style={{ marginTop: 12, color: theme.colors.primary }}
+            >
               {t('common:ai_endpoint_hint', "E.g., for Ollama use: http://YOUR_IP:11434/v1")}
             </Text>
           </Dialog.Content>
+
           <Dialog.Actions>
-            <Button onPress={hideDialog}>{t('common:cancel', "Cancel")}</Button>
-            <Button mode="contained" onPress={saveConfig}>{t('common:save', "Save")}</Button>
+            <Button onPress={hideDialog} textColor={theme.colors.primary}>
+              {t('common:cancel', "Cancel")}
+            </Button>
+            <Button 
+              mode="contained" 
+              onPress={saveConfig}
+              style={{ marginLeft: 8 }}
+            >
+              {t('common:save', "Save")}
+            </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
