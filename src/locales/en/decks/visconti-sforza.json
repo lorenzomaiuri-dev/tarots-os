@@ -1,0 +1,320 @@
+{
+  "info": {
+    "name": "Visconti-Sforza Tarot",
+    "description": "One of the oldest surviving tarot decks, commissioned in the mid-15th century by the Dukes of Milan. It is celebrated for its hand-painted gold leaf backgrounds and its portrayal of Renaissance nobility and heraldry."
+  },
+  "cards": {
+    "cups_01": {
+      "name": "Ace of Cups",
+      "keywords": "Emotional overflow, spiritual abundance, new love"
+    },
+    "cups_02": {
+      "name": "Two of Cups",
+      "keywords": "Partnership, mutual attraction, harmony"
+    },
+    "cups_03": {
+      "name": "Three of Cups",
+      "keywords": "Celebration, friendship, community"
+    },
+    "cups_04": {
+      "name": "Four of Cups",
+      "keywords": "Contemplation, apathy, missed opportunities"
+    },
+    "cups_05": {
+      "name": "Five of Cups",
+      "keywords": "Loss, regret, focus on the negative"
+    },
+    "cups_06": {
+      "name": "Six of Cups",
+      "keywords": "Nostalgia, childhood, innocence"
+    },
+    "cups_07": {
+      "name": "Seven of Cups",
+      "keywords": "Illusion, choices, daydreaming"
+    },
+    "cups_08": {
+      "name": "Eight of Cups",
+      "keywords": "Abandonment, seeking higher truth, moving on"
+    },
+    "cups_09": {
+      "name": "Nine of Cups",
+      "keywords": "Satisfaction, luxury, wish fulfillment"
+    },
+    "cups_10": {
+      "name": "Ten of Cups",
+      "keywords": "Domestic bliss, lasting happiness, family"
+    },
+    "cups_11": {
+      "name": "Page of Cups",
+      "keywords": "Sensitive news, creative spark, intuition"
+    },
+    "cups_12": {
+      "name": "Knight of Cups",
+      "keywords": "Romantic proposals, charm, following the heart"
+    },
+    "cups_13": {
+      "name": "Queen of Cups",
+      "keywords": "Compassion, emotional security, dreaminess"
+    },
+    "cups_14": {
+      "name": "King of Cups",
+      "keywords": "Emotional balance, wisdom, counselor"
+    },
+    "maj_00": {
+      "name": "The Fool",
+      "keywords": "Innocence, spontaneity, the beginning of a journey"
+    },
+    "maj_01": {
+      "name": "The Magician",
+      "keywords": "Manifestation, resourcefulness, willpower"
+    },
+    "maj_02": {
+      "name": "The High Priestess",
+      "keywords": "Intuition, sacred knowledge, the subconscious"
+    },
+    "maj_03": {
+      "name": "The Empress",
+      "keywords": "Fertility, nature, maternal influence"
+    },
+    "maj_04": {
+      "name": "The Emperor",
+      "keywords": "Authority, structure, strategic leadership"
+    },
+    "maj_05": {
+      "name": "The Hierophant",
+      "keywords": "Tradition, spiritual wisdom, conformity"
+    },
+    "maj_06": {
+      "name": "The Lovers",
+      "keywords": "Alignment, choices, sacred union"
+    },
+    "maj_07": {
+      "name": "The Chariot",
+      "keywords": "Victory, control, overcoming obstacles"
+    },
+    "maj_08": {
+      "name": "Justice",
+      "keywords": "Fairness, truth, cause and effect"
+    },
+    "maj_09": {
+      "name": "The Hermit",
+      "keywords": "Introspection, solitude, inner guidance"
+    },
+    "maj_10": {
+      "name": "Wheel of Fortune",
+      "keywords": "Cycles, luck, turning points"
+    },
+    "maj_11": {
+      "name": "Strength",
+      "keywords": "Inner power, courage, gentle influence"
+    },
+    "maj_12": {
+      "name": "The Hanged Man",
+      "keywords": "Sacrifice, new perspective, letting go"
+    },
+    "maj_13": {
+      "name": "Death",
+      "keywords": "Endings, transformation, transition"
+    },
+    "maj_14": {
+      "name": "Temperance",
+      "keywords": "Balance, moderation, alchemy"
+    },
+    "maj_15": {
+      "name": "The Devil",
+      "keywords": "Bondage, shadow self, materialism"
+    },
+    "maj_16": {
+      "name": "The Tower",
+      "keywords": "Sudden upheaval, revelation, breakdown"
+    },
+    "maj_17": {
+      "name": "The Star",
+      "keywords": "Hope, inspiration, spiritual guidance"
+    },
+    "maj_18": {
+      "name": "The Moon",
+      "keywords": "Illusion, fear, subconscious mystery"
+    },
+    "maj_19": {
+      "name": "The Sun",
+      "keywords": "Vitality, success, warmth"
+    },
+    "maj_20": {
+      "name": "Judgement",
+      "keywords": "Rebirth, absolution, inner calling"
+    },
+    "maj_21": {
+      "name": "The World",
+      "keywords": "Completion, integration, travel"
+    },
+    "pentacles_01": {
+      "name": "Ace of Pentacles",
+      "keywords": "Manifestation, prosperity, new venture"
+    },
+    "pentacles_02": {
+      "name": "Two of Pentacles",
+      "keywords": "Balance, adaptability, multitasking"
+    },
+    "pentacles_03": {
+      "name": "Three of Pentacles",
+      "keywords": "Craftsmanship, teamwork, recognition"
+    },
+    "pentacles_04": {
+      "name": "Four of Pentacles",
+      "keywords": "Security, possessiveness, stability"
+    },
+    "pentacles_05": {
+      "name": "Five of Pentacles",
+      "keywords": "Hardship, isolation, poverty consciousness"
+    },
+    "pentacles_06": {
+      "name": "Six of Pentacles",
+      "keywords": "Generosity, charity, sharing wealth"
+    },
+    "pentacles_07": {
+      "name": "Seven of Pentacles",
+      "keywords": "Patience, investment, long-term view"
+    },
+    "pentacles_08": {
+      "name": "Eight of Pentacles",
+      "keywords": "Diligence, mastery, skill development"
+    },
+    "pentacles_09": {
+      "name": "Nine of Pentacles",
+      "keywords": "Self-sufficiency, luxury, fruits of labor"
+    },
+    "pentacles_10": {
+      "name": "Ten of Pentacles",
+      "keywords": "Legacy, inheritance, family wealth"
+    },
+    "pentacles_11": {
+      "name": "Page of Pentacles",
+      "keywords": "Ambition, practical news, manifestation"
+    },
+    "pentacles_12": {
+      "name": "Knight of Pentacles",
+      "keywords": "Reliability, routine, methodical progress"
+    },
+    "pentacles_13": {
+      "name": "Queen of Pentacles",
+      "keywords": "Nurturing, practical, financial security"
+    },
+    "pentacles_14": {
+      "name": "King of Pentacles",
+      "keywords": "Abundance, leadership, earthly power"
+    },
+    "swords_01": {
+      "name": "Ace of Swords",
+      "keywords": "Clarity, breakthrough, sharp intellect"
+    },
+    "swords_02": {
+      "name": "Two of Swords",
+      "keywords": "Stalemate, blocked emotions, difficult choice"
+    },
+    "swords_03": {
+      "name": "Three of Swords",
+      "keywords": "Heartbreak, sorrow, separation"
+    },
+    "swords_04": {
+      "name": "Four of Swords",
+      "keywords": "Rest, recovery, meditation"
+    },
+    "swords_05": {
+      "name": "Five of Swords",
+      "keywords": "Conflict, hollow victory, betrayal"
+    },
+    "swords_06": {
+      "name": "Six of Swords",
+      "keywords": "Transition, leaving trouble, mental relief"
+    },
+    "swords_07": {
+      "name": "Seven of Swords",
+      "keywords": "Deception, strategy, running away"
+    },
+    "swords_08": {
+      "name": "Eight of Swords",
+      "keywords": "Imprisonment, self-restriction, victimhood"
+    },
+    "swords_09": {
+      "name": "Nine of Swords",
+      "keywords": "Anxiety, nightmares, mental anguish"
+    },
+    "swords_10": {
+      "name": "Ten of Swords",
+      "keywords": "Betrayal, rock bottom, finality"
+    },
+    "swords_11": {
+      "name": "Page of Swords",
+      "keywords": "Curiosity, mental energy, vigilance"
+    },
+    "swords_12": {
+      "name": "Knight of Swords",
+      "keywords": "Action, impulsivity, fast-paced change"
+    },
+    "swords_13": {
+      "name": "Queen of Swords",
+      "keywords": "Perception, independence, clear boundaries"
+    },
+    "swords_14": {
+      "name": "King of Swords",
+      "keywords": "Logic, authority, intellectual power"
+    },
+    "wands_01": {
+      "name": "Ace of Wands",
+      "keywords": "Inspiration, desire, new potential"
+    },
+    "wands_02": {
+      "name": "Two of Wands",
+      "keywords": "Planning, discovery, future ambition"
+    },
+    "wands_03": {
+      "name": "Three of Wands",
+      "keywords": "Expansion, foresight, overseas opportunities"
+    },
+    "wands_04": {
+      "name": "Four of Wands",
+      "keywords": "Homecoming, celebration, foundation"
+    },
+    "wands_05": {
+      "name": "Five of Wands",
+      "keywords": "Competition, rivalry, minor struggle"
+    },
+    "wands_06": {
+      "name": "Six of Wands",
+      "keywords": "Public acclaim, victory, confidence"
+    },
+    "wands_07": {
+      "name": "Seven of Wands",
+      "keywords": "Defensiveness, challenge, maintaining position"
+    },
+    "wands_08": {
+      "name": "Eight of Wands",
+      "keywords": "Speed, rapid movement, incoming news"
+    },
+    "wands_09": {
+      "name": "Nine of Wands",
+      "keywords": "Resilience, persistence, the final push"
+    },
+    "wands_10": {
+      "name": "Ten of Wands",
+      "keywords": "Burden, responsibility, over-extension"
+    },
+    "wands_11": {
+      "name": "Page of Wands",
+      "keywords": "Discovery, enthusiasm, new ideas"
+    },
+    "wands_12": {
+      "name": "Knight of Wands",
+      "keywords": "Energy, passion, adventure"
+    },
+    "wands_13": {
+      "name": "Queen of Wands",
+      "keywords": "Confidence, social grace, determination"
+    },
+    "wands_14": {
+      "name": "King of Wands",
+      "keywords": "Visionary leadership, fire, boldness"
+    }
+  }
+}

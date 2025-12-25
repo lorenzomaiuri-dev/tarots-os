@@ -23,7 +23,7 @@ if (args.length === 0) {
 const DECK_ID = args[0];
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const ASSETS_DIR = path.join(PROJECT_ROOT, 'assets', DECK_ID);
-const OUTPUT_DIR = path.join(PROJECT_ROOT, 'src', 'data', DECK_ID);
+const OUTPUT_DIR = path.join(PROJECT_ROOT, 'src', 'data', 'decks', DECK_ID);
 
 // Ensure asset directory exists
 if (!fs.existsSync(ASSETS_DIR)) {

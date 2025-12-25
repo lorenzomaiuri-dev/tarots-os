@@ -30,6 +30,14 @@ const DECK_MANIFEST: Record<string, () => DeckBundle> = {
       it: require('../locales/it/decks/marseille.json'),
     },
   }),
+  'visconti-sforza': () => ({
+    data: require('../data/decks/visconti-sforza/deck.json'),
+    images: require('../data/decks/visconti-sforza/images').default,
+    translations: {
+      en: require('../locales/en/decks/visconti-sforza.json'),
+      it: require('../locales/it/decks/visconti-sforza.json'),
+    },
+  }),
   // Add new decks here...
   // 'thoth': () => ({ ... })
 };
