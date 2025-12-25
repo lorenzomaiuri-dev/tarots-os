@@ -1,0 +1,320 @@
+{
+  "info": {
+    "name": "Deck Name",
+    "description": "Deck Description"
+  },
+  "cards": {
+    "cups_01": {
+      "name": "Card Name (cups_01)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_02": {
+      "name": "Card Name (cups_02)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_03": {
+      "name": "Card Name (cups_03)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_04": {
+      "name": "Card Name (cups_04)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_05": {
+      "name": "Card Name (cups_05)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_06": {
+      "name": "Card Name (cups_06)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_07": {
+      "name": "Card Name (cups_07)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_08": {
+      "name": "Card Name (cups_08)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_09": {
+      "name": "Card Name (cups_09)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_10": {
+      "name": "Card Name (cups_10)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_11": {
+      "name": "Card Name (cups_11)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_12": {
+      "name": "Card Name (cups_12)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_13": {
+      "name": "Card Name (cups_13)",
+      "keywords": "keyword1, keyword2"
+    },
+    "cups_14": {
+      "name": "Card Name (cups_14)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_00": {
+      "name": "Card Name (maj_00)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_01": {
+      "name": "Card Name (maj_01)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_02": {
+      "name": "Card Name (maj_02)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_03": {
+      "name": "Card Name (maj_03)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_04": {
+      "name": "Card Name (maj_04)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_05": {
+      "name": "Card Name (maj_05)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_06": {
+      "name": "Card Name (maj_06)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_07": {
+      "name": "Card Name (maj_07)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_08": {
+      "name": "Card Name (maj_08)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_09": {
+      "name": "Card Name (maj_09)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_10": {
+      "name": "Card Name (maj_10)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_11": {
+      "name": "Card Name (maj_11)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_12": {
+      "name": "Card Name (maj_12)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_13": {
+      "name": "Card Name (maj_13)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_14": {
+      "name": "Card Name (maj_14)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_15": {
+      "name": "Card Name (maj_15)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_16": {
+      "name": "Card Name (maj_16)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_17": {
+      "name": "Card Name (maj_17)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_18": {
+      "name": "Card Name (maj_18)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_19": {
+      "name": "Card Name (maj_19)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_20": {
+      "name": "Card Name (maj_20)",
+      "keywords": "keyword1, keyword2"
+    },
+    "maj_21": {
+      "name": "Card Name (maj_21)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_01": {
+      "name": "Card Name (pentacles_01)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_02": {
+      "name": "Card Name (pentacles_02)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_03": {
+      "name": "Card Name (pentacles_03)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_04": {
+      "name": "Card Name (pentacles_04)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_05": {
+      "name": "Card Name (pentacles_05)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_06": {
+      "name": "Card Name (pentacles_06)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_07": {
+      "name": "Card Name (pentacles_07)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_08": {
+      "name": "Card Name (pentacles_08)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_09": {
+      "name": "Card Name (pentacles_09)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_10": {
+      "name": "Card Name (pentacles_10)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_11": {
+      "name": "Card Name (pentacles_11)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_12": {
+      "name": "Card Name (pentacles_12)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_13": {
+      "name": "Card Name (pentacles_13)",
+      "keywords": "keyword1, keyword2"
+    },
+    "pentacles_14": {
+      "name": "Card Name (pentacles_14)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_01": {
+      "name": "Card Name (swords_01)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_02": {
+      "name": "Card Name (swords_02)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_03": {
+      "name": "Card Name (swords_03)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_04": {
+      "name": "Card Name (swords_04)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_05": {
+      "name": "Card Name (swords_05)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_06": {
+      "name": "Card Name (swords_06)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_07": {
+      "name": "Card Name (swords_07)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_08": {
+      "name": "Card Name (swords_08)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_09": {
+      "name": "Card Name (swords_09)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_10": {
+      "name": "Card Name (swords_10)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_11": {
+      "name": "Card Name (swords_11)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_12": {
+      "name": "Card Name (swords_12)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_13": {
+      "name": "Card Name (swords_13)",
+      "keywords": "keyword1, keyword2"
+    },
+    "swords_14": {
+      "name": "Card Name (swords_14)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_01": {
+      "name": "Card Name (wands_01)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_02": {
+      "name": "Card Name (wands_02)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_03": {
+      "name": "Card Name (wands_03)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_04": {
+      "name": "Card Name (wands_04)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_05": {
+      "name": "Card Name (wands_05)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_06": {
+      "name": "Card Name (wands_06)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_07": {
+      "name": "Card Name (wands_07)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_08": {
+      "name": "Card Name (wands_08)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_09": {
+      "name": "Card Name (wands_09)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_10": {
+      "name": "Card Name (wands_10)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_11": {
+      "name": "Card Name (wands_11)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_12": {
+      "name": "Card Name (wands_12)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_13": {
+      "name": "Card Name (wands_13)",
+      "keywords": "keyword1, keyword2"
+    },
+    "wands_14": {
+      "name": "Card Name (wands_14)",
+      "keywords": "keyword1, keyword2"
+    }
+  }
+}
