@@ -1,95 +1,123 @@
 {
   "one-card": {
     "name": "Carta Singola",
+    "description": "Ideale per un'estrazione quotidiana rapida, una risposta focalizzata a una domanda specifica o un singolo tema su cui meditare.",
     "positions": {
       "1": {
-        "label": "Il Messaggio Centrale"
+        "label": "Il Messaggio Centrale",
+        "description": "Il tema centrale, la risposta diretta alla tua domanda o l'energia principale su cui concentrarti oggi."
       }
     }
   },
   "three-card": {
     "name": "Passato, Presente, Futuro",
+    "description": "Una stesa versatile che rivela come la tua storia passata e le circostanze attuali stiano plasmando il tuo potenziale futuro.",
     "positions": {
       "1": {
-        "label": "Influenze Passate"
+        "label": "Influenze Passate",
+        "description": "Eventi, emozioni o circostanze del passato che ti hanno portato dove sei ora."
       },
       "2": {
-        "label": "Situazione Attuale"
+        "label": "Situazione Attuale",
+        "description": "L'energia che ti circonda in questo momento e la natura della situazione attuale."
       },
       "3": {
-        "label": "Esito Potenziale"
+        "label": "Esito Potenziale",
+        "description": "La direzione in cui si stanno muovendo le cose e il probabile risultato se le tendenze attuali continuano."
       }
     }
   },
   "relationship": {
     "name": "Stesa della Relazione",
+    "description": "Esplora le dinamiche tra te e un'altra persona, rivelando le prospettive individuali e il possibile cammino del vostro legame.",
     "positions": {
       "1": {
-        "label": "Tu / Il Tuo Ruolo"
+        "label": "Tu / Il Tuo Ruolo",
+        "description": "I tuoi sentimenti attuali, il tuo approccio alla relazione e come stai contribuendo alla dinamica."
       },
       "2": {
-        "label": "Partner / L'Altro"
+        "label": "Partner / L'Altro",
+        "description": "La prospettiva dell'altra persona, il suo stato emotivo e ciò che porta nel legame."
       },
       "3": {
-        "label": "Il Legame"
+        "label": "Il Legame",
+        "description": "L'energia condivisa tra voi due: come interagite e lo stato attuale del legame."
       },
       "4": {
-        "label": "Potenziale a Lungo Termine"
+        "label": "Potenziale a Lungo Termine",
+        "description": "Il possibile futuro di questa relazione e la crescita che offre a entrambi."
       }
     }
   },
   "five-card-cross": {
     "name": "Croce a Cinque Carte",
+    "description": "Fornisce una visione chiara di una situazione specifica, evidenziando la sfida principale, il consiglio da seguire e il potenziale nascosto.",
     "positions": {
       "1": {
-        "label": "Il Cuore della Questione"
+        "label": "Il Cuore della Questione",
+        "description": "Il problema centrale o l'aspetto più importante da comprendere della situazione."
       },
       "2": {
-        "label": "La Sfida"
+        "label": "La Sfida",
+        "description": "L'ostacolo o il conflitto che sta attualmente bloccando il tuo cammino o causando difficoltà."
       },
       "3": {
-        "label": "Il Consiglio"
+        "label": "Il Consiglio",
+        "description": "L'azione raccomandata da intraprendere o l'atteggiamento da adottare per risolvere la situazione."
       },
       "4": {
-        "label": "Risultato Finale"
+        "label": "Risultato Finale",
+        "description": "Il probabile esito se segui il consiglio e affronti la sfida in modo efficace."
       },
       "5": {
-        "label": "Potenziale Nascosto"
+        "label": "Potenziale Nascosto",
+        "description": "Punti di forza, risorse o opportunità di cui potresti non esserti ancora accorto."
       }
     }
   },
   "celtic-cross": {
     "name": "Croce Celtica",
+    "description": "La stesa più iconica per una comprensione profonda. Esamina le forze consce e subconsce che influenzano il tuo percorso e offre una mappa dettagliata della situazione.",
     "positions": {
       "1": {
-        "label": "Il Presente"
+        "label": "Il Presente",
+        "description": "L'atmosfera immediata e lo stato attuale della persona o della situazione analizzata."
       },
       "2": {
-        "label": "Sfida Immediata"
+        "label": "Sfida Immediata",
+        "description": "L'influenza incrociata che funge da ostacolo o da catalizzatore per il cambiamento nel momento presente."
       },
       "3": {
-        "label": "Pensieri Consci"
+        "label": "Pensieri Consci",
+        "description": "I tuoi obiettivi, i tuoi ideali e ciò su cui stai concentrando consapevolmente la tua energia."
       },
       "4": {
-        "label": "Radici Subconsce"
+        "label": "Radici Subconsce",
+        "description": "Sentimenti profondi, motivazioni sottostanti e le fondamenta della situazione che giacciono sotto la superficie."
       },
       "5": {
-        "label": "Il Passato"
+        "label": "Il Passato",
+        "description": "La storia recente o i cicli che si stanno concludendo e che hanno lasciato un segno significativo sulle circostanze attuali."
       },
       "6": {
-        "label": "Futuro Prossimo"
+        "label": "Futuro Prossimo",
+        "description": "Eventi ed energie che iniziano a manifestarsi e che probabilmente si verificheranno a breve termine."
       },
       "7": {
-        "label": "Il Tuo Atteggiamento"
+        "label": "Il Tuo Atteggiamento",
+        "description": "Come percepisci te stesso in questa situazione e il potere personale che stai esercitando."
       },
       "8": {
-        "label": "Influenze Esterne"
+        "label": "Influenze Esterne",
+        "description": "L'impatto del tuo ambiente, le opinioni degli altri e i fattori al di fuori del tuo controllo diretto."
       },
       "9": {
-        "label": "Speranze e Paure"
+        "label": "Speranze e Paure",
+        "description": "Le tue aspettative interiori, le ansie e i desideri segreti che nutri riguardo all'esito."
       },
       "10": {
-        "label": "Esito Finale"
+        "label": "Esito Finale",
+        "description": "La risoluzione a lungo termine e la destinazione finale di questo specifico percorso."
       }
     }
   }

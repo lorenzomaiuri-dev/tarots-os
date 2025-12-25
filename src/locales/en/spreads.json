@@ -1,96 +1,124 @@
 {
   "one-card": {
-      "name": "Single Card",
-      "positions": {
-        "1": {
-          "label": "The Core Message"
-        }
-      }
-    },
-    "three-card": {
-      "name": "Past, Present, Future",
-      "positions": {
-        "1": {
-          "label": "Past Influences"
-        },
-        "2": {
-          "label": "Current Situation"
-        },
-        "3": {
-          "label": "Potential Outcome"
-        }
-      }
-    },
-    "relationship": {
-      "name": "Relationship Spread",
-      "positions": {
-        "1": {
-          "label": "You / Your Role"
-        },
-        "2": {
-          "label": "Partner / The Other"
-        },
-        "3": {
-          "label": "The Connection"
-        },
-        "4": {
-          "label": "Long-term Potential"
-        }
-      }
-    },
-    "five-card-cross": {
-      "name": "Five Card Cross",
-      "positions": {
-        "1": {
-          "label": "The Heart of the Matter"
-        },
-        "2": {
-          "label": "The Challenge"
-        },
-        "3": {
-          "label": "The Advice"
-        },
-        "4": {
-          "label": "Final Result"
-        },
-        "5": {
-          "label": "Hidden Potential"
-        }
-      }
-    },
-    "celtic-cross": {
-      "name": "Celtic Cross",
-      "positions": {
-        "1": {
-          "label": "The Present"
-        },
-        "2": {
-          "label": "Immediate Challenge"
-        },
-        "3": {
-          "label": "Conscious Thoughts"
-        },
-        "4": {
-          "label": "Subconscious Roots"
-        },
-        "5": {
-          "label": "The Past"
-        },
-        "6": {
-          "label": "Near Future"
-        },
-        "7": {
-          "label": "Your Attitude"
-        },
-        "8": {
-          "label": "External Influences"
-        },
-        "9": {
-          "label": "Hopes and Fears"
-        },
-        "10": {
-          "label": "Final Outcome"
-        }
+    "name": "Single Card",
+    "description": "Perfect for a quick daily draw, a focused answer to a specific question, or a single theme for meditation.",
+    "positions": {
+      "1": {
+        "label": "The Core Message",
+        "description": "The central theme, the direct answer to your question, or the primary energy to focus on today."
       }
     }
+  },
+  "three-card": {
+    "name": "Past, Present, Future",
+    "description": "A versatile spread that reveals how your past history and current circumstances are shaping your potential future.",
+    "positions": {
+      "1": {
+        "label": "Past Influences",
+        "description": "Events, emotions, or circumstances from the past that have led you to where you are now."
+      },
+      "2": {
+        "label": "Current Situation",
+        "description": "The energy surrounding you in this moment and the nature of the situation at hand."
+      },
+      "3": {
+        "label": "Potential Outcome",
+        "description": "The direction in which things are moving and the likely result if current trends continue."
+      }
+    }
+  },
+  "relationship": {
+    "name": "Relationship Spread",
+    "description": "Explores the dynamics between you and another person, revealing individual perspectives and the likely path of your connection.",
+    "positions": {
+      "1": {
+        "label": "You / Your Role",
+        "description": "Your current feelings, your approach to the relationship, and how you are contributing to the dynamic."
+      },
+      "2": {
+        "label": "Partner / The Other",
+        "description": "The other person's perspective, their emotional state, and what they bring to the connection."
+      },
+      "3": {
+        "label": "The Connection",
+        "description": "The shared energy between you both—how you interact and the current state of the bond."
+      },
+      "4": {
+        "label": "Long-term Potential",
+        "description": "The possible future of this relationship and the growth it offers both individuals."
+      }
+    }
+  },
+  "five-card-cross": {
+    "name": "Five Card Cross",
+    "description": "Provides a clear overview of a specific situation, highlighting the core challenge, the advice to follow, and hidden potential.",
+    "positions": {
+      "1": {
+        "label": "The Heart of the Matter",
+        "description": "The central issue or the most important thing you need to understand about the situation."
+      },
+      "2": {
+        "label": "The Challenge",
+        "description": "The obstacle or conflict that is currently blocking your path or causing difficulty."
+      },
+      "3": {
+        "label": "The Advice",
+        "description": "The recommended action to take or the mindset to adopt to resolve the situation."
+      },
+      "4": {
+        "label": "Final Result",
+        "description": "The likely outcome if you follow the advice and address the challenge effectively."
+      },
+      "5": {
+        "label": "Hidden Potential",
+        "description": "Strengths, resources, or opportunities that you may not have noticed yet."
+      }
+    }
+  },
+  "celtic-cross": {
+    "name": "Celtic Cross",
+    "description": "The most iconic spread for deep insight. It examines the conscious and subconscious forces affecting your journey and provides a detailed roadmap of the situation.",
+    "positions": {
+      "1": {
+        "label": "The Present",
+        "description": "The immediate atmosphere and the current state of the person or situation being read."
+      },
+      "2": {
+        "label": "Immediate Challenge",
+        "description": "The cross-influence that acts as a hurdle or a catalyst for change within the present moment."
+      },
+      "3": {
+        "label": "Conscious Thoughts",
+        "description": "Your goals, your ideals, and what you are consciously focusing your energy on."
+      },
+      "4": {
+        "label": "Subconscious Roots",
+        "description": "Deep-seated feelings, underlying motivations, and the foundations of the situation that lie beneath the surface."
+      },
+      "5": {
+        "label": "The Past",
+        "description": "Recent history or ending cycles that have left a significant mark on the current circumstances."
+      },
+      "6": {
+        "label": "Near Future",
+        "description": "Events and energies that are beginning to manifest and will likely occur in the short term."
+      },
+      "7": {
+        "label": "Your Attitude",
+        "description": "How you perceive yourself in this situation and the personal power you are exercising."
+      },
+      "8": {
+        "label": "External Influences",
+        "description": "The impact of your environment, other people's opinions, and factors outside of your direct control."
+      },
+      "9": {
+        "label": "Hopes and Fears",
+        "description": "Your inner expectations, anxieties, and the secret desires you hold regarding the outcome."
+      },
+      "10": {
+        "label": "Final Outcome",
+        "description": "The long-term resolution and the ultimate destination of this specific path."
+      }
+    }
+  }
 }

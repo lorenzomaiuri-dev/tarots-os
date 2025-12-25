@@ -149,10 +149,10 @@ const ReadingTableScreen = () => {
                 return (
                   <View key={slot.id} style={styles.slotContainer}>
                     <Text variant="labelMedium" style={styles.slotLabel}>
-                      {index + 1}. {t(`spreads:${spread.id}.positions.${slot.label}.label`)}
+                      {index + 1}. {t(`spreads:${spread.id}.positions.${slot.id}.label`)}
                     </Text>
                     <Text variant="bodySmall" style={styles.slotDesc}>
-                      {t(`spreads:${spread.id}.positions.${slot.label}.description`)}
+                      {t(`spreads:${spread.id}.positions.${slot.id}.description`)}
                     </Text>
 
                     <View style={styles.cardWrapper}>
