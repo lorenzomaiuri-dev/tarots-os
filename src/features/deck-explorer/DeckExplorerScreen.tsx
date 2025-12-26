@@ -7,31 +7,45 @@ import { ScreenContainer } from '../ScreenContainer';
 import { CardImage } from '../../components/CardImage';
 import { getDeck } from '../../services/deckRegistry';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { Card } from '../../types/deck';
+import { Card, Deck } from '../../types/deck';
 import { useInterpretation } from '../../hooks/useInterpretation';
 import { InterpretationModal } from '../../components/InterpretationModal';
 
 const { width, height } = Dimensions.get('window');
 const PAGE_SIZE = 12;
 
-const groupCards = (cards: Card[], t: any) => {  
-  const groups: { title: string; type: string; data: Card[] }[] = [
-    { title: t('common:major_arcana', "Major Arcana"), type: 'major', data: [] },
-    { title: t('common:wands', "Wands"), type: 'wands', data: [] },
-    { title: t('common:cups', "Cups"), type: 'cups', data: [] },
-    { title: t('common:swords', "Swords"), type: 'swords', data: [] },
-    { title: t('common:pentacles', "Pentacles"), type: 'pentacles', data: [] },
-  ];
+const groupCards = (cards: Card[], deck: Deck, t: any) => {
+  const groupConfigs = deck.info.groups;
+  const groupKeys = Object.keys(groupConfigs);
 
-  cards.forEach(card => {
-    if (card.meta.type === 'major') groups[0].data.push(card);
-    else if (card.meta.suit === 'wands') groups[1].data.push(card);
-    else if (card.meta.suit === 'cups') groups[2].data.push(card);
-    else if (card.meta.suit === 'swords') groups[3].data.push(card);
-    else if (card.meta.suit === 'pentacles') groups[4].data.push(card);
+  // 1. Initialize the structure based on the deck's defined groups
+  const groupsMap: Record<string, { title: string; type: string; color: string; data: Card[] }> = {};
+  
+  groupKeys.forEach((key) => {
+    groupsMap[key] = {
+      title: t(`common:${groupConfigs[key].labelKey}`),
+      type: key,
+      color: groupConfigs[key].color,
+      data: [],
+    };
   });
 
-  return groups.filter(g => g.data.length > 0);
+  // 2. Distribute cards into buckets
+  cards.forEach((card) => {
+    // Priority 1: Match by type (e.g., 'major')
+    if (groupsMap[card.meta.type]) {
+      groupsMap[card.meta.type].data.push(card);
+    } 
+    // Priority 2: Match by suit (e.g., 'wands', 'coins')
+    else if (card.meta.suit && groupsMap[card.meta.suit]) {
+      groupsMap[card.meta.suit].data.push(card);
+    }
+  });
+
+  // 3. Convert back to array, preserving the order defined in deck.info.groups
+  return groupKeys
+    .map((key) => groupsMap[key])
+    .filter((group) => group.data.length > 0);
 };
 
 const DeckExplorerScreen = () => {
@@ -55,12 +69,16 @@ const DeckExplorerScreen = () => {
   const sections = useMemo(() => {
     if (!deck) return [];
     let filtered = deck.cards;
+    
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(c => t(`decks:${activeDeckId}.cards.${c.id}.name`).toLowerCase().includes(q));
+      filtered = filtered.filter(c => 
+        t(`decks:${activeDeckId}.cards.${c.id}.name`).toLowerCase().includes(q)
+      );
     }
+
     const paginatedCards = filtered.slice(0, displayLimit);
-    return groupCards(paginatedCards, t);
+    return groupCards(paginatedCards, deck, t);
   }, [deck, searchQuery, activeDeckId, t, displayLimit]);
 
   const loadMore = useCallback(() => {
@@ -75,7 +93,8 @@ const DeckExplorerScreen = () => {
         case 'swords': return 'sword';
         case 'cups': return 'cup-water';
         case 'wands': return 'auto-fix';
-        case 'pentacles': return 'pentagram';
+        case 'pentacles': 
+        case 'coins': return 'pentagram'; 
         default: return 'cards-outline';
     }
   };
@@ -119,11 +138,21 @@ const DeckExplorerScreen = () => {
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
         renderSectionHeader={({ section }) => (
-          <View style={styles.sectionHeader}>
-            <Avatar.Icon size={24} icon={getGroupIcon(section.type)} style={{ backgroundColor: 'transparent' }} color={theme.colors.primary} />
-            <Text variant="labelLarge" style={styles.sectionHeaderText}>{section.title.toUpperCase()}</Text>
-          </View>
-        )}
+        <View style={styles.sectionHeader}>
+          <Avatar.Icon 
+            size={24} 
+            icon={getGroupIcon(section.type)} 
+            style={{ backgroundColor: 'transparent' }} 
+            color={section.color || theme.colors.primary} 
+          />
+          <Text 
+            variant="labelLarge" 
+            style={[styles.sectionHeaderText, { color: section.color || theme.colors.onSurfaceVariant }]}
+          >
+            {section.title.toUpperCase()}
+          </Text>
+        </View>
+      )}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setSelectedCard(item)} activeOpacity={0.7}>
             <Surface style={styles.cardItem} elevation={1}>
