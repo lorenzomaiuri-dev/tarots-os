@@ -31,7 +31,7 @@ const images: Record<string, any> = {
   'maj_13': require('../../../../assets/marseille/maj_13_unnamed.jpg'),
   'maj_14': require('../../../../assets/marseille/maj_14_temperance.jpg'),
   'maj_15': require('../../../../assets/marseille/maj_15_devil.jpg'),
-  'maj_16': require('../../../../assets/marseille/maj_16_tower.jpg'),
+  'maj_16': require('../../../../assets/marseille/maj_16_maisondedieu.jpg'),
   'maj_17': require('../../../../assets/marseille/maj_17_star.jpg'),
   'maj_18': require('../../../../assets/marseille/maj_18_moon.jpg'),
   'maj_19': require('../../../../assets/marseille/maj_19_sun.jpg'),
