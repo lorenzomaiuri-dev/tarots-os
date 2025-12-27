@@ -12,7 +12,7 @@ import { useInterpretation } from '../../hooks/useInterpretation';
 import { InterpretationModal } from '../../components/InterpretationModal';
 
 const { width, height } = Dimensions.get('window');
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 20;
 
 const groupCards = (cards: Card[], deck: Deck, t: any) => {
   const groupConfigs = deck.info.groups;
@@ -68,8 +68,9 @@ const DeckExplorerScreen = () => {
 
   const sections = useMemo(() => {
     if (!deck) return [];
-    let filtered = deck.cards;
     
+    // 1. FILTERING
+    let filtered = [...deck.cards];
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       filtered = filtered.filter(c => 
@@ -77,7 +78,18 @@ const DeckExplorerScreen = () => {
       );
     }
 
+    // 2. ORDERING
+    const groupOrder = Object.keys(deck.info.groups);
+    filtered.sort((a, b) => {
+      const indexA = groupOrder.indexOf(a.meta.type) !== -1 ? groupOrder.indexOf(a.meta.type) : groupOrder.indexOf(a.meta?.suit ?? "none");
+      const indexB = groupOrder.indexOf(b.meta.type) !== -1 ? groupOrder.indexOf(b.meta.type) : groupOrder.indexOf(b.meta?.suit ?? "none");
+      return indexA - indexB;
+    });
+
+    // 3. PAGINATION
     const paginatedCards = filtered.slice(0, displayLimit);
+    
+    // 4. GROUPING
     return groupCards(paginatedCards, deck, t);
   }, [deck, searchQuery, activeDeckId, t, displayLimit]);
 
@@ -137,6 +149,10 @@ const DeckExplorerScreen = () => {
         showsVerticalScrollIndicator={false}
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
+        initialNumToRender={PAGE_SIZE}
+        maxToRenderPerBatch={PAGE_SIZE}
+        windowSize={PAGE_SIZE}
+        removeClippedSubviews={true} 
         renderSectionHeader={({ section }) => (
         <View style={styles.sectionHeader}>
           <Avatar.Icon 
