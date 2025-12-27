@@ -10,7 +10,6 @@ import {
   useTheme,
   RadioButton,
   Surface,
-  IconButton,
   List
 } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +31,17 @@ const SettingsScreen = () => {
   const [tempApiKey, setTempApiKey] = useState('');
   const [tempModelId, setTempModelId] = useState('');
   const [tempBaseUrl, setTempBaseUrl] = useState('');
+
+  const dialogBgColor = theme.dark ? '#121212' : theme.colors.surface;
+  
+  const dynamicCardStyle = {
+    backgroundColor: theme.dark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
+    borderColor: theme.dark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+  };
+
+  const dynamicDivider = {
+    backgroundColor: theme.dark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)',
+  };
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -129,15 +139,17 @@ const SettingsScreen = () => {
         
         {/* HEADER */}
         <View style={styles.headerContainer}>
-            <Text variant="headlineMedium" style={styles.pageTitle}>
+            <Text variant="headlineMedium" style={[styles.pageTitle, { color: theme.colors.onSurface }]}>
                 {t('common:settings', 'Settings')}
             </Text>
             <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
         </View>
 
         {/* READING PREFERENCES */}
-        <Text variant="labelLarge" style={styles.sectionLabel}>{t('common:reading', 'ORACLE RULES')}</Text>
-        <Surface style={styles.settingsCard} elevation={1}>
+        <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
+          {t('common:reading', 'ORACLE RULES')}
+        </Text>
+        <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 
                 title={t('common:allow_reversed_cards', "Allow Reversed Cards")}
                 description={t('common:reversed_desc', "Include inverted card meanings")}
@@ -148,7 +160,7 @@ const SettingsScreen = () => {
                     />
                 )}
             />
-            <View style={styles.divider} />
+            <View style={[styles.divider, dynamicDivider]} />
             <SettingRow 
                 title={t('common:only_major_arcana', "Only Major Arcana")}
                 description={t('common:major_only_desc', "Focus only on the 22 Greater Secrets")}
@@ -162,8 +174,10 @@ const SettingsScreen = () => {
         </Surface>
 
         {/* APPEARANCE & LANGUAGE */}
-       <Text variant="labelLarge" style={styles.sectionLabel}>{t('common:appearance', 'AESTHETICS')}</Text>
-        <Surface style={styles.settingsCard} elevation={1}>
+       <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
+         {t('common:appearance', 'AESTHETICS')}
+        </Text>
+        <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 
                 title={t('common:theme', "Interface Theme")}
                 description={getThemeLabel(preferences.theme)}
@@ -171,7 +185,7 @@ const SettingsScreen = () => {
                 onPress={() => setThemeDialogVisible(true)}
                 right={(props: any) => <List.Icon {...props} icon="chevron-right" />}
             />
-            <View style={styles.divider} />
+            <View style={[styles.divider, dynamicDivider]} />
             <SettingRow 
                 title={t('common:language', "Language")}
                 description={getLanguageLabel(preferences.language || i18n.language)}
@@ -182,8 +196,10 @@ const SettingsScreen = () => {
         </Surface>
 
         {/* AI CONFIGURATION */}
-        <Text variant="labelLarge" style={styles.sectionLabel}>{t('common:ai', 'DIVINE INTELLIGENCE')}</Text>
-        <Surface style={styles.settingsCard} elevation={1}>
+        <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
+          {t('common:ai', 'DIVINE INTELLIGENCE')}
+        </Text>
+        <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 
                 title={t('common:provider_config', "AI Spirit Engine")}
                 description={`${aiConfig.modelId || 'Not set'}`}
@@ -191,7 +207,7 @@ const SettingsScreen = () => {
                 onPress={showDialog}
                 right={(props: any) => <List.Icon {...props} icon="cog-outline" />}
             />
-            <View style={styles.divider} />
+            <View style={[styles.divider, dynamicDivider]} />
             <SettingRow 
                 title={t('common:get_api_key', "Acquire API Key")}
                 description="OpenRouter.ai"
@@ -202,15 +218,17 @@ const SettingsScreen = () => {
         </Surface>
 
         {/* DATA MANAGEMENT */}
-        <Text variant="labelLarge" style={styles.sectionLabel}>{t('common:data', 'CHRONICLES')}</Text>
-        <Surface style={styles.settingsCard} elevation={1}>
+        <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
+          {t('common:data', 'CHRONICLES')}
+        </Text>
+        <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 
                 title={t('common:export_backup', "Seal Memories")}
                 description={t('common:export_desc', "Export journal to JSON")}
                 icon="book-arrow-up-outline"
                 onPress={handleExport}
             />
-            <View style={styles.divider} />
+            <View style={[styles.divider, dynamicDivider]} />
             <SettingRow 
                 title={t('common:import_backup', "Restore Spirits")}
                 description={t('common:import_desc', "Import journal from file")}
@@ -219,21 +237,26 @@ const SettingsScreen = () => {
             />
         </Surface>
         
-        {/* // TODO: HANDLING OF VERSION */}
-        <Text style={styles.versionText}>Tarots AI — Version 1.0.0</Text>
+        <Text style={[styles.versionText, { color: theme.colors.onSurfaceVariant }]}>
+          Tarots AI — Version 1.0.0
+        </Text>
       </ScrollView>      
 
       {/* LANGUAGE DIALOG */}
       <Portal>
-        <Dialog visible={languageDialogVisible} onDismiss={() => setLanguageDialogVisible(false)} style={styles.dialog}>
+        <Dialog 
+          visible={languageDialogVisible} 
+          onDismiss={() => setLanguageDialogVisible(false)} 
+          style={[styles.dialog, { backgroundColor: dialogBgColor }]}
+        >
           <Dialog.Title style={styles.dialogTitle}>{t('common:select_language', "Select Language")}</Dialog.Title>
           <Dialog.Content>
             <RadioButton.Group 
               onValueChange={v => changeLanguage(v)} 
               value={preferences.language || i18n.language}
             >
-                <RadioButton.Item label="Italiano" value="it" />
-                <RadioButton.Item label="English" value="en" />
+                <RadioButton.Item label="Italiano" value="it" labelStyle={styles.radioLabel} />
+                <RadioButton.Item label="English" value="en" labelStyle={styles.radioLabel} />
             </RadioButton.Group>
           </Dialog.Content>
         </Dialog>
@@ -241,16 +264,20 @@ const SettingsScreen = () => {
 
       {/* THEME DIALOG */}
       <Portal>
-        <Dialog visible={themeDialogVisible} onDismiss={() => setThemeDialogVisible(false)} style={styles.dialog}>
+        <Dialog 
+          visible={themeDialogVisible} 
+          onDismiss={() => setThemeDialogVisible(false)} 
+          style={[styles.dialog, { backgroundColor: dialogBgColor }]}
+        >
           <Dialog.Title style={styles.dialogTitle}>{t('common:select_theme', "Select Theme")}</Dialog.Title>
           <Dialog.Content>
             <RadioButton.Group 
               onValueChange={v => { updatePreferences({ theme: v as any }); setThemeDialogVisible(false); }} 
               value={preferences.theme || 'system'}
             >
-                <RadioButton.Item label={t('common:theme_system', "System")} value="system" />
-                <RadioButton.Item label={t('common:theme_light', "Light")} value="light" />
-                <RadioButton.Item label={t('common:theme_dark', "Dark")} value="dark" />
+                <RadioButton.Item label={t('common:theme_system', "System")} value="system" labelStyle={styles.radioLabel} />
+                <RadioButton.Item label={t('common:theme_light', "Light")} value="light" labelStyle={styles.radioLabel} />
+                <RadioButton.Item label={t('common:theme_dark', "Dark")} value="dark" labelStyle={styles.radioLabel} />
             </RadioButton.Group>
           </Dialog.Content>
         </Dialog>
@@ -258,16 +285,50 @@ const SettingsScreen = () => {
 
       {/* AI DIALOG */}
       <Portal>
-        <Dialog visible={visible} onDismiss={() => setVisible(false)} style={styles.dialog}>
+        <Dialog 
+          visible={visible} 
+          onDismiss={() => setVisible(false)} 
+          style={[styles.dialog, { backgroundColor: dialogBgColor }]}
+        >
           <Dialog.Title style={styles.dialogTitle}>{t('common:ai_config', "AI Configuration")}</Dialog.Title>
           <Dialog.Content>
-            <TextInput label="Base URL" value={tempBaseUrl} onChangeText={setTempBaseUrl} mode="outlined" style={styles.input} placeholder="https://api.openai.com/v1" autoCapitalize="none" />
-            <TextInput label="API Key" value={tempApiKey} onChangeText={setTempApiKey} mode="outlined" secureTextEntry style={styles.input} />
-            <TextInput label="Model ID" value={tempModelId} onChangeText={setTempModelId} mode="outlined" placeholder={DEFAULTS.AI_MODEL} style={styles.input} autoCapitalize="none" />
+            <TextInput 
+              label="Base URL" 
+              value={tempBaseUrl} 
+              onChangeText={setTempBaseUrl} 
+              mode="outlined" 
+              style={styles.input} 
+              placeholder="https://api.openai.com/v1" 
+              autoCapitalize="none" 
+              outlineColor={theme.dark ? 'rgba(255,255,255,0.2)' : undefined}
+            />
+            <TextInput 
+              label="API Key" 
+              value={tempApiKey} 
+              onChangeText={setTempApiKey} 
+              mode="outlined" 
+              secureTextEntry 
+              style={styles.input} 
+              outlineColor={theme.dark ? 'rgba(255,255,255,0.2)' : undefined}
+            />
+            <TextInput 
+              label="Model ID" 
+              value={tempModelId} 
+              onChangeText={setTempModelId} 
+              mode="outlined" 
+              placeholder={DEFAULTS.AI_MODEL} 
+              style={styles.input} 
+              autoCapitalize="none" 
+              outlineColor={theme.dark ? 'rgba(255,255,255,0.2)' : undefined}
+            />
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setVisible(false)}>{t('common:cancel', "Cancel")}</Button>
-            <Button mode="contained" onPress={saveConfig} style={{marginLeft: 10}}>{t('common:save', "Save")}</Button>
+            <Button onPress={() => setVisible(false)} textColor={theme.dark ? '#fff' : theme.colors.primary}>
+              {t('common:cancel', "Cancel")}
+            </Button>
+            <Button mode="contained" onPress={saveConfig} style={{marginLeft: 10}}>
+              {t('common:save', "Save")}
+            </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
@@ -295,17 +356,15 @@ const styles = StyleSheet.create({
   },
   sectionLabel: {
     letterSpacing: 1.5,
-    opacity: 0.6,
     marginBottom: 10,
     marginLeft: 4,
     fontSize: 11,
     fontWeight: '700',
+    opacity: 0.8,
   },
   settingsCard: {
     borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
     marginBottom: 24,
     overflow: 'hidden',
   },
@@ -318,20 +377,26 @@ const styles = StyleSheet.create({
   },
   settingDesc: {
     fontSize: 12,
-    opacity: 0.5,
+    opacity: 0.6,
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     marginHorizontal: 16,
   },
   dialog: {
-    borderRadius: 24,
-    backgroundColor: '#1a1a1a', // Keep it dark for mystical feel
+    borderRadius: 28,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.05)',
   },
   dialogTitle: {
     fontFamily: 'serif',
     textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  radioLabel: {
+    fontSize: 16,
   },
   input: {
     marginBottom: 12,
@@ -339,10 +404,10 @@ const styles = StyleSheet.create({
   },
   versionText: {
     textAlign: 'center',
-    opacity: 0.3,
     fontSize: 10,
     marginTop: 10,
     letterSpacing: 1,
+    opacity: 0.5,
   }
 });
 
