@@ -201,7 +201,7 @@ const SettingsScreen = () => {
         </Text>
         <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 
-                title={t('common:provider_config', "AI Spirit Engine")}
+                title={t('common:ai_provider_config', "AI Spirit Engine")}
                 description={`${aiConfig.modelId || 'Not set'}`}
                 icon="auto-fix"
                 onPress={showDialog}
@@ -209,7 +209,7 @@ const SettingsScreen = () => {
             />
             <View style={[styles.divider, dynamicDivider]} />
             <SettingRow 
-                title={t('common:get_api_key', "Acquire API Key")}
+                title={t('common:get_api_key_title', "Acquire API Key")}
                 description="OpenRouter.ai"
                 icon="key-outline"
                 onPress={() => Linking.openURL('https://openrouter.ai/keys')}
@@ -219,7 +219,7 @@ const SettingsScreen = () => {
 
         {/* DATA MANAGEMENT */}
         <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
-          {t('common:data', 'CHRONICLES')}
+          {t('common:chronicles', 'Chronicles')}
         </Text>
         <Surface style={[styles.settingsCard, dynamicCardStyle]} elevation={0}>
             <SettingRow 

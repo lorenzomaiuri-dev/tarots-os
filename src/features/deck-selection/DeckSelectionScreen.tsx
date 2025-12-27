@@ -109,7 +109,7 @@ const DeckSelectionScreen = () => {
                 <View style={styles.metaBadge}>
                     <Text style={styles.metaText}>{item.totalCards} {t('common:cards', 'CARDS')}</Text>
                 </View>
-                <Text style={styles.authorText}>by {item.author}</Text>
+                <Text style={styles.authorText}> {item.author}</Text>
               </View>
             </View>
           </TouchableOpacity>

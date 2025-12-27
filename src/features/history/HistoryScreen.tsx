@@ -35,7 +35,7 @@ const HistoryScreen = () => {
 
   const handleDelete = (id: string) => {
     Alert.alert(
-      t('common:delete_reading', 'Archive Reading'),
+      t('common:delete_reading', 'Delete Reading'),
       t('common:confirm_delete', 'Do you wish to remove this memory from your history?'),
       [
         { text: t('common:cancel', 'Keep'), style: 'cancel' },

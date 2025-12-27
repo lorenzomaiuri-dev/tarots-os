@@ -141,7 +141,7 @@ const StatsScreen = () => {
           
           {stats.totalReadings === 0 && (
             <Text style={{ textAlign: 'center', opacity: 0.5, marginTop: 10 }}>
-                {t('common:no_data_yet', 'Begin your journey to see patterns.')}
+                {t('common:no_data_yet', 'Your journey has just begun.')}
             </Text>
           )}
         </Surface>

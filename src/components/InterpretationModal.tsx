@@ -89,7 +89,7 @@ export const InterpretationModal: React.FC<Props> = ({
                 {error}
               </Text>
               <Button mode="contained" onPress={onClose} style={styles.actionButton}>
-                {t('common:return', "Return to Table")}
+                {t('common:back', "Back")}
               </Button>
             </View>
           ) : (
@@ -122,7 +122,7 @@ export const InterpretationModal: React.FC<Props> = ({
                 style={styles.closeFooterBtn}
                 labelStyle={{ letterSpacing: 2 }}
               >
-                {t('common:close_insight', "DISMISS INSIGHT")}
+                {t('common:close', "Close")}
               </Button>
             </ScrollView>
           )}

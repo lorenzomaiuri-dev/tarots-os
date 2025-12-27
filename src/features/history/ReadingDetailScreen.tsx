@@ -97,7 +97,7 @@ const ReadingDetailScreen = () => {
           {/* CARDS ASSEMBLY */}
           <View style={styles.sectionHeader}>
             <Text variant="labelMedium" style={styles.sectionLabel}>
-                {t('common:oracle_assembly', 'THE ASSEMBLY')}
+                {t('common:assembly', 'THE ASSEMBLY')}
             </Text>
           </View>
 
