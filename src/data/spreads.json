@@ -1,8 +1,16 @@
-
 [
+  {
+    "id": "daily",
+    "icon": "calendar-today",
+    "defaultQuestionKey": "daily_focus",
+    "slots": [
+      { "id": "day-energy", "label": "energy", "layout": { "x": 0, "y": 0 } }
+    ]
+  },
   {
     "id": "one-card",
     "icon": "card-text-outline",
+    "defaultQuestionKey": "general_guidance",
     "slots": [
       { "id": "1", "label": "main", "layout": { "x": 0, "y": 0 } }
     ]
@@ -10,6 +18,7 @@
   {
     "id": "three-card",
     "icon": "cards-outline",
+    "defaultQuestionKey": "past_present_future",
     "slots": [
       { "id": "1", "label": "past", "layout": { "x": 0, "y": 0 } },
       { "id": "2", "label": "present", "layout": { "x": 1, "y": 0 } },
@@ -19,6 +28,7 @@
   {
     "id": "relationship",
     "icon": "heart-outline",
+    "defaultQuestionKey": "relationship_dynamic",
     "slots": [
       { "id": "1", "label": "you", "layout": { "x": 0, "y": 0 } },
       { "id": "2", "label": "partner", "layout": { "x": 1, "y": 0 } },
@@ -29,6 +39,7 @@
   {
     "id": "five-card-cross",
     "icon": "plus-circle-outline",
+    "defaultQuestionKey": "situation_analysis",
     "slots": [
       { "id": "1", "label": "present", "layout": { "x": 2, "y": 1 } },
       { "id": "2", "label": "obstacle", "layout": { "x": 1, "y": 1, "rotation": 90 } },
@@ -40,6 +51,7 @@
   {
     "id": "celtic-cross",
     "icon": "cross",
+    "defaultQuestionKey": "deep_analysis",
     "slots": [
       { "id": "1", "label": "present", "layout": { "x": 2, "y": 2 } },
       { "id": "2", "label": "challenge", "layout": { "x": 2, "y": 2, "rotation": 90 } },

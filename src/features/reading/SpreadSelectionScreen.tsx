@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View, Dimensions } from 'react-native';
 import { Text, Surface, useTheme, IconButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,10 @@ const SpreadSelectionScreen = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const selectableSpreads = useMemo(() => {
+    return spreadsData.filter(s => s.id !== 'daily');
+  }, []);
 
   const handleSelect = (spread: Spread) => {
     navigation.navigate('ReadingTable', { spreadId: spread.id });
@@ -72,7 +76,7 @@ const SpreadSelectionScreen = () => {
       </View>
       
       <FlatList
-        data={spreadsData}
+        data={selectableSpreads}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listPadding}

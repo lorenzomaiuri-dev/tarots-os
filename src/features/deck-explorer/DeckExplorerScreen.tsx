@@ -58,6 +58,7 @@ const DeckExplorerScreen = () => {
   
   const { result, isLoading, error, interpretReading } = useInterpretation();
   const [aiModalVisible, setAiModalVisible] = useState(false);
+  const prompt = t('questions:symbolism_analysis', "Analyze the visual symbolism...");
 
   const deck = useMemo(() => getDeck(activeDeckId), [activeDeckId]);
 
@@ -119,7 +120,7 @@ const DeckExplorerScreen = () => {
             activeDeckId, 
             { id: 'study', slots: [{id: 'main'}] }, 
             [{ cardId: selectedCard.id, deckId: activeDeckId, positionId: 'main', isReversed: false }],
-            "Analyze the visual symbolism, colors, and archetypal meaning of this specific card."
+            prompt
         );
     }
   };

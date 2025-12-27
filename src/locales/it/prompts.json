@@ -5,5 +5,12 @@
   "card_line": "{{index}}. Posizione: \"{{positionName}}\" ({{positionMeaning}})\n   - Carta: {{cardName}} ({{status}})\n   - Parole chiave: {{keywords}}\n   - Dati: {{meta}}",
   "final_instruction": "Analizza le carte nelle loro posizioni e le loro interazioni. Fornisci una sintesi finale.",
   "status_upright": "Dritta",
-  "status_reversed": "Rovesciata"
+  "status_reversed": "Rovesciata",
+  "daily_focus": "Qual è l'energia principale e la guida per la mia giornata?",
+  "general_guidance": "Fornisci una guida sulla situazione attuale.",
+  "past_present_future": "Analizza l'evoluzione temporale della situazione.",
+  "relationship_dynamic": "Esplora le dinamiche tra me e il partner.",
+  "situation_analysis": "Analizza gli ostacoli e i possibili esiti.",
+  "deep_analysis": "Fornisci un'analisi completa di tutti i fattori influenzanti.",
+  "symbolism_analysis": "Analizza il simbolismo visivo, i colori e il significato archetipico di questa specifica carta."
 }

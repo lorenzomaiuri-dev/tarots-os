@@ -1,4 +1,11 @@
 {
+  "daily": {
+    "name": "Daily Card",
+    "description": "The energy accompanying you today.",
+    "positions": {
+      "day-energy": { "label": "Daily Energy", "description": "The main archetype for your day." }
+    }
+  },
   "one-card": {
     "name": "Single Card",
     "description": "Perfect for a quick daily draw, a focused answer to a specific question, or a single theme for meditation.",

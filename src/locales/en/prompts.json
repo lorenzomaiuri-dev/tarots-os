@@ -5,5 +5,12 @@
   "card_line": "{{index}}. Position: \"{{positionName}}\" ({{positionMeaning}})\n   - Card: {{cardName}} ({{status}})\n   - Keywords: {{keywords}}\n   - Visuals/Meta: {{meta}}",
   "final_instruction": "Analyze the cards in their specific positions and their interactions. Provide a synthesis.",
   "status_upright": "Upright",
-  "status_reversed": "Reversed"
+  "status_reversed": "Reversed",
+  "daily_focus": "What is the main energy and guidance for my day?",
+  "general_guidance": "Please provide guidance on the current situation.",
+  "past_present_future": "Analyze the temporal evolution of the situation.",
+  "relationship_dynamic": "Explore the dynamics between me and the partner.",
+  "situation_analysis": "Analyze the obstacles and potential outcomes.",
+  "deep_analysis": "Provide a comprehensive analysis of all influencing factors.",
+  "symbolism_analysis": "Analyze the visual symbolism, colors, and archetypal meaning of this specific card."
 }

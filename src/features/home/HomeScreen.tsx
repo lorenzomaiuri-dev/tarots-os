@@ -5,6 +5,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { RootStackParamList } from '../../types/navigation';
 import { AI_CONFIG } from "../../constants";
+import spreadsData from '../../data/spreads.json';
 
 import { ScreenContainer } from '../ScreenContainer';
 import { useSettingsStore } from '../../store/useSettingsStore';
@@ -17,13 +18,6 @@ import { InterpretationModal } from '../../components/InterpretationModal';
 import { ReadingSession, Spread } from '../../types/reading';
 
 const { width } = Dimensions.get('window');
-
-const DAILY_SPREAD: Spread = {
-  id: 'one-card',
-  slots: [{ id: 'daily' }]
-};
-
-const question = "What is the main energy for my day?";
 
 const HomeScreen = () => {
   const { t } = useTranslation();
@@ -38,11 +32,16 @@ const HomeScreen = () => {
   const [isSaved, setIsSaved] = useState(false);
   const { result, isLoading: isAiLoading, error, interpretReading } = useInterpretation();
 
+  const DAILY_SPREAD: Spread = spreadsData.find(s => s.id === 'daily') || {
+     id: 'daily', slots: [{ id: 'day-energy' }] // Fallback
+  };
+  const dailyQuestion = t('prompts:daily_focus', "What is the main energy for my day?");
+
   const handleInterpret = () => {
     if (!dailyCard) return;
     setModalVisible(true);
     if (!result) {
-      interpretReading(activeDeckId, DAILY_SPREAD, [dailyCard], question);
+      interpretReading(activeDeckId, DAILY_SPREAD, [dailyCard], dailyQuestion);
     }
   };
 
@@ -52,7 +51,7 @@ const HomeScreen = () => {
     const session: ReadingSession = {
       id: Date.now().toString(),
       timestamp: Date.now(),
-      spreadId: 'one-card',
+      spreadId: 'daily',
       deckId: activeDeckId,
       cards: [dailyCard],
       aiInterpretation: result,

@@ -83,7 +83,17 @@ const ReadingTableScreen = () => {
     if (!spread) return;
     setModalVisible(true);
     if (!result) {
-        await interpretReading(activeDeckId, spread, drawnCards);
+      let questionToAsk = route.params.customQuestion;
+        
+        if (!questionToAsk && spread.defaultQuestionKey) {
+            questionToAsk = t(`prompts:${spread.defaultQuestionKey}`);
+        }
+        
+        if (!questionToAsk) {
+             questionToAsk = t('prompts:general_guidance', "Please interpret this reading.");
+        }
+
+        await interpretReading(activeDeckId, spread, drawnCards, questionToAsk);
     }
   };
 

@@ -1,4 +1,11 @@
 {
+  "daily": {
+    "name": "Carta del Giorno",
+    "description": "L'energia che ti accompagna oggi.",
+    "positions": {
+      "day-energy": { "label": "Energia Giornaliera", "description": "L'archetipo principale per la tua giornata." }
+    }
+  },
   "one-card": {
     "name": "Carta Singola",
     "description": "Ideale per un'estrazione quotidiana rapida, una risposta focalizzata a una domanda specifica o un singolo tema su cui meditare.",

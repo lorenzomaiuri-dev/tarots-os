@@ -7,6 +7,7 @@ export interface SpreadPosition {
 export interface Spread {
   id: string;        // es: "three-card", "celtic-cross"
   slots: SpreadPosition[];
+  defaultQuestionKey: string;
 }
 
 export interface DrawnCard {
@@ -20,6 +21,7 @@ export interface ReadingSession {
   id: string;
   timestamp: number;      // Unix timestamp
   spreadId: string;
+  customQuestion?: string;
   deckId: string;
   cards: DrawnCard[];
   

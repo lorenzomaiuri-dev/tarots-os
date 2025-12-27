@@ -9,7 +9,7 @@ export type RootStackParamList = {
   Home: undefined;
   DeckSelection: undefined;
   DeckExplorer: undefined;
-  ReadingTable: { spreadId: string };
+  ReadingTable: { spreadId: string; customQuestion?: string };
   SpreadSelection: undefined;
   ReadingDetail: { readingId: string };
   Stats: undefined;
