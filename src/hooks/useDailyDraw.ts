@@ -7,12 +7,16 @@ import { DrawnCard } from '../types/reading';
 import { STORAGE_KEYS } from "../constants";
 
 export const useDailyDraw = () => {
-  const { activeDeckId, preferences } = useSettingsStore();
+  const { activeDeckId, preferences, userName } = useSettingsStore();
   const [dailyCard, setDailyCard] = useState<DrawnCard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // es: "daily_card_state_2025-12-24"
-  const todayKey = `${STORAGE_KEYS.DAILY_CARD}_${getDailySeed()}`;
+  // Get seed
+  const seedBase = getDailySeed();
+  const personalSeed = userName ? `${seedBase}-${userName}` : seedBase;
+
+  // es: "daily_card_state_userName-2025-12-24"
+  const todayKey = `${STORAGE_KEYS.DAILY_CARD}_${personalSeed}`;
 
   // 1. Load state
   useEffect(() => {
@@ -35,10 +39,7 @@ export const useDailyDraw = () => {
   // 2. Drawing function
   const drawNow = useCallback(async () => {
     const deck = getDeck(activeDeckId);
-    if (!deck) return;
-
-    // Get seed
-    const seed = getDailySeed(); 
+    if (!deck) return;    
     
     // Filter major arcana based on preferences
     let deckToUse = deck;
@@ -49,7 +50,7 @@ export const useDailyDraw = () => {
       };
     }
 
-    const result = drawCards(deckToUse, 1, seed, preferences.allowReversed);
+    const result = drawCards(deckToUse, 1, personalSeed, preferences.allowReversed);
     const drawn = result[0];
 
     const newDailyCard: DrawnCard = {

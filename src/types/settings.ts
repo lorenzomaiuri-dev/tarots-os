@@ -11,6 +11,7 @@ export interface AppPreferences {
 
 export interface SettingsState {
   // State
+  userName: string;
   themeMode: 'light' | 'dark' | 'system';
   activeDeckId: string;
   isOnboardingCompleted: boolean;
@@ -18,6 +19,7 @@ export interface SettingsState {
   preferences: AppPreferences;
 
   // Actions
+  setUserName: (name: string) => void;
   setThemeMode: (mode: 'light' | 'dark' | 'system') => void;
   completeOnboarding: () => void;
   setActiveDeckId: (deckId: string) => void;

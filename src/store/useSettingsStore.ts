@@ -8,6 +8,7 @@ export const useSettingsStore = create<SettingsState>()(
   persist(
     (set) => ({
       // --- Default ---
+      userName: '', // Start empty
       themeMode: DEFAULTS.THEME,
       activeDeckId: DEFAULTS.ACTIVE_DECK,
       isOnboardingCompleted: false,
@@ -28,6 +29,7 @@ export const useSettingsStore = create<SettingsState>()(
       },
 
       // --- Actions ---
+      setUserName: (name) => set({ userName: name }),
       setThemeMode: (mode) => set({ themeMode: mode }),
       completeOnboarding: () => set({ isOnboardingCompleted: true }),
       setActiveDeckId: (id) => set({ activeDeckId: id }),
@@ -35,7 +37,7 @@ export const useSettingsStore = create<SettingsState>()(
       setAiConfig: (newConfig) => 
         set((state) => ({ 
           aiConfig: { ...state.aiConfig, ...newConfig } 
-        })),
+        })),      
 
       updatePreferences: (newPrefs) =>
         set((state) => ({
