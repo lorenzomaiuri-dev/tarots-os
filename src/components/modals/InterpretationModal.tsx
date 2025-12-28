@@ -1,11 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 
-import { Animated, Modal, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  Modal,
+  PanResponder,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
+
+import { BlurView } from 'expo-blur';
 
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-native-markdown-display';
-import { Avatar, Button, IconButton, Surface, Text, useTheme } from 'react-native-paper';
+import { Button, Icon, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { useHaptics } from '../../hooks/useHaptics';
+import { LiquidGlass } from '../LiquidGlass';
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface Props {
   visible: boolean;
@@ -29,104 +44,141 @@ export const InterpretationModal: React.FC<Props> = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const haptics = useHaptics();
 
-  // Pulse effect for loading state
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const panY = useRef(new Animated.Value(0)).current;
+
   useEffect(() => {
     if (isLoading) {
       Animated.loop(
         Animated.sequence([
-          Animated.timing(pulseAnim, { toValue: 1.2, duration: 1000, useNativeDriver: true }),
-          Animated.timing(pulseAnim, { toValue: 1, duration: 1000, useNativeDriver: true }),
+          Animated.timing(pulseAnim, { toValue: 1.2, duration: 1200, useNativeDriver: true }),
+          Animated.timing(pulseAnim, { toValue: 1, duration: 1200, useNativeDriver: true }),
         ])
       ).start();
     } else {
       pulseAnim.setValue(1);
+      if (content) haptics.notification('success');
     }
-  }, [isLoading, pulseAnim]);
+  }, [isLoading, content]);
 
-  const modalTitle = title || t('common:interpretation_title', 'Oracle Insight');
+  useEffect(() => {
+    if (visible) panY.setValue(0);
+  }, [visible]);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (_, gestureState) => Math.abs(gestureState.dy) > 5,
+      onPanResponderMove: (_, gestureState) => {
+        if (gestureState.dy > 0) panY.setValue(gestureState.dy);
+      },
+      onPanResponderRelease: (_, gestureState) => {
+        if (gestureState.dy > 150) {
+          haptics.selection();
+          Animated.timing(panY, {
+            toValue: SCREEN_HEIGHT,
+            duration: 200,
+            useNativeDriver: true,
+          }).start(onClose);
+        } else {
+          Animated.spring(panY, {
+            toValue: 0,
+            useNativeDriver: true,
+            bounciness: 8,
+          }).start();
+        }
+      },
+    })
+  ).current;
+
+  const modalTitle = title || t('common:interpretation_title', 'Insights');
 
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="pageSheet"
-      onRequestClose={onClose}
-    >
-      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-        {/* HEADER SECTION */}
-        <View style={[styles.header, { paddingTop: 20 }]}>
-          <View style={styles.headerContent}>
-            <Text variant="headlineSmall" style={styles.title}>
-              {modalTitle}
-            </Text>
-            <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
-          </View>
-          <IconButton icon="close-circle-outline" size={28} onPress={onClose} />
-        </View>
+    <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
+      <View style={styles.container}>
+        <BlurView
+          intensity={100}
+          tint={theme.dark ? 'systemThickMaterialDark' : 'systemThickMaterialLight'}
+          style={StyleSheet.absoluteFill}
+        />
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: theme.colors.background, opacity: 0.7 },
+          ]}
+        />
 
-        {/* CONTENT AREA */}
-        <View style={styles.contentContainer}>
-          {isLoading ? (
-            <View style={styles.center}>
-              <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
-                <Avatar.Icon
-                  size={80}
-                  icon="auto-fix"
-                  style={{ backgroundColor: 'transparent' }}
-                  color={theme.colors.primary}
+        <Animated.View
+          style={[
+            styles.animatedWrapper,
+            {
+              paddingTop: insets.top + 10,
+              paddingBottom: insets.bottom + 20,
+              transform: [{ translateY: panY }],
+            },
+          ]}
+        >
+          <LiquidGlass style={styles.liquidCard} intensity={90} cornerRadius={40}>
+            {/* DRAG HEADER */}
+            <View style={styles.header} {...panResponder.panHandlers}>
+              <View style={styles.dragHandleContainer}>
+                <View
+                  style={[styles.dragHandle, { backgroundColor: theme.colors.onSurfaceVariant }]}
                 />
-              </Animated.View>
-              <Text variant="titleMedium" style={styles.loadingTitle}>
-                {t('common:consulting_stars', 'Consulting the Arcana...')}
-              </Text>
-              <Text style={styles.loadingSubtitle}>
-                {t('common:loading_desc', 'Searching the infinite threads of destiny')}
-              </Text>
-            </View>
-          ) : error ? (
-            <View style={styles.center}>
-              <Avatar.Icon
-                size={64}
-                icon="alert-decagram-outline"
-                style={{ backgroundColor: 'transparent' }}
-                color={theme.colors.error}
-              />
-              <Text style={[styles.errorText, { color: theme.colors.error }]}>{error}</Text>
-              <Button mode="contained" onPress={onClose} style={styles.actionButton}>
-                {t('common:back', 'Back')}
-              </Button>
-            </View>
-          ) : (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 40 }]}
-            >
-              <Surface style={styles.interpretationSurface} elevation={1}>
-                <Markdown style={markdownStyles(theme)}>{content || ''}</Markdown>
-
-                {/* --- ACTIONS SECTION */}
-                {actions && <View style={styles.actionsContainer}>{actions}</View>}
-
-                <View style={styles.scrollDecoration}>
-                  <View style={styles.dot} />
-                  <View style={[styles.line, { backgroundColor: theme.colors.outlineVariant }]} />
-                  <View style={styles.dot} />
-                </View>
-              </Surface>
-
-              <Button
-                mode="text"
-                onPress={onClose}
-                style={styles.closeFooterBtn}
-                labelStyle={{ letterSpacing: 2 }}
+              </View>
+              <Text
+                variant="headlineSmall"
+                style={[styles.title, { textShadowColor: theme.colors.primary }]}
               >
-                {t('common:close', 'Close')}
-              </Button>
-            </ScrollView>
-          )}
-        </View>
+                {modalTitle}
+              </Text>
+              <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
+            </View>
+
+            {/* CONTENT */}
+            <View style={styles.contentFlex}>
+              {isLoading ? (
+                <View style={styles.center}>
+                  <Animated.View style={{ transform: [{ scale: pulseAnim }], marginBottom: 32 }}>
+                    <View style={styles.glowContainer}>
+                      <Icon source="creation" size={80} color={theme.colors.primary} />
+                    </View>
+                  </Animated.View>
+                  <Text
+                    variant="titleMedium"
+                    style={[styles.loadingTitle, { color: theme.colors.primary }]}
+                  >
+                    {t('common:consulting_stars', 'Consulting the Arcana...')}
+                  </Text>
+                </View>
+              ) : error ? (
+                <View style={styles.center}>
+                  <Icon source="alert-decagram-outline" size={60} color={theme.colors.error} />
+                  <Text style={[styles.errorText, { color: theme.colors.error }]}>{error}</Text>
+                  <Button mode="contained" onPress={onClose} style={styles.actionButton}>
+                    {t('common:back', 'Back')}
+                  </Button>
+                </View>
+              ) : (
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.scrollContent}
+                  bounces={false}
+                >
+                  <Markdown style={markdownStyles(theme)}>{content || ''}</Markdown>
+
+                  {actions && <View style={styles.actionsContainer}>{actions}</View>}
+
+                  <View style={styles.footerDecoration}>
+                    <Text style={{ opacity: 0.3, fontSize: 12, letterSpacing: 4 }}>✦ ✦ ✦</Text>
+                  </View>
+                </ScrollView>
+              )}
+            </View>
+          </LiquidGlass>
+        </Animated.View>
       </View>
     </Modal>
   );
@@ -135,28 +187,36 @@ export const InterpretationModal: React.FC<Props> = ({
 const markdownStyles = (theme: any) => ({
   body: {
     color: theme.colors.onSurface,
-    fontSize: 17,
-    lineHeight: 28,
+    fontSize: 18,
+    lineHeight: 32,
     fontFamily: 'serif',
-    opacity: 0.9,
+    textShadowColor: 'rgba(208, 188, 255, 0.15)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 4,
   },
   heading1: {
     color: theme.colors.primary,
-    marginTop: 24,
-    marginBottom: 12,
+    marginTop: 20,
+    marginBottom: 16,
     fontFamily: 'serif',
     fontWeight: 'bold' as const,
-    fontSize: 24,
+    fontSize: 28,
     textAlign: 'center',
+    textShadowColor: theme.colors.primary,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
   heading2: {
     color: theme.colors.secondary,
-    marginTop: 20,
-    marginBottom: 10,
+    marginTop: 24,
+    marginBottom: 8,
     fontFamily: 'serif',
     fontWeight: 'bold' as const,
-    fontSize: 20,
+    fontSize: 22,
     letterSpacing: 0.5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.1)',
+    paddingBottom: 6,
   },
   strong: {
     color: theme.colors.primary,
@@ -165,115 +225,96 @@ const markdownStyles = (theme: any) => ({
   em: {
     fontStyle: 'italic',
     opacity: 0.8,
+    color: theme.colors.tertiary,
   },
   blockquote: {
     backgroundColor: 'rgba(255, 255, 255, 0.03)',
     borderLeftColor: theme.colors.primary,
     borderLeftWidth: 3,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
     marginVertical: 16,
-    fontStyle: 'italic',
     borderRadius: 4,
-  },
-  hr: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    height: 1,
-    marginVertical: 20,
   },
 });
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1 },
+  animatedWrapper: { flex: 1, paddingHorizontal: 12 },
+  liquidCard: {
     flex: 1,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 25 },
+    shadowOpacity: 0.5,
+    shadowRadius: 40,
+    elevation: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.15)',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingHorizontal: 20,
+    alignItems: 'center',
+    paddingTop: 16,
     paddingBottom: 20,
+    zIndex: 10,
+    backgroundColor: 'transparent',
   },
-  headerContent: {
-    flex: 1,
+  dragHandleContainer: {
+    width: '100%',
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
   },
+  dragHandle: { width: 40, height: 5, borderRadius: 3, opacity: 0.3 },
   title: {
     fontFamily: 'serif',
     fontWeight: 'bold',
+    fontSize: 26,
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   accentLine: {
-    height: 3,
-    width: 30,
-    marginTop: 8,
+    height: 2,
+    width: 40,
+    marginTop: 12,
     borderRadius: 2,
+    opacity: 0.8,
   },
-  contentContainer: {
-    flex: 1,
-  },
-  scrollContent: {
-    paddingHorizontal: 16,
-  },
-  interpretationSurface: {
-    padding: 24,
-    borderRadius: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
-  },
+  contentFlex: { flex: 1 },
+  scrollContent: { padding: 24, paddingTop: 0, paddingBottom: 40 },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 40,
   },
+  glowContainer: {
+    shadowColor: '#D0BCFF',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 10,
+  },
   loadingTitle: {
     fontFamily: 'serif',
-    marginTop: 24,
     fontWeight: 'bold',
-  },
-  loadingSubtitle: {
-    marginTop: 8,
-    opacity: 0.5,
+    fontSize: 22,
     textAlign: 'center',
-    lineHeight: 20,
+    marginTop: 20,
   },
   errorText: {
     textAlign: 'center',
     marginTop: 16,
-    marginBottom: 24,
     fontSize: 16,
-    lineHeight: 22,
+    marginBottom: 20,
   },
-  actionButton: {
-    borderRadius: 12,
-  },
-  closeFooterBtn: {
-    marginTop: 30,
-    opacity: 0.5,
-  },
-  scrollDecoration: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 32,
-    opacity: 0.2,
-  },
-  line: {
-    height: 1,
-    width: 40,
-    marginHorizontal: 10,
-  },
-  dot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#FFF',
-  },
+  actionButton: { borderRadius: 16, width: 200 },
+  footerDecoration: { alignItems: 'center', marginTop: 40 },
   actionsContainer: {
-    marginTop: 24,
-    paddingTop: 24,
+    marginTop: 30,
+    paddingTop: 30,
     borderTopWidth: 1,
     borderTopColor: 'rgba(255,255,255,0.1)',
-    alignItems: 'center',
   },
 });
