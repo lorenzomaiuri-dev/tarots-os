@@ -1,161 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Alert, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import * as LocalAuthentication from 'expo-local-authentication';
-import * as Notifications from 'expo-notifications';
+import { Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { List, Switch, Text, useTheme } from 'react-native-paper';
 
-import { SettingSection } from '../..//components/SettingSection';
-import { AIConfigModal } from '../..//components/modals/AIConfigModal';
 import { SettingRow } from '../../components/SettingRow';
-import { AboutModal } from '../../components/modals/AboutModal';
+// Components
+import { SettingSection } from '../../components/SettingSection';
 // Modals
+import { AIConfigModal } from '../../components/modals/AIConfigModal';
+import { AboutModal } from '../../components/modals/AboutModal';
 import { LanguageModal } from '../../components/modals/LanguageModal';
 import { ResetModal } from '../../components/modals/ResetModal';
 import { ThemeModal } from '../../components/modals/ThemeModal';
-// Hooks & Logic
-import { useHaptics } from '../../hooks/useHaptics';
-import i18n from '../../locales/i18n';
-import { AppInfoService, ChangelogEntry } from '../../services/appInfo';
-import { BackupService } from '../../services/backup';
-import { NotificationService } from '../../services/notifications';
-import { useHistoryStore } from '../../store/useHistoryStore';
-import { useSettingsStore } from '../../store/useSettingsStore';
+// Logic Hook & Service
+import { useSettingsLogic } from '../../hooks/useSettingsLogic';
+import { AppInfoService } from '../../services/appInfo';
 import { ScreenContainer } from '../ScreenContainer';
 
 const SettingsScreen = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const haptics = useHaptics();
 
-  const { preferences, updatePreferences, aiConfig, setAiConfig, resetAllSettings } =
-    useSettingsStore();
-  const { clearHistory } = useHistoryStore();
-
-  const [modalState, setModalState] = useState({
-    lang: false,
-    theme: false,
-    ai: false,
-    reset: false,
-    about: false,
-  });
-  const [changelogData, setChangelogData] = useState<{ data: ChangelogEntry[]; loading: boolean }>({
-    data: [],
-    loading: false,
-  });
-
-  // HANDLERS
-  const handleExport = async () => {
-    haptics.impact('medium');
-    try {
-      const data = {
-        history: useHistoryStore.getState().readings,
-        version: 1,
-        exportDate: new Date().toISOString(),
-      };
-      await BackupService.exportJson(data, 'tarot_journal_backup.json');
-      haptics.notification('success');
-    } catch (e) {
-      console.error(e);
-      Alert.alert(t('common:error'), t('common:error_backup'));
-    }
-  };
-
-  const handleImport = async () => {
-    haptics.impact('medium');
-    try {
-      const parsed = await BackupService.importJson<{ history: any[] }>();
-      if (!parsed) return;
-
-      Alert.alert(
-        t('common:restore'),
-        `${t('common:found')} ${parsed.history.length} ${t('common:readings')}.`,
-        [
-          { text: t('common:cancel'), style: 'cancel' },
-          {
-            text: t('common:restore'),
-            style: 'destructive',
-            onPress: () => {
-              useHistoryStore.setState({ readings: parsed.history });
-              haptics.notification('success');
-              Alert.alert(t('common:success'), t('common:success_message_backup'));
-            },
-          },
-        ]
-      );
-    } catch (e) {
-      console.error(e);
-      Alert.alert(t('common:error'), t('common:error_invalid_file'));
-    }
-  };
-  const handleToggleBiometrics = async (value: boolean) => {
-    if (value) {
-      const hasHardware = await LocalAuthentication.hasHardwareAsync();
-      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-
-      if (!hasHardware || !isEnrolled) {
-        Alert.alert(
-          t('common:biometrics_error_title', 'Not Available'),
-          t(
-            'common:biometrics_error_desc',
-            "Your device does not support biometrics or you haven't configured fingerprint/face."
-          )
-        );
-        return;
-      }
-
-      // Test
-      const test = await LocalAuthentication.authenticateAsync({
-        promptMessage: t('common:biometrics_confirm', 'Confirm Identiy'),
-      });
-
-      if (!test.success) return;
-    }
-
-    haptics.selection();
-    updatePreferences({ biometricsEnabled: value });
-  };
-
-  const toggleReminder = async (val: boolean) => {
-    if (val) {
-      const granted = await NotificationService.requestPermissions();
-      if (granted) {
-        await NotificationService.scheduleDailyReminder(
-          8,
-          30,
-          t('common:notification_title'),
-          t('common:notification_message')
-        );
-        updatePreferences({ notificationsEnabled: true });
-        haptics.notification('success');
-      } else {
-        Alert.alert(t('common:permissions_denied'), t('common:enable_notifications_prompt'));
-      }
-    } else {
-      await Notifications.cancelAllScheduledNotificationsAsync();
-      updatePreferences({ notificationsEnabled: false });
-    }
-  };
-
-  const openAbout = async () => {
-    haptics.impact('light');
-    setModalState((prev) => ({ ...prev, about: true }));
-    if (changelogData.data.length === 0) {
-      setChangelogData((prev) => ({ ...prev, loading: true }));
-      const data = await AppInfoService.getChangelog();
-      setChangelogData({ data, loading: false });
-    }
-  };
-
-  const factoryReset = () => {
-    haptics.notification('error');
-    clearHistory();
-    resetAllSettings();
-    setModalState((prev) => ({ ...prev, reset: false }));
-  };
+  const {
+    preferences,
+    aiConfig,
+    modalState,
+    changelogData,
+    toggleModal,
+    handleLanguageChange,
+    handleThemeChange,
+    handleAiSave,
+    handleExport,
+    handleImport,
+    handleToggleBiometrics,
+    handleToggleReminder,
+    handleOpenAbout,
+    handleFactoryReset,
+    updatePreferences,
+  } = useSettingsLogic();
 
   return (
     <ScreenContainer>
@@ -179,16 +63,13 @@ const SettingsScreen = () => {
             )}
           />
           <SettingRow
-            title={t('common:only_major_arcana', 'Only Major Arcana')}
-            description={t('common:major_only_desc', 'Focus only on the 22 Greater Secrets')}
+            title={t('common:only_major_arcana')}
+            description={t('common:major_only_desc')}
             leftIcon="star-shooting-outline"
             right={() => (
               <Switch
                 value={preferences.onlyMajorArcana}
-                onValueChange={(val) => {
-                  haptics.selection();
-                  updatePreferences({ onlyMajorArcana: val });
-                }}
+                onValueChange={(v) => updatePreferences({ onlyMajorArcana: v })}
               />
             )}
           />
@@ -196,7 +77,10 @@ const SettingsScreen = () => {
             title={t('common:morning_ritual')}
             leftIcon="bell-ring-outline"
             right={() => (
-              <Switch value={preferences.notificationsEnabled} onValueChange={toggleReminder} />
+              <Switch
+                value={preferences.notificationsEnabled}
+                onValueChange={handleToggleReminder}
+              />
             )}
           />
         </SettingSection>
@@ -204,29 +88,26 @@ const SettingsScreen = () => {
         <SettingSection label={t('common:appearance')}>
           <SettingRow
             title={t('common:theme')}
-            leftIcon="palette-outline"
             description={t(`common:theme_${preferences.theme}`)}
-            onPress={() => setModalState((prev) => ({ ...prev, theme: true }))}
-            right={(props: any) => <List.Icon {...props} icon="chevron-right" />}
+            leftIcon="palette-outline"
+            onPress={() => toggleModal('theme', true)}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
           />
           <SettingRow
             title={t('common:language')}
-            leftIcon="translate"
             description={preferences.language === 'it' ? 'Italiano' : 'English'}
-            onPress={() => setModalState((prev) => ({ ...prev, lang: true }))}
-            right={(props: any) => <List.Icon {...props} icon="chevron-right" />}
+            leftIcon="translate"
+            onPress={() => toggleModal('lang', true)}
+            right={(props) => <List.Icon {...props} icon="chevron-right" />}
           />
           <SettingRow
-            title={t('common:haptics', 'Haptics')}
-            description={t('common:haptics_description', 'Tactile feedback')}
+            title={t('common:haptics')}
+            description={t('common:haptics_description')}
             leftIcon="vibrate"
             right={() => (
               <Switch
                 value={preferences.hapticsEnabled}
-                onValueChange={(val) => {
-                  if (val) haptics.impact('medium');
-                  updatePreferences({ hapticsEnabled: val });
-                }}
+                onValueChange={(v) => updatePreferences({ hapticsEnabled: v })}
               />
             )}
           />
@@ -234,8 +115,8 @@ const SettingsScreen = () => {
 
         <SettingSection label={t('common:security_privacy')}>
           <SettingRow
-            title={t('common:biometric_lock', 'Biometric Lock')}
-            description={t('common:biometric_desc', 'Protect your Journal with FaceID/Fingerprint')}
+            title={t('common:biometric_lock')}
+            description={t('common:biometric_desc')}
             leftIcon="fingerprint"
             right={() => (
               <Switch
@@ -249,28 +130,27 @@ const SettingsScreen = () => {
         <SettingSection label={t('common:ai')}>
           <SettingRow
             title={t('common:ai_provider_config')}
-            leftIcon="auto-fix"
             description={aiConfig.modelId}
-            onPress={() => setModalState((prev) => ({ ...prev, ai: true }))}
-            right={(props: any) => <List.Icon {...props} icon="cog-outline" />}
+            leftIcon="auto-fix"
+            onPress={() => toggleModal('ai', true)}
+            right={(props) => <List.Icon {...props} icon="cog-outline" />}
           />
           <SettingRow
-            title={t('common:get_api_key_title', 'Acquire Key')}
-            description="OpenRouter.ai"
+            title={t('common:get_api_key_title')}
             leftIcon="key-outline"
             onPress={() => Linking.openURL('https://openrouter.ai/keys')}
-            right={(props: any) => <List.Icon {...props} icon="open-in-new" />}
+            right={(props) => <List.Icon {...props} icon="open-in-new" />}
           />
         </SettingSection>
 
         <SettingSection label={t('common:chronicles')}>
           <SettingRow
-            title={t('common:export_backup', 'Seal Memories')}
+            title={t('common:export_backup')}
             leftIcon="book-arrow-up-outline"
             onPress={handleExport}
           />
           <SettingRow
-            title={t('common:import_backup', 'Restore Spirits')}
+            title={t('common:import_backup')}
             leftIcon="book-arrow-down-outline"
             onPress={handleImport}
           />
@@ -279,64 +159,49 @@ const SettingsScreen = () => {
         <SettingSection label={t('common:danger_zone')} isDestructive>
           <SettingRow
             title={t('common:factory_reset')}
-            description={t('common:factory_reset_desc', 'Wipe all memories and reset settings')}
+            description={t('common:factory_reset_desc')}
             leftIcon="alert-octagon-outline"
             destructive
-            onPress={() => setModalState((prev) => ({ ...prev, reset: true }))}
+            onPress={() => toggleModal('reset', true)}
           />
         </SettingSection>
 
-        <TouchableOpacity onPress={openAbout} style={styles.versionFooter}>
+        <TouchableOpacity onPress={handleOpenAbout} style={styles.versionFooter}>
           <Text style={styles.versionText}>
             {t('common:app_name')} — {AppInfoService.getFullVersionString()}
           </Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* MODALS COMPONENTS */}
+      {/* MODALS */}
       <LanguageModal
         visible={modalState.lang}
         currentLang={preferences.language}
-        onClose={() => setModalState((prev) => ({ ...prev, lang: false }))}
-        onSelect={(l) => {
-          i18n.changeLanguage(l);
-          updatePreferences({ language: l });
-          setModalState((prev) => ({ ...prev, lang: false }));
-        }}
+        onClose={() => toggleModal('lang', false)}
+        onSelect={handleLanguageChange}
       />
-
       <ThemeModal
         visible={modalState.theme}
         currentTheme={preferences.theme}
-        onClose={() => setModalState((prev) => ({ ...prev, theme: false }))}
-        onSelect={(t) => {
-          updatePreferences({ theme: t as any });
-          setModalState((prev) => ({ ...prev, theme: false }));
-        }}
+        onClose={() => toggleModal('theme', false)}
+        onSelect={handleThemeChange}
       />
-
       <AIConfigModal
         visible={modalState.ai}
         config={aiConfig}
-        onClose={() => setModalState((prev) => ({ ...prev, ai: false }))}
-        onSave={(conf) => {
-          setAiConfig(conf);
-          setModalState((prev) => ({ ...prev, ai: false }));
-          haptics.notification('success');
-        }}
+        onClose={() => toggleModal('ai', false)}
+        onSave={handleAiSave}
       />
-
       <ResetModal
         visible={modalState.reset}
-        onClose={() => setModalState((prev) => ({ ...prev, reset: false }))}
-        onConfirm={factoryReset}
+        onClose={() => toggleModal('reset', false)}
+        onConfirm={handleFactoryReset}
       />
-
       <AboutModal
         visible={modalState.about}
         changelog={changelogData.data}
         isLoading={changelogData.loading}
-        onClose={() => setModalState((prev) => ({ ...prev, about: false }))}
+        onClose={() => toggleModal('about', false)}
       />
     </ScreenContainer>
   );
