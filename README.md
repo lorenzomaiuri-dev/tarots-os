@@ -35,9 +35,7 @@ Tarots OS follows a **"Ritualistic UX"** approach. Every interaction is designed
 <div align="center">
   <h3>The Modern Ritual in Motion</h3>
   
-  <video src="https://github.com/lorenzomaiuri-dev/tarots-os/raw/main/screenshots/preview.mp4" width="400" controls muted loop autoplay>
-    Your browser does not support the video tag.
-  </video>
+  <img src="https://github.com/lorenzomaiuri-dev/tarots-os/raw/main/screenshots/preview.gif" width="320" />
   
   <p align="center">
     <i>Witness the fluid design and AI-driven insights.</i>
