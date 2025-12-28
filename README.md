@@ -1,7 +1,7 @@
-# 🌌 Tarots AI: The Mystical Tarot Journal
+# 🌌 Tarots OS: The Mystical Tarot Journal
 
 <div align="center">
-  <img src="./assets/icon.png" alt="Tarots AI Logo" width="120" height="120" />
+  <img src="./assets/icon.png" alt="Tarots OS Logo" width="120" height="120" />
   <br />
   
   [![MIT License](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
@@ -19,11 +19,11 @@
 
 ---
 
-**Tarots AI** is a premium, privacy-focused Tarot journal. It transforms the smartphone into a digital altar, offering a sacred space for daily reflection powered by introspection-tuned AI interpretations and a cutting-edge Glassmorphic interface.
+**Tarots OS** is a premium, privacy-focused Tarot journal. It transforms the smartphone into a digital altar, offering a sacred space for daily reflection powered by introspection-tuned AI interpretations and a cutting-edge Glassmorphic interface.
 
 ## ✨ Design Philosophy: "Liquid Glass"
 
-Tarots AI follows a **"Ritualistic UX"** approach. Every interaction is designed to feel weighty and meaningful.
+Tarots OS follows a **"Ritualistic UX"** approach. Every interaction is designed to feel weighty and meaningful.
 
 - **💎 iOS-esque Glassmorphism:** Deep utilization of `expo-blur` and multi-layered translucency creates a sense of depth and ethereal beauty.
 - **📳 Tactile Feedback:** Full integration of `expo-haptics` provides physical "clinks" during card flips and "pulses" during cosmic RNG draws.
@@ -40,7 +40,7 @@ Tarots AI follows a **"Ritualistic UX"** approach. Every interaction is designed
 
 ## 📲 Availability
 
-Tarots AI is currently in active development. We are preparing for a public release on all major open platforms.
+Tarots OS is currently in active development. We are preparing for a public release on all major open platforms.
 
 <div align="center">
   
@@ -95,8 +95,8 @@ src/
 1.  **Clone the Repository**
 
     ```bash
-    git clone https://github.com/lorenzomaiuri-dev/tarots-ai.git
-    cd tarots-ai
+    git clone https://github.com/lorenzomaiuri-dev/tarots-os.git
+    cd tarots-os
     ```
 
 2.  **Install Dependencies**

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tarots-ai",
-    "slug": "tarots-ai",
+    "name": "tarots-os",
+    "slug": "tarots-os",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,8 +15,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifer": "com.lorenzomaiuri.tarotsai",
-      "bundleIdentifier": "com.lorenzomaiuri.tarotsai"
+      "bundleIdentifer": "com.lorenzomaiuri.tarotsos",
+      "bundleIdentifier": "com.lorenzomaiuri.tarotsos"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.lorenzomaiuri.tarotsai",
+      "package": "com.lorenzomaiuri.tarotsos",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },

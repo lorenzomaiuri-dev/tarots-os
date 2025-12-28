@@ -52,7 +52,7 @@ const OnboardingScreen = () => {
         style={styles.mainIcon}
       />
       <Text variant="displaySmall" style={styles.title}>
-        {t('onboarding:welcome_title', 'Tarots AI')}
+        {t('onboarding:welcome_title', 'Tarots OS')}
       </Text>
       <Text variant="titleMedium" style={styles.subtitle}>
         {t('onboarding:welcome_subtitle', 'Introspection, not prediction.')}

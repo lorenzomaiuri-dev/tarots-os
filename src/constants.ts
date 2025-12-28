@@ -13,8 +13,8 @@ export const DEFAULTS = {
 } as const;
 
 export const AI_CONFIG = {
-  APP_NAME: 'Tarots AI',
-  SITE_URL: 'https://github.com/lorenzomaiuri-dev/tarots-ai',
+  APP_NAME: 'Tarots OS',
+  SITE_URL: 'https://github.com/lorenzomaiuri-dev/tarots-os',
   TEMPERATURE: 0.7, // TODO: from config, Not too creative
 } as const;
 

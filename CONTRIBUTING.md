@@ -1,6 +1,6 @@
-# Contributing to Tarots AI
+# Contributing to Tarots OS
 
-First off, thank you for considering contributing to Tarots AI! 💜
+First off, thank you for considering contributing to Tarots OS! 💜
 
 It's people like you that make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -42,8 +42,8 @@ This project and everyone participating in it is governed by a Code of Conduct. 
 1.  **Fork the repository** on GitHub.
 2.  **Clone your fork** locally:
     ```bash
-    git clone https://github.com/YOUR-USERNAME/tarots-ai.git
-    cd tarots-ai
+    git clone https://github.com/YOUR-USERNAME/tarots-os.git
+    cd tarots-os
     ```
 3.  **Install dependencies**:
     ```bash
@@ -169,4 +169,4 @@ Format: `<type>(<scope>): <subject>`
 
 ---
 
-Thank you for contributing to Tarots AI! 🔮
+Thank you for contributing to Tarots OS! 🔮
