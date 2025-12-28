@@ -127,5 +127,12 @@
   "question_placeholder": "Cosa devo sapere riguardo a...",
   "begin_reading": "Inizia Lettura",
   "haptics": "Vibrazione",
-  "haptics_description": "Feedback tattile durante l'uso"
+  "haptics_description": "Feedback tattile durante l'uso",
+  "danger_zone": "L'ABISSO",
+  "factory_reset": "Cancella Tutto",
+  "factory_reset_desc": "Cancella tutti i ricordi e resetta le impostazioni",
+  "are_you_sure": "Avvertimento Finale",
+  "reset_warning": "Questa azione cancellerà permanentemente i tuoi ricordi e ripristinerà l'app al suo stato originale. Non può essere annullata.",
+  "confirm_erase": "Cancella Tutti i Dati",
+  "cancel_erase": "Mantieni i miei ricordi"
 }

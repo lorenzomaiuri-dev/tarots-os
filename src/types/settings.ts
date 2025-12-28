@@ -25,4 +25,5 @@ export interface SettingsState {
   setActiveDeckId: (deckId: string) => void;
   setAiConfig: (config: Partial<AIModelConfig>) => void; // Update only API key
   updatePreferences: (prefs: Partial<AppPreferences>) => void;
+  resetAllSettings: () => void;
 }

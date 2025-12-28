@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 
-import {
-  Alert,
-  Linking,
-  Modal,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-
-import { BlurView } from 'expo-blur';
+import { Alert, Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
-import { Button, List, RadioButton, Switch, Text, TextInput, useTheme } from 'react-native-paper';
+import {
+  Avatar,
+  Button,
+  List,
+  RadioButton,
+  Switch,
+  Text,
+  TextInput,
+  useTheme,
+} from 'react-native-paper';
 
 // Components
 import { GlassSurface } from '../../components/GlassSurface';
@@ -31,12 +30,15 @@ const SettingsScreen = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const haptics = useHaptics();
-  const { preferences, updatePreferences, aiConfig, setAiConfig } = useSettingsStore();
+  const { preferences, updatePreferences, aiConfig, setAiConfig, resetAllSettings } =
+    useSettingsStore();
+  const { clearHistory } = useHistoryStore();
 
   // Modal Visibility States
   const [aiVisible, setAiVisible] = useState(false);
   const [themeVisible, setThemeVisible] = useState(false);
   const [langVisible, setLangVisible] = useState(false);
+  const [resetVisible, setResetVisible] = useState(false);
 
   // Temp AI States
   const [tempApiKey, setTempApiKey] = useState('');
@@ -61,6 +63,7 @@ const SettingsScreen = () => {
       await BackupService.exportJson(data, 'tarot_journal_backup.json');
       haptics.notification('success');
     } catch (e) {
+      console.error(e);
       Alert.alert(t('common:error'), t('common:error_backup'));
     }
   };
@@ -88,6 +91,7 @@ const SettingsScreen = () => {
         ]
       );
     } catch (e) {
+      console.error(e);
       Alert.alert(t('common:error'), t('common:error_invalid_file'));
     }
   };
@@ -110,15 +114,37 @@ const SettingsScreen = () => {
     haptics.notification('success');
   };
 
+  const handleFactoryReset = () => {
+    haptics.notification('error');
+
+    // Clear Data
+    clearHistory();
+
+    // Clear Settings & Onboarding state
+    resetAllSettings();
+
+    //  Close Modal
+    setResetVisible(false);
+
+    // Note: Since isOnboardingCompleted is now false, the AppNavigator
+    // will automatically redirect to the Onboarding screen on next render.
+  };
+
   // REUSABLE ROW COMPONENT
-  const SettingRow = ({ title, description, right, onPress, icon }: any) => (
+  const SettingRow = ({ title, description, right, onPress, icon, destructive }: any) => (
     <List.Item
       title={title}
       description={description}
       onPress={onPress}
-      titleStyle={styles.settingTitle}
+      titleStyle={[styles.settingTitle, destructive && { color: theme.colors.error }]}
       descriptionStyle={styles.settingDesc}
-      left={(props) => <List.Icon {...props} icon={icon} color={theme.colors.primary} />}
+      left={(props) => (
+        <List.Icon
+          {...props}
+          icon={icon}
+          color={destructive ? theme.colors.error : theme.colors.primary}
+        />
+      )}
       right={right}
       style={styles.settingItem}
     />
@@ -230,7 +256,7 @@ const SettingsScreen = () => {
           />
         </GlassSurface>
 
-        {/* DATA */}
+        {/* SECTION DATA */}
         <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
           {t('common:chronicles', 'CHRONICLES')}
         </Text>
@@ -245,6 +271,26 @@ const SettingsScreen = () => {
             title={t('common:import_backup', 'Restore Spirits')}
             icon="book-arrow-down-outline"
             onPress={handleImport}
+          />
+        </GlassSurface>
+
+        {/* SECTION: DANGER ZONE */}
+        <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.error }]}>
+          {t('common:danger_zone', 'THE ABYSS')}
+        </Text>
+        <GlassSurface
+          intensity={12}
+          style={[styles.settingsCard, { borderColor: theme.colors.error + '40' }]}
+        >
+          <SettingRow
+            title={t('common:factory_reset', 'Erase Everything')}
+            description={t('common:factory_reset_desc', 'Wipe all memories and reset settings')}
+            icon="alert-octagon-outline"
+            destructive
+            onPress={() => {
+              haptics.impact('heavy');
+              setResetVisible(true);
+            }}
           />
         </GlassSurface>
 
@@ -344,6 +390,46 @@ const SettingsScreen = () => {
           {t('common:save')}
         </Button>
       </GlassyModal>
+
+      {/* Factory Reset Confirmation Modal */}
+      <GlassyModal
+        visible={resetVisible}
+        onClose={() => setResetVisible(false)}
+        title={t('common:are_you_sure', 'Final Warning')}
+      >
+        <View style={styles.resetModalContent}>
+          <Avatar.Icon
+            size={64}
+            icon="delete-forever"
+            style={{ backgroundColor: 'transparent' }}
+            color={theme.colors.error}
+          />
+          <Text variant="bodyMedium" style={styles.resetWarningText}>
+            {t(
+              'common:reset_warning',
+              'This action will permanently erase your chronicles and return the app to its original state. This cannot be undone.'
+            )}
+          </Text>
+
+          <Button
+            mode="contained"
+            onPress={handleFactoryReset}
+            buttonColor={theme.colors.error}
+            style={styles.confirmResetBtn}
+            contentStyle={{ height: 50 }}
+          >
+            {t('common:confirm_erase', 'Erase All Data')}
+          </Button>
+
+          <Button
+            mode="text"
+            onPress={() => setResetVisible(false)}
+            textColor={theme.colors.onSurfaceVariant}
+          >
+            {t('common:cancel_erase', 'Keep my memories')}
+          </Button>
+        </View>
+      </GlassyModal>
     </ScreenContainer>
   );
 };
@@ -359,7 +445,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
     fontSize: 10,
     fontWeight: '900',
-    opacity: 0.6,
+    opacity: 0.8,
   },
   settingsCard: {
     borderRadius: 24,
@@ -398,6 +484,21 @@ const styles = StyleSheet.create({
   radioLabel: { fontSize: 16 },
   glassInput: { backgroundColor: 'transparent', marginBottom: 12 },
   saveBtn: { marginTop: 12, borderRadius: 12 },
+  resetModalContent: {
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  resetWarningText: {
+    textAlign: 'center',
+    marginVertical: 20,
+    opacity: 0.8,
+    lineHeight: 22,
+  },
+  confirmResetBtn: {
+    width: '100%',
+    borderRadius: 12,
+    marginBottom: 10,
+  },
 });
 
 export default SettingsScreen;

@@ -127,5 +127,12 @@
   "question_placeholder": "What do I need to know about...",
   "begin_reading": "Begin Reading",
   "haptics": "Haptics",
-  "haptics_description": "Haptics Feedback during usage"
+  "haptics_description": "Haptics Feedback during usage",
+  "danger_zone": "THE ABYSS",
+  "factory_reset": "Erase Everything",
+  "factory_reset_desc": "Wipe all memories and reset settings",
+  "are_you_sure": "Final Warning",
+  "reset_warning": "This action will permanently erase your chronicles and return the app to its original state. This cannot be undone.",
+  "confirm_erase": "Erase All Data",
+  "cancel_erase": "Keep my memories"
 }

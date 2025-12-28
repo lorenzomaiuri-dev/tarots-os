@@ -44,6 +44,24 @@ export const useSettingsStore = create<SettingsState>()(
         set((state) => ({
           preferences: { ...state.preferences, ...newPrefs },
         })),
+
+      resetAllSettings: () =>
+        set({
+          preferences: {
+            hapticsEnabled: true,
+            allowReversed: true,
+            onlyMajorArcana: false,
+            animationEnabled: true,
+            theme: 'system',
+            language: 'en',
+          },
+          aiConfig: {
+            provider: DEFAULTS.PROVIDER,
+            modelId: DEFAULTS.AI_MODEL,
+            apiKey: '', // Start empty
+          },
+          isOnboardingCompleted: false,
+        }),
     }),
     {
       name: STORAGE_KEYS.SETTINGS,
