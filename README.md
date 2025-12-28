@@ -1,7 +1,7 @@
 # 🌌 Tarots OS: The Mystical Tarot Journal
 
 <div align="center">
-  <img src="./assets/icon.png" alt="Tarots OS Logo" width="120" height="120" />
+  <img src="./screenshots/icon.png" alt="Tarots OS Logo" width="120" height="120" />
   <br />
   
   [![MIT License](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
@@ -25,18 +25,30 @@
 
 Tarots OS follows a **"Ritualistic UX"** approach. Every interaction is designed to feel weighty and meaningful.
 
-- **💎 iOS-esque Glassmorphism:** Deep utilization of `expo-blur` and multi-layered translucency creates a sense of depth and ethereal beauty.
+- **💎 Glassmorphism:** Deep utilization of `expo-blur` and multi-layered translucency creates a sense of depth and ethereal beauty.
 - **📳 Tactile Feedback:** Full integration of `expo-haptics` provides physical "clinks" during card flips and "pulses" during cosmic RNG draws.
 - **🌗 Immersive Atmosphere:** Dynamic light/dark mode support with semantic color mapping ensures accessibility while maintaining the mystical vibe.
 - **🌊 Micro-interactions:** Fluid layout transitions using `LayoutAnimation` and shared element logic for an organic feel.
 
 ## 📸 Experience
 
+<div align="center">
+  <h3>The Modern Ritual in Motion</h3>
+  
+  <video src="https://github.com/lorenzomaiuri-dev/tarots-os/raw/main/screenshots/preview.mp4" width="400" controls muted loop autoplay>
+    Your browser does not support the video tag.
+  </video>
+  
+  <p align="center">
+    <i>Witness the fluid design and AI-driven insights.</i>
+  </p>
+</div>
+
+<br/>
+
 |                 **Daily Ritual**                 |                   **Deck Gallery**                   |                  **The Spread**                   |                    **AI Gnosis**                     |
 | :----------------------------------------------: | :--------------------------------------------------: | :-----------------------------------------------: | :--------------------------------------------------: |
 | <img src="./screenshots/home.jpg" width="200" /> | <img src="./screenshots/explorer.jpg" width="200" /> | <img src="./screenshots/table.jpg" width="200" /> | <img src="./screenshots/insights.jpg" width="200" /> |
-
-> _GIF showing the card flip animation_
 
 ## 📲 Availability
 
