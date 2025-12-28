@@ -57,6 +57,7 @@
   "swords": "Spade",
   "pentacles": "Denari",
   "coins": "Denari",
+  "card": "Carta",
   "cards": "Carte",
   "interpret": "Interpreta",
   "table": "Griglia",
@@ -175,5 +176,8 @@
   "enable_notifications_prompt": "Abilita le notifiche nelle impostazioni del telefono",
   "morning_ritual": "Rituale Mattutino",
   "ritual_desc": "Promemoria giornalieri per estrarre la tua carta",
-  "backup_no_data": "Nessun dato da esportare"
+  "backup_no_data": "Nessun dato da esportare",
+  "app_footer": "BY TAROTS OS",
+  "share_reading": "Condividi il tuo destino",
+  "error_sharing": "Generazione immagine fallita"
 }

@@ -1,6 +1,7 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import {
+  Alert,
   ImageStyle,
   Keyboard,
   KeyboardAvoidingView,
@@ -18,10 +19,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-native-markdown-display';
 import { Avatar, IconButton, Text, TextInput, useTheme } from 'react-native-paper';
-import ViewShot, { captureRef } from 'react-native-view-shot';
+import { captureRef } from 'react-native-view-shot';
 
+// Components
 import { CardImage } from '../../components/CardImage';
 import { GlassSurface } from '../../components/GlassSurface';
+import { ShareableReadingCard } from '../../components/ShareableReadingCard';
+// Logic
 import { useHaptics } from '../../hooks/useHaptics';
 import { useHistoryStore } from '../../store/useHistoryStore';
 import { RootStackParamList } from '../../types/navigation';
@@ -39,31 +43,38 @@ const ReadingDetailScreen = () => {
   const { readings, updateUserNotes } = useHistoryStore();
   const reading = readings.find((r) => r.id === route.params.readingId);
 
-  const viewShotRef = useRef(null);
   const [notes, setNotes] = useState(reading?.userNotes || '');
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleShare = useCallback(async () => {
-    haptics.impact('light');
+  // Ref for the hidden shareable card
+  const squareCardRef = useRef<View>(null);
+
+  /**
+   * Directly captures the hidden high-fidelity square card and opens system share.
+   */
+  const handleShare = async () => {
+    haptics.impact('medium');
+
     try {
-      if (viewShotRef.current) {
-        const uri = await captureRef(viewShotRef.current, {
-          format: 'jpg',
-          quality: 0.8,
-          result: 'tmpfile',
+      // Capture the high-res 1080x1080 hidden component
+      const uri = await captureRef(squareCardRef, {
+        format: 'jpg',
+        quality: 0.9,
+      });
+
+      if (await Sharing.isAvailableAsync()) {
+        await Sharing.shareAsync(uri, {
+          mimeType: 'image/jpeg',
+          dialogTitle: t('common:share_reading', 'Share your destiny'),
         });
-        if (await Sharing.isAvailableAsync()) {
-          await Sharing.shareAsync(uri, {
-            mimeType: 'image/jpeg',
-            dialogTitle: t('common:share_reading', 'Share your destiny'),
-          });
-        }
       }
     } catch (e) {
-      console.error('Error sharing', e);
+      console.error('Share generation failed', e);
+      Alert.alert(t('common:error'), t('common:error_sharing', 'Failed to generate image'));
     }
-  }, [t, haptics]);
+  };
 
+  // Attach share trigger to navigation header
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -74,7 +85,7 @@ const ReadingDetailScreen = () => {
         />
       ),
     });
-  }, [navigation, handleShare, theme.colors.primary]);
+  }, [navigation, theme.colors.primary, handleShare]);
 
   if (!reading) return null;
 
@@ -96,179 +107,183 @@ const ReadingDetailScreen = () => {
 
   return (
     <ScreenContainer style={{ paddingHorizontal: 0 }}>
+      {/* 
+        HIDDEN SHAREABLE ENGINE
+        This renders off-screen at 1080x1080 to provide the high-quality 
+        SocialMedia-style card when handleShare is pressed.
+      */}
+      <View style={styles.hiddenContainer} pointerEvents="none">
+        <ShareableReadingCard ref={squareCardRef} reading={reading} t={t} />
+      </View>
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
       >
-        <ViewShot
-          ref={viewShotRef}
-          options={{ format: 'jpg', quality: 0.9 }}
-          style={{ flex: 1, backgroundColor: 'transparent' }}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
         >
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.scrollContent}
-          >
-            {/* HEADER */}
-            <View style={styles.header}>
-              <Text variant="labelSmall" style={[styles.dateText, { color: theme.colors.primary }]}>
-                {dateStr}
-              </Text>
-              <Text variant="headlineSmall" style={styles.title}>
-                {t(`spreads:${reading.spreadId}.name`)}
-              </Text>
-              <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
-            </View>
-
-            {/* ASSEMBLY SECTION */}
-            <View style={styles.sectionHeader}>
-              <Text variant="labelMedium" style={styles.sectionLabel}>
-                {t('common:assembly', 'THE ASSEMBLY')}
-              </Text>
-            </View>
-
-            <View style={styles.cardsGrid}>
-              {reading.cards.map((drawn, index) => (
-                <GlassSurface key={index} intensity={15} style={styles.cardItemSurface}>
-                  <View style={styles.cardItemRow}>
-                    <View style={styles.cardImageFrame}>
-                      <CardImage
-                        deckId={reading.deckId}
-                        cardId={drawn.cardId}
-                        style={
-                          [
-                            styles.cardImage,
-                            drawn.isReversed ? { transform: [{ rotate: '180deg' }] } : undefined,
-                          ] as StyleProp<ImageStyle>
-                        }
-                      />
-                    </View>
-
-                    <View style={styles.cardTextInfo}>
-                      <Text
-                        variant="labelSmall"
-                        style={[styles.positionLabel, { color: theme.colors.primary }]}
-                      >
-                        {index + 1}.{' '}
-                        {t(
-                          `spreads:${reading.spreadId}.positions.${drawn.positionId}.label`
-                        ).toUpperCase()}
-                      </Text>
-                      <Text variant="titleMedium" style={styles.cardNameText}>
-                        {t(`decks:${reading.deckId}.cards.${drawn.cardId}.name`)}
-                      </Text>
-                      <GlassSurface intensity={10} style={styles.orientationBadge}>
-                        <Text style={styles.orientationText}>
-                          {drawn.isReversed
-                            ? t('common:reversed', 'REVERSED')
-                            : t('common:upright', 'UPRIGHT')}
-                        </Text>
-                      </GlassSurface>
-                    </View>
-                  </View>
-                </GlassSurface>
-              ))}
-            </View>
-
-            {/* INTERPRETATION SECTION */}
-            <View style={styles.sectionHeader}>
-              <Text variant="labelMedium" style={styles.sectionLabel}>
-                {t('common:interpretation_title', 'SACRED INSIGHT')}
-              </Text>
-            </View>
-
-            <GlassSurface intensity={25} style={styles.aiInterpretationBox}>
-              <View style={styles.aiHeader}>
-                <Avatar.Icon
-                  size={32}
-                  icon="creation"
-                  style={{ backgroundColor: 'transparent' }}
-                  color={theme.colors.primary}
-                />
-                <Text
-                  variant="titleMedium"
-                  style={[styles.aiTitle, { color: theme.colors.primary }]}
-                >
-                  {t('common:ai_insight', 'Spirit Message')}
-                </Text>
-              </View>
-
-              {reading.aiInterpretation ? (
-                <Markdown
-                  style={{
-                    body: {
-                      color: theme.colors.onSurface,
-                      fontSize: 16,
-                      lineHeight: 26,
-                      fontFamily: 'serif',
-                      opacity: 0.9,
-                    },
-                  }}
-                >
-                  {reading.aiInterpretation}
-                </Markdown>
-              ) : (
-                <Text style={styles.emptyText}>
-                  {t('common:no_interpretation', 'No interpretation recorded.')}
-                </Text>
-              )}
-            </GlassSurface>
-
-            {/* REFLECTIONS SECTION */}
-            <View style={styles.sectionHeader}>
-              <Text variant="labelMedium" style={styles.sectionLabel}>
-                {t('common:personal_reflections', 'REFLECTIONS')}
-              </Text>
-              <IconButton
-                icon={isEditing ? 'check-circle' : 'pencil-circle-outline'}
-                size={28}
-                iconColor={isEditing ? theme.colors.primary : theme.colors.onSurfaceVariant}
-                onPress={
-                  isEditing
-                    ? handleSaveNotes
-                    : () => {
-                        haptics.impact('light');
-                        setIsEditing(true);
-                      }
-                }
-              />
-            </View>
-
-            <GlassSurface
-              intensity={isEditing ? 40 : 10}
-              style={[styles.notesBox, isEditing && styles.notesBoxEditing]}
-            >
-              {isEditing ? (
-                <TextInput
-                  multiline
-                  value={notes}
-                  onChangeText={setNotes}
-                  autoFocus
-                  placeholder={t('common:write_reflections', 'Describe your energy...')}
-                  style={styles.notesInput}
-                  textColor={theme.colors.onSurface}
-                  underlineColor="transparent"
-                  activeUnderlineColor="transparent"
-                />
-              ) : (
-                <Text style={notes ? styles.notesText : styles.emptyText}>
-                  {notes || t('common:no_notes_yet', 'Your pages are waiting...')}
-                </Text>
-              )}
-            </GlassSurface>
-
-            <Text style={styles.footerBranding}>
-              {t('common:app_footer', 'CHRONICLED BY AI TAROT')}
+          {/* HEADER */}
+          <View style={styles.header}>
+            <Text variant="labelSmall" style={[styles.dateText, { color: theme.colors.primary }]}>
+              {dateStr}
             </Text>
-          </ScrollView>
-        </ViewShot>
+            <Text variant="headlineSmall" style={styles.title}>
+              {t(`spreads:${reading.spreadId}.name`)}
+            </Text>
+            <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
+          </View>
+
+          {/* ASSEMBLY SECTION */}
+          <View style={styles.sectionHeader}>
+            <Text variant="labelMedium" style={styles.sectionLabel}>
+              {t('common:assembly', 'THE ASSEMBLY')}
+            </Text>
+          </View>
+
+          <View style={styles.cardsGrid}>
+            {reading.cards.map((drawn, index) => (
+              <GlassSurface key={index} intensity={15} style={styles.cardItemSurface}>
+                <View style={styles.cardItemRow}>
+                  <View style={styles.cardImageFrame}>
+                    <CardImage
+                      deckId={reading.deckId}
+                      cardId={drawn.cardId}
+                      style={
+                        [
+                          styles.cardImage,
+                          drawn.isReversed ? { transform: [{ rotate: '180deg' }] } : undefined,
+                        ] as StyleProp<ImageStyle>
+                      }
+                    />
+                  </View>
+
+                  <View style={styles.cardTextInfo}>
+                    <Text
+                      variant="labelSmall"
+                      style={[styles.positionLabel, { color: theme.colors.primary }]}
+                    >
+                      {index + 1}.{' '}
+                      {t(
+                        `spreads:${reading.spreadId}.positions.${drawn.positionId}.label`
+                      ).toUpperCase()}
+                    </Text>
+                    <Text variant="titleMedium" style={styles.cardNameText}>
+                      {t(`decks:${reading.deckId}.cards.${drawn.cardId}.name`)}
+                    </Text>
+                    <GlassSurface intensity={10} style={styles.orientationBadge}>
+                      <Text style={styles.orientationText}>
+                        {drawn.isReversed
+                          ? t('common:reversed', 'REVERSED')
+                          : t('common:upright', 'UPRIGHT')}
+                      </Text>
+                    </GlassSurface>
+                  </View>
+                </View>
+              </GlassSurface>
+            ))}
+          </View>
+
+          {/* INTERPRETATION SECTION */}
+          <View style={styles.sectionHeader}>
+            <Text variant="labelMedium" style={styles.sectionLabel}>
+              {t('common:interpretation_title', 'SACRED INSIGHT')}
+            </Text>
+          </View>
+
+          <GlassSurface intensity={25} style={styles.aiInterpretationBox}>
+            <View style={styles.aiHeader}>
+              <Avatar.Icon
+                size={32}
+                icon="creation"
+                style={{ backgroundColor: 'transparent' }}
+                color={theme.colors.primary}
+              />
+              <Text variant="titleMedium" style={[styles.aiTitle, { color: theme.colors.primary }]}>
+                {t('common:ai_insight', 'Spirit Message')}
+              </Text>
+            </View>
+
+            {reading.aiInterpretation ? (
+              <Markdown
+                style={{
+                  body: {
+                    color: theme.colors.onSurface,
+                    fontSize: 16,
+                    lineHeight: 26,
+                    fontFamily: 'serif',
+                    opacity: 0.9,
+                  },
+                }}
+              >
+                {reading.aiInterpretation}
+              </Markdown>
+            ) : (
+              <Text style={styles.emptyText}>
+                {t('common:no_interpretation', 'No interpretation recorded.')}
+              </Text>
+            )}
+          </GlassSurface>
+
+          {/* REFLECTIONS SECTION */}
+          <View style={styles.sectionHeader}>
+            <Text variant="labelMedium" style={styles.sectionLabel}>
+              {t('common:personal_reflections', 'REFLECTIONS')}
+            </Text>
+            <IconButton
+              icon={isEditing ? 'check-circle' : 'pencil-circle-outline'}
+              size={28}
+              iconColor={isEditing ? theme.colors.primary : theme.colors.onSurfaceVariant}
+              onPress={
+                isEditing
+                  ? handleSaveNotes
+                  : () => {
+                      haptics.impact('light');
+                      setIsEditing(true);
+                    }
+              }
+            />
+          </View>
+
+          <GlassSurface
+            intensity={isEditing ? 40 : 10}
+            style={[styles.notesBox, isEditing && styles.notesBoxEditing]}
+          >
+            {isEditing ? (
+              <TextInput
+                multiline
+                value={notes}
+                onChangeText={setNotes}
+                autoFocus
+                placeholder={t('common:write_reflections', 'Describe your energy...')}
+                style={styles.notesInput}
+                textColor={theme.colors.onSurface}
+                underlineColor="transparent"
+                activeUnderlineColor="transparent"
+              />
+            ) : (
+              <Text style={notes ? styles.notesText : styles.emptyText}>
+                {notes || t('common:no_notes_yet', 'Your pages are waiting...')}
+              </Text>
+            )}
+          </GlassSurface>
+
+          <Text style={styles.footerBranding}>
+            {t('common:app_footer', 'CHRONICLED BY TAROTS OS')}
+          </Text>
+        </ScrollView>
       </KeyboardAvoidingView>
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
+  hiddenContainer: {
+    position: 'absolute',
+    left: -5000,
+  },
   scrollContent: {
     paddingBottom: 100,
     paddingHorizontal: 20,

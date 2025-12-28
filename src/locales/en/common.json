@@ -57,6 +57,7 @@
   "swords": "Swords",
   "pentacles": "Pentacles",
   "coins": "Coins",
+  "card": "Card",
   "cards": "Cards",
   "interpret": "Interpret",
   "table": "Table",
@@ -175,5 +176,8 @@
   "enable_notifications_prompt": "Enable notifications in your phone settings",
   "morning_ritual": "Morning Ritual",
   "ritual_desc": "Daily reminder to draw your card",
-  "backup_no_data": "No data to export"
+  "backup_no_data": "No data to export",
+  "app_footer": "CHRONICLED BY TAROTS OS",
+  "share_reading": "Share your destiny",
+  "error_sharing": "Failed to generate image"
 }
