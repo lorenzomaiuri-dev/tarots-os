@@ -21,7 +21,7 @@
 
 **Tarots OS** is a premium, privacy-focused Tarot journal. It transforms the smartphone into a digital altar, offering a sacred space for daily reflection powered by introspection-tuned AI interpretations and a cutting-edge Glassmorphic interface.
 
-## ✨ Design Philosophy: "Liquid Glass"
+## ✨ Design Philosophy:
 
 Tarots OS follows a **"Ritualistic UX"** approach. Every interaction is designed to feel weighty and meaningful.
 
@@ -34,9 +34,9 @@ Tarots OS follows a **"Ritualistic UX"** approach. Every interaction is designed
 
 |                 **Daily Ritual**                 |                   **Deck Gallery**                   |                  **The Spread**                   |                    **AI Gnosis**                     |
 | :----------------------------------------------: | :--------------------------------------------------: | :-----------------------------------------------: | :--------------------------------------------------: |
-| <img src="./screenshots/home.png" width="200" /> | <img src="./screenshots/explorer.png" width="200" /> | <img src="./screenshots/table.png" width="200" /> | <img src="./screenshots/insights.png" width="200" /> |
+| <img src="./screenshots/home.jpg" width="200" /> | <img src="./screenshots/explorer.jpg" width="200" /> | <img src="./screenshots/table.jpg" width="200" /> | <img src="./screenshots/insights.jpg" width="200" /> |
 
-> _Imagine a GIF here showing the card flip animation_
+> _GIF showing the card flip animation_
 
 ## 📲 Availability
 
@@ -78,10 +78,9 @@ A Data-Driven approach allows for easy addition of new decks and spreads without
 
 ```text
 src/
-├── api/             # AI Prompt Builders & Clients
-├── components/      # Atomic UI (GlassSurface, CardFlip)
+├── components/      # Atomic UI (GlassSurface, CardFlip, Modals)
 ├── data/            # JSON Definitions (Spreads, Decks)
-├── features/        # Screen Logic (Reading, History, Settings)
+├── features/        # Screens (Reading, History, Settings)
 ├── hooks/           # Business Logic (useDailyDraw, useInterpretation)
 ├── services/        # RNG Engine, Storage, DeckRegistry
 ├── store/           # Zustand Stores
@@ -127,7 +126,6 @@ src/
 
 - [x] **v1.0**: Core Engine, History, AI Integration
 - [ ] **v1.1**: Home Screen Widgets & Notifications
-- [ ] **v1.2**: Biometric Lock (FaceID) for Journal Privacy
 - [ ] **v2.0**: Multi-deck comparison & "Study Mode"
 
 ## 🤝 Contribution
