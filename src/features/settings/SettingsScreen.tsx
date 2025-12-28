@@ -248,7 +248,8 @@ const SettingsScreen = () => {
           />
         </GlassSurface>
 
-        <Text style={styles.versionText}>Tarot AI — v1.0.0</Text>
+        {/* TODO: VERSION MANAGEMENT */}
+        <Text style={styles.versionText}>Tarots OS — v1.0.0</Text>
       </ScrollView>
 
       {/* --- MODALS --- */}
@@ -259,10 +260,7 @@ const SettingsScreen = () => {
         onClose={() => setLangVisible(false)}
         title={t('common:select_language')}
       >
-        <RadioButton.Group
-          onValueChange={changeLanguage}
-          value={preferences.language || i18n.language}
-        >
+        <RadioButton.Group onValueChange={changeLanguage} value={preferences.language}>
           <RadioButton.Item
             label="Italiano"
             value="it"

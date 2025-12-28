@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useColorScheme } from 'react-native';
 
@@ -17,7 +17,7 @@ import {
 } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import './src/locales/i18n';
+import i18n from './src/locales/i18n';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { useSettingsStore } from './src/store/useSettingsStore';
 
@@ -79,6 +79,13 @@ export default function App() {
 
   const { preferences } = useSettingsStore();
   const currentTheme = preferences.theme;
+  const currentLanguage = preferences.language;
+
+  useEffect(() => {
+    if (currentLanguage && i18n.language !== currentLanguage) {
+      i18n.changeLanguage(currentLanguage);
+    }
+  }, [currentLanguage]);
 
   const isDark =
     currentTheme === 'dark' || (currentTheme === 'system' && systemColorScheme === 'dark');
