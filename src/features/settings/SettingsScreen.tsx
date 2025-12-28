@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Alert, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import * as LocalAuthentication from 'expo-local-authentication';
+import * as Notifications from 'expo-notifications';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -26,6 +27,7 @@ import { useHaptics } from '../../hooks/useHaptics';
 import i18n from '../../locales/i18n';
 import { AppInfoService, ChangelogEntry } from '../../services/appInfo';
 import { BackupService } from '../../services/backup';
+import { NotificationService } from '../../services/notifications';
 import { useHistoryStore } from '../../store/useHistoryStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { ScreenContainer } from '../ScreenContainer';
@@ -51,6 +53,36 @@ const SettingsScreen = () => {
   const [tempApiKey, setTempApiKey] = useState('');
   const [tempModelId, setTempModelId] = useState('');
   const [tempBaseUrl, setTempBaseUrl] = useState('');
+
+  const toggleReminder = async (val: boolean) => {
+    if (val) {
+      const granted = await NotificationService.requestPermissions();
+      if (granted) {
+        const notificationTitle = t('common:notification_title', 'Your Morning Ritual 🔮');
+        const notificationMessage = t(
+          'common:notification_message',
+          'Cards are ready. What meaning has the Universe in store for you today?'
+        );
+        // TODO: CUSTOM HOURS
+        await NotificationService.scheduleDailyReminder(
+          8,
+          30,
+          notificationTitle,
+          notificationMessage
+        ); // Default 8:30
+        updatePreferences({ notificationsEnabled: true });
+        haptics.notification('success');
+      } else {
+        Alert.alert(
+          t('common:permissions_denied', 'Permissions Denied'),
+          t('common:enable_notifications_prompt', 'Enable notifications in your phone settings')
+        );
+      }
+    } else {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      updatePreferences({ notificationsEnabled: false });
+    }
+  };
 
   const handleToggleBiometrics = async (value: boolean) => {
     if (value) {
@@ -208,7 +240,7 @@ const SettingsScreen = () => {
           <View style={[styles.accentLine, { backgroundColor: theme.colors.primary }]} />
         </View>
 
-        {/* SECTION: ORACLE RULES */}
+        {/* SECTION: READING */}
         <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
           {t('common:reading', 'ORACLE RULES')}
         </Text>
@@ -240,6 +272,15 @@ const SettingsScreen = () => {
                   updatePreferences({ onlyMajorArcana: val });
                 }}
               />
+            )}
+          />
+          <View style={styles.divider} />
+          <SettingRow
+            title={t('common:morning_ritual', 'Morning Ritual')}
+            description={t('common:ritual_desc', 'Daily reminder to draw your card')}
+            icon="bell-ring-outline"
+            right={() => (
+              <Switch value={preferences.notificationsEnabled} onValueChange={toggleReminder} />
             )}
           />
         </GlassSurface>

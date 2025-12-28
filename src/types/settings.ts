@@ -6,6 +6,7 @@ export interface AppPreferences {
   onlyMajorArcana: boolean;
   animationEnabled: boolean;
   biometricsEnabled: boolean;
+  notificationsEnabled: boolean;
   theme: 'light' | 'dark' | 'system';
   language: string;
 }

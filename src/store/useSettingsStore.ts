@@ -21,6 +21,7 @@ export const useSettingsStore = create<SettingsState>()(
       },
 
       preferences: {
+        notificationsEnabled: false,
         hapticsEnabled: true,
         allowReversed: true,
         onlyMajorArcana: false,
@@ -49,6 +50,7 @@ export const useSettingsStore = create<SettingsState>()(
       resetAllSettings: () =>
         set({
           preferences: {
+            notificationsEnabled: false,
             allowReversed: true,
             onlyMajorArcana: false,
             animationEnabled: true,

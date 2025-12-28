@@ -168,5 +168,11 @@
   "biometrics_login_fallback": "Use code",
   "biometrics_journal_title": "Chronicles Protected",
   "biometrics_journal_description": "Access to your memories requires authentication",
-  "biometrics_journal_button": "Unlock Journal"
+  "biometrics_journal_button": "Unlock Journal",
+  "notification_title": "Your Morning Ritual 🔮",
+  "notification_message": "Your cards are ready. What meaning has the Universe in store for you today?",
+  "permissions_denied": "Permissions Denied",
+  "enable_notifications_prompt": "Enable notifications in your phone settings",
+  "morning_ritual": "Morning Ritual",
+  "ritual_desc": "Daily reminder to draw your card"
 }
