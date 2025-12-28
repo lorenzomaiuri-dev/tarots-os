@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'react-native-paper';
 
+import { BiometricGate } from '../components/BiometricGate';
 import DeckExplorerScreen from '../features/deck-explorer/DeckExplorerScreen';
 import DeckSelectionScreen from '../features/deck-selection/DeckSelectionScreen';
 import HistoryScreen from '../features/history/HistoryScreen';
@@ -73,7 +74,11 @@ export const AppNavigator = () => {
         <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
         <Tab.Screen
           name="HistoryTab"
-          component={HistoryScreen}
+          component={() => (
+            <BiometricGate>
+              <HistoryScreen />
+            </BiometricGate>
+          )}
           options={{ title: t('common:history_title', 'Journal') }}
         />
         <Tab.Screen

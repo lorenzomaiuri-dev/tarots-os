@@ -5,6 +5,7 @@ export interface AppPreferences {
   hapticsEnabled: boolean;
   onlyMajorArcana: boolean;
   animationEnabled: boolean;
+  biometricsEnabled: boolean;
   theme: 'light' | 'dark' | 'system';
   language: string;
 }

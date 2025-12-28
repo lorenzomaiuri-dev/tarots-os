@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { Alert, Linking, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
+import * as LocalAuthentication from 'expo-local-authentication';
+
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
@@ -50,11 +52,38 @@ const SettingsScreen = () => {
   const [tempModelId, setTempModelId] = useState('');
   const [tempBaseUrl, setTempBaseUrl] = useState('');
 
+  const handleToggleBiometrics = async (value: boolean) => {
+    if (value) {
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+      if (!hasHardware || !isEnrolled) {
+        Alert.alert(
+          t('common:biometrics_error_title', 'Not Available'),
+          t(
+            'common:biometrics_error_desc',
+            "Your device does not support biometrics or you haven't configured fingerprint/face."
+          )
+        );
+        return;
+      }
+
+      // Test
+      const test = await LocalAuthentication.authenticateAsync({
+        promptMessage: t('common:biometrics_confirm', 'Confirm Identiy'),
+      });
+
+      if (!test.success) return;
+    }
+
+    haptics.selection();
+    updatePreferences({ biometricsEnabled: value });
+  };
+
   const handleOpenAbout = async () => {
     haptics.impact('light');
     setAboutVisible(true);
 
-    // Solo se il changelog non è ancora stato caricato
     if (changelog.length === 0) {
       setIsChangelogLoading(true);
       const data = await AppInfoService.getChangelog();
@@ -247,6 +276,24 @@ const SettingsScreen = () => {
                   if (val) haptics.impact('medium');
                   updatePreferences({ hapticsEnabled: val });
                 }}
+              />
+            )}
+          />
+        </GlassSurface>
+
+        {/* SECTION: SECURITY AND PRIVACY */}
+        <Text variant="labelLarge" style={[styles.sectionLabel, { color: theme.colors.primary }]}>
+          {t('common:security_privacy', 'Security & Privacy')}
+        </Text>
+        <GlassSurface intensity={12} style={styles.settingsCard}>
+          <SettingRow
+            title={t('common:biometric_lock', 'Biometric Lock')}
+            description={t('common:biometric_desc', 'Protect your Journal with FaceID/Fingerprint')}
+            icon="fingerprint"
+            right={() => (
+              <Switch
+                value={preferences.biometricsEnabled}
+                onValueChange={handleToggleBiometrics}
               />
             )}
           />

@@ -25,6 +25,7 @@ export const useSettingsStore = create<SettingsState>()(
         allowReversed: true,
         onlyMajorArcana: false,
         animationEnabled: true,
+        biometricsEnabled: false,
         theme: 'system',
         language: 'en',
       },
@@ -48,10 +49,11 @@ export const useSettingsStore = create<SettingsState>()(
       resetAllSettings: () =>
         set({
           preferences: {
-            hapticsEnabled: true,
             allowReversed: true,
             onlyMajorArcana: false,
             animationEnabled: true,
+            hapticsEnabled: true,
+            biometricsEnabled: false,
             theme: 'system',
             language: 'en',
           },

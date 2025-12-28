@@ -157,5 +157,16 @@
   "app_name": "Tarots OS",
   "about_title": "Sacred Scrolls",
   "latest_changes": "LATEST REVELATIONS",
-  "privacy_policy": "Privacy Policy"
+  "privacy_policy": "Privacy Policy",
+  "biometrics_error_title": "Not Available",
+  "biometrics_error_desc": "Your device does not support biometrics or you haven't configured fingerprint/face.",
+  "biometrics_confirm": "Confirm Identiy",
+  "security_privacy": "Security & Privacy",
+  "biometric_lock": "Biometric Lock",
+  "biometric_desc": "Protect your Journal with FaceID/Fingerprint",
+  "biometrics_login_title": "Log into your memories",
+  "biometrics_login_fallback": "Use code",
+  "biometrics_journal_title": "Chronicles Protected",
+  "biometrics_journal_description": "Access to your memories requires authentication",
+  "biometrics_journal_button": "Unlock Journal"
 }

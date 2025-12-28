@@ -157,5 +157,16 @@
   "app_name": "Tarots OS",
   "about_title": "Sacre Pergamene",
   "latest_changes": "ULTIME RIVELAZIONI",
-  "privacy_policy": "Privacy Policy"
+  "privacy_policy": "Privacy Policy",
+  "biometrics_error_title": "Non Disponibile",
+  "biometrics_error_desc": "Il tuo dispositivo non supporta la biometria o non hai configurato impronte/volto.",
+  "biometrics_confirm": "Conferma Identità",
+  "security_privacy": "Privacy & Sicurezza",
+  "biometric_lock": "Blocco Biometrico",
+  "biometric_desc": "Proteggi il tuo Diario con FaceID/Impronta",
+  "biometrics_login_title": "Accedi ai tuoi ricordi",
+  "biometrics_login_fallback": "Usa codice",
+  "biometrics_journal_title": "Cronache Protette",
+  "biometrics_journal_description": "L'accesso ai tuoi ricordi richiede l'autenticazione",
+  "biometrics_journal_button": "Sblocca Diario"
 }
