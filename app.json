@@ -7,7 +7,6 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -15,7 +14,6 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifer": "com.lorenzomaiuri.tarotsos",
       "bundleIdentifier": "com.lorenzomaiuri.tarotsos"
     },
     "android": {
@@ -26,7 +24,13 @@
       },
       "package": "com.lorenzomaiuri.tarotsos",
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +41,13 @@
       }
     },
     "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#D0BCFF"
+        }
+      ],
       [
         "expo-build-properties",
         {

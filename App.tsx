@@ -19,6 +19,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import i18n from './src/locales/i18n';
 import { AppNavigator } from './src/navigation/AppNavigator';
+import { NotificationService } from './src/services/notifications';
 import { useSettingsStore } from './src/store/useSettingsStore';
 
 const MysticalDarkTheme = {

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 
 import * as LocalAuthentication from 'expo-local-authentication';
-import * as Notifications from 'expo-notifications';
 
 import { useTranslation } from 'react-i18next';
 
@@ -18,8 +17,10 @@ import { useHaptics } from './useHaptics';
 export const useSettingsLogic = () => {
   const { t } = useTranslation();
   const haptics = useHaptics();
+
   const { preferences, updatePreferences, aiConfig, setAiConfig, resetAllSettings } =
     useSettingsStore();
+
   const { clearHistory } = useHistoryStore();
 
   const [modalState, setModalState] = useState({
@@ -63,7 +64,6 @@ export const useSettingsLogic = () => {
     try {
       const currentReadings = useHistoryStore.getState().readings;
 
-      // Check if there is actually data to export
       if (!currentReadings || currentReadings.length === 0) {
         Alert.alert(t('common:error'), t('common:backup_no_data'));
         return;
@@ -87,6 +87,7 @@ export const useSettingsLogic = () => {
     try {
       const parsed = await BackupService.importJson<{ history: any[] }>();
       if (!parsed) return;
+
       Alert.alert(
         t('common:restore'),
         `${t('common:found')} ${parsed.history.length} ${t('common:readings')}.`,
@@ -111,37 +112,57 @@ export const useSettingsLogic = () => {
     if (value) {
       const hasHardware = await LocalAuthentication.hasHardwareAsync();
       const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
       if (!hasHardware || !isEnrolled) {
         Alert.alert(t('common:biometrics_error_title'), t('common:biometrics_error_desc'));
         return;
       }
+
       const test = await LocalAuthentication.authenticateAsync({
         promptMessage: t('common:biometrics_confirm'),
       });
+
       if (!test.success) return;
     }
+
     haptics.selection();
     updatePreferences({ biometricsEnabled: value });
   };
 
   const handleToggleReminder = async (val: boolean) => {
-    if (val) {
-      const granted = await NotificationService.requestPermissions();
-      if (granted) {
+    try {
+      if (val) {
+        const granted = await NotificationService.requestPermissions();
+        if (!granted) {
+          Alert.alert(t('common:permissions_denied'), t('common:enable_notifications_prompt'));
+          updatePreferences({ notificationsEnabled: false });
+          return;
+        }
+
+        // 1. Schedule Daily
         await NotificationService.scheduleDailyReminder(
           8,
           30,
-          t('common:notification_title'),
-          t('common:notification_message')
+          t('common:notification_title', 'Your Morning Ritual 🔮'),
+          t('common:notification_message', 'Your cards are ready.')
         );
+
+        // 2. Schedule Welcome
+        await NotificationService.scheduleWelcomeNotification(
+          t('common:notification_active_title', 'Notifications Enabled'),
+          t('common:notification_active_message', 'You will receive your reading at 8:30.')
+        );
+
         updatePreferences({ notificationsEnabled: true });
         haptics.notification('success');
       } else {
-        Alert.alert(t('common:permissions_denied'), t('common:enable_notifications_prompt'));
+        await NotificationService.cancelAll();
+        updatePreferences({ notificationsEnabled: false });
+        haptics.selection();
       }
-    } else {
-      await Notifications.cancelAllScheduledNotificationsAsync();
-      updatePreferences({ notificationsEnabled: false });
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert(t('common:error'), error.toString());
     }
   };
 
