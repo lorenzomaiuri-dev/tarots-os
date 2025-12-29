@@ -3,7 +3,7 @@
     "name": "Daily Card",
     "description": "The energy accompanying you today.",
     "positions": {
-      "day-energy": { "label": "Daily Energy", "description": "The main archetype for your day." }
+      "1": { "label": "Daily Energy", "description": "The main archetype for your day." }
     }
   },
   "one-card": {

@@ -180,5 +180,6 @@
   "app_footer": "CHRONICLED BY TAROTS OS",
   "share_reading": "Share your destiny",
   "error_sharing": "Failed to generate image",
-  "saved": "Saved"
+  "saved": "Saved",
+  "save_to_journal": "Save to Journal"
 }

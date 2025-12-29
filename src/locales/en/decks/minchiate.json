@@ -116,167 +116,167 @@
       "name": "King of Cups",
       "keywords": "Emotional balance, diplomacy, counselor"
     },
-    "maj00": {
+    "maj_00": {
       "name": "The Fool",
       "keywords": "Epiphany, Sane madness, Liberation, Clean slate, Rare opportunity"
     },
-    "maj01": {
+    "maj_01": {
       "name": "Pope One: The Magician",
       "keywords": "Mercury charlatan, Materializing ideas, Master alchemist, Skill, Survival"
     },
-    "maj02": {
+    "maj_02": {
       "name": "Pope Two: The Grand Duke (The Queen)",
       "keywords": "Fertility, Union, Patronage, Nurturing, Earthly abundance"
     },
-    "maj03": {
+    "maj_03": {
       "name": "Pope Three: Emperor of the West",
       "keywords": "Leadership, Authority, Rationality, Born warrior, Discipline, 'First by reason'"
     },
-    "maj04": {
+    "maj_04": {
       "name": "Pope Four: Emperor of the East",
       "keywords": "Discretion, Strategy, Androgynous, Secret power, Diplomacy, Information management"
     },
-    "maj05": {
+    "maj_05": {
       "name": "Pope Five: Love",
       "keywords": "Vulnerability, Commitment, Cupid's arrow, Change of status, Humility"
     },
-    "maj06": {
+    "maj_06": {
       "name": "Temperance",
       "keywords": "Moderation, Self-regulation, Continuity, Exercise of will, Balance"
     },
-    "maj07": {
+    "maj_07": {
       "name": "Fortitude",
       "keywords": "Endurance, Perseverance, Architect of the temple, Inner power, Stability"
     },
-    "maj08": {
+    "maj_08": {
       "name": "Justice",
       "keywords": "Equity, Sentences, Reasoning, Weighing merit, Truth"
     },
-    "maj09": {
+    "maj_09": {
       "name": "Wheel of Fortune",
       "keywords": "Donkey-headed theriomorph, Cycles, Lightness, Destiny, Transformation, Flowing"
     },
-    "maj10": {
+    "maj_10": {
       "name": "The Chariot",
       "keywords": "Female driver, Victory, Success, Vertigo, Control, Inspiration"
     },
-    "maj11": {
+    "maj_11": {
       "name": "Time",
       "keywords": "Saturn, Maturity, Experience, Non-linear time, Limits, Patience"
     },
-    "maj12": {
+    "maj_12": {
       "name": "The Hanged Man",
       "keywords": "Suspension, Lost perspective, Punishment, Clinging to mistakes, Detention"
     },
-    "maj13": {
+    "maj_13": {
       "name": "Death",
       "keywords": "Transformation, Rebirth, Urgency (Now!), Clearing space, New growth"
     },
-    "maj14": {
+    "maj_14": {
       "name": "The Devil",
       "keywords": "Selfishness, Temptation, Flashy pleasure, Material bondage, Seduction"
     },
-    "maj15": {
+    "maj_15": {
       "name": "The House of the Devil",
       "keywords": "Escaping the trap, Breaking free, Adrenaline, Revelation, Renouncing self-destructive voices"
     },
-    "maj16": {
+    "maj_16": {
       "name": "Hope",
       "keywords": "Confidence, Optimism, Patience, Watering the dry stick, Divine surprise"
     },
-    "maj17": {
+    "maj_17": {
       "name": "Prudence",
       "keywords": "Caution, Self-knowledge, Memory of the past, Circumspection, Sensing consequences"
     },
-    "maj18": {
+    "maj_18": {
       "name": "Faith",
       "keywords": "Certainty, Spiritual trust, Peace of mind, Crossing the river, Stepping into the void"
     },
-    "maj19": {
+    "maj_19": {
       "name": "Charity",
       "keywords": "Compassion, Unselfishness, Boundless love, Heart on fire, Equality"
     },
-    "maj20": {
+    "maj_20": {
       "name": "Fire",
       "keywords": "Phoenix, Transmutation, Passion, Purification, Eternal spark"
     },
-    "maj21": {
+    "maj_21": {
       "name": "Water",
       "keywords": "Ship with Lion at the prow, Emotional journey, Courage, Flow, Renewal"
     },
-    "maj22": {
+    "maj_22": {
       "name": "Earth",
       "keywords": "The Sheep, Mascherone (Living stone face), Tree of Life, Material body, Stability, Territory, Great Mother, Physical work, Nurturing"
     },
-    "maj23": {
+    "maj_23": {
       "name": "Air",
       "keywords": "Birds and Panther/Cat, Divine verb, Intellect, Communication, Overlapping dimensions, Imagination"
     },
-    "maj24": {
+    "maj_24": {
       "name": "Libra",
       "keywords": "Alchemical Sublimation, Proportion, Fox and Porcupine, Balance, Harmony"
     },
-    "maj25": {
+    "maj_25": {
       "name": "Virgo",
       "keywords": "Alchemical Distillation, Ceres, Purity, Discernment, Harvest"
     },
-    "maj26": {
+    "maj_26": {
       "name": "Scorpio",
       "keywords": "Alchemical Filtration, Nigredo, Regeneration, Duck eating the Scorpion, Mystery"
     },
-    "maj27": {
+    "maj_27": {
       "name": "Aries",
       "keywords": "Alchemical Calcination, Vital spark, Ram and Rabbit, Impulse, Rebirth"
     },
-    "maj28": {
+    "maj_28": {
       "name": "Capricorn",
       "keywords": "Alchemical Putrefaction, Reason, Winter, Solid foundations, Responsibility"
     },
-    "maj29": {
+    "maj_29": {
       "name": "Sagittarius",
       "keywords": "Alchemical Ceration, Adventure, Centaur and Pig, Instinct, Beyond boundaries"
     },
-    "maj30": {
+    "maj_30": {
       "name": "Cancer",
       "keywords": "Alchemical Dissolution, Sensitivity, Crab, Home, Past memories"
     },
-    "maj31": {
+    "maj_31": {
       "name": "Pisces",
       "keywords": "Alchemical Projection, Emotions, Two fish, Letting go, Flow"
     },
-    "maj32": {
+    "maj_32": {
       "name": "Aquarius",
       "keywords": "Alchemical Multiplication, Innovation, Overturning pitchers, Future vision"
     },
-    "maj33": {
+    "maj_33": {
       "name": "Leo",
       "keywords": "Alchemical Digestion, Pride, Leadership, Vitality, Self-love"
     },
-    "maj34": {
+    "maj_34": {
       "name": "Taurus",
       "keywords": "Alchemical Coagulation, Senses, Building, Carpe diem, Earthy pleasure"
     },
-    "maj35": {
+    "maj_35": {
       "name": "Gemini (The Flesh)",
       "keywords": "Alchemical Fixation, Verb made flesh, Soulmate, Wit, Duality, Interaction"
     },
-    "maj36": {
+    "maj_36": {
       "name": "The Star (First Air)",
       "keywords": "Guidance, Destination, Offering, Heavenly news, Inspiration"
     },
-    "maj37": {
+    "maj_37": {
       "name": "The Moon (Second Air)",
       "keywords": "Unconscious, Astronomer, Illusion, Diffuse boundaries, Cyclical language"
     },
-    "maj38": {
+    "maj_38": {
       "name": "The Sun (Third Air)",
       "keywords": "Truth in sight, Joy, Friendship, Vitality, Enlightenment"
     },
-    "maj39": {
+    "maj_39": {
       "name": "The World (Fourth Air)",
       "keywords": "Integration, Broadened horizons, Completion, Diversity, Contribution"
     },
-    "maj40": {
+    "maj_40": {
       "name": "The Trumpets (Fame)",
       "keywords": "The Highest Air, Announcement, Immortality, Final judgment, High stakes, Rattle the table"
     },

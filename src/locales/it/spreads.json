@@ -3,7 +3,7 @@
     "name": "Carta del Giorno",
     "description": "L'energia che ti accompagna oggi.",
     "positions": {
-      "day-energy": {
+      "1": {
         "label": "Energia Giornaliera",
         "description": "L'archetipo principale per la tua giornata."
       }

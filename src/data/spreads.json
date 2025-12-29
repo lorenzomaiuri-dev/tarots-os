@@ -3,17 +3,13 @@
     "id": "daily",
     "icon": "calendar-today",
     "defaultQuestionKey": "daily_focus",
-    "slots": [
-      { "id": "day-energy", "label": "energy", "layout": { "x": 0, "y": 0 } }
-    ]
+    "slots": [{ "id": "1", "label": "day-energy", "layout": { "x": 0, "y": 0 } }]
   },
   {
     "id": "one-card",
     "icon": "card-text-outline",
     "defaultQuestionKey": "general_guidance",
-    "slots": [
-      { "id": "1", "label": "main", "layout": { "x": 0, "y": 0 } }
-    ]
+    "slots": [{ "id": "1", "label": "main", "layout": { "x": 0, "y": 0 } }]
   },
   {
     "id": "three-card",
