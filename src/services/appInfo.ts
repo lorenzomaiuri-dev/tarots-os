@@ -8,7 +8,6 @@ export interface ChangelogEntry {
   changes: string[];
 }
 
-// TODO: URL to remote JSON file
 const CHANGELOG_URL =
   'https://raw.githubusercontent.com/lorenzomaiuri-dev/tarots-os/main/changelog.json';
 
