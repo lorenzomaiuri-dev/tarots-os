@@ -57,7 +57,7 @@ export const useDailyDraw = () => {
     const newDailyCard: DrawnCard = {
       cardId: drawn.card.id,
       deckId: activeDeckId,
-      positionId: 'daily',
+      positionId: '1',
       isReversed: drawn.isReversed,
     };
 
