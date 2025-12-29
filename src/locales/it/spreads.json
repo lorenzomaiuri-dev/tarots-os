@@ -21,7 +21,7 @@
   },
   "three-card": {
     "name": "Passato, Presente, Futuro",
-    "description": "Una stesa versatile che rivela come la tua storia passata e le circostanze attuali stiano plasmando il tuo potenziale futuro.",
+    "description": "Una scelta versatile che rivela come la tua storia passata e le circostanze attuali stiano plasmando il tuo potenziale futuro.",
     "positions": {
       "1": {
         "label": "Influenze Passate",
@@ -38,7 +38,7 @@
     }
   },
   "relationship": {
-    "name": "Stesa della Relazione",
+    "name": "Relazione",
     "description": "Esplora le dinamiche tra te e un'altra persona, rivelando le prospettive individuali e il possibile cammino del vostro legame.",
     "positions": {
       "1": {
@@ -87,7 +87,7 @@
   },
   "celtic-cross": {
     "name": "Croce Celtica",
-    "description": "La stesa più iconica per una comprensione profonda. Esamina le forze consce e subconsce che influenzano il tuo percorso e offre una mappa dettagliata della situazione.",
+    "description": "La più iconica per una comprensione profonda. Esamina le forze consce e subconsce che influenzano il tuo percorso e offre una mappa dettagliata della situazione.",
     "positions": {
       "1": {
         "label": "Il Presente",
