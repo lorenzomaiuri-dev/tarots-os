@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { DEFAULTS, STORAGE_KEYS } from '../constants';
+import { DEFAULTS, STORAGE_KEYS, STORE_VERSIONS } from '../constants';
 import { SettingsState } from '../types/settings';
 import { zustandStorage } from './storageAdapter';
 
@@ -70,6 +70,14 @@ export const useSettingsStore = create<SettingsState>()(
     {
       name: STORAGE_KEYS.SETTINGS,
       storage: createJSONStorage(() => zustandStorage), // Use native storage
+      version: STORE_VERSIONS.SETTINGS,
+      migrate: (persistedState: any, version: number) => {
+        if (version <= STORE_VERSIONS.SETTINGS) {
+          // This runs if the user has an older version
+          // You can perform data transformations here if needed
+        }
+        return persistedState as SettingsState;
+      },
     }
   )
 );

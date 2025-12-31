@@ -47,3 +47,8 @@ export const TERMS_CONDITIONS_URL =
 
 export const CHANGELOG_URL =
   'https://raw.githubusercontent.com/lorenzomaiuri-dev/tarots-os/main/changelog.json';
+
+export const STORE_VERSIONS = {
+  SETTINGS: 1,
+  HISTORY: 1,
+} as const;
