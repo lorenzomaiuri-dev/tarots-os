@@ -116,7 +116,7 @@ const DeckSelectionScreen = () => {
                       {item.totalCards} {t('common:cards', 'CARDS')}
                     </Text>
                   </GlassSurface>
-                  <Text style={styles.authorText}>by {item.author}</Text>
+                  {/* <Text style={styles.authorText}>by {item.author}</Text> */}
                 </View>
               </View>
             </View>

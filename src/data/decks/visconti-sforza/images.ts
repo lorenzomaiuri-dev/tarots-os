@@ -62,7 +62,7 @@ const images: Record<string, any> = {
   swords_09: require('../../../../assets/visconti-sforza/swords_09.webp'),
   swords_10: require('../../../../assets/visconti-sforza/swords_10.webp'),
   swords_11: require('../../../../assets/visconti-sforza/swords_11_page.webp'),
-  swords_12: require('../../../../assets/visconti-sforza/swords_12_kinght.webp'),
+  swords_12: require('../../../../assets/visconti-sforza/swords_12_knight.webp'),
   swords_13: require('../../../../assets/visconti-sforza/swords_13_queen.webp'),
   swords_14: require('../../../../assets/visconti-sforza/swords_14_king.webp'),
   wands_01: require('../../../../assets/visconti-sforza/wands_01.webp'),
