@@ -26,7 +26,7 @@ const images: Record<string, any> = {
   maj_08: require('../../../../assets/visconti-sforza/maj_08_justice.webp'),
   maj_09: require('../../../../assets/visconti-sforza/maj_09_hermit.webp'),
   maj_10: require('../../../../assets/visconti-sforza/maj_10_wheeloffortune.webp'),
-  maj_11: require('../../../../assets/visconti-sforza/maj_11_strentgh.webp'),
+  maj_11: require('../../../../assets/visconti-sforza/maj_11_strength.webp'),
   maj_12: require('../../../../assets/visconti-sforza/maj_12_hangedmen.webp'),
   maj_13: require('../../../../assets/visconti-sforza/maj_13_unnamed.webp'),
   maj_14: require('../../../../assets/visconti-sforza/maj_14_temperance.webp'),

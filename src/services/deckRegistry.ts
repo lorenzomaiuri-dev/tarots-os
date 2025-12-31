@@ -39,14 +39,14 @@ const DECK_MANIFEST: Record<string, () => DeckBundle> = {
       it: require('../locales/it/decks/visconti-sforza.json'),
     },
   }),
-  minchiate: () => ({
-    data: require('../data/decks/minchiate/deck.json'),
-    images: require('../data/decks/minchiate/images').default,
-    translations: {
-      en: require('../locales/en/decks/minchiate.json'),
-      it: require('../locales/it/decks/minchiate.json'),
-    },
-  }),
+  // minchiate: () => ({
+  //   data: require('../data/decks/minchiate/deck.json'),
+  //   images: require('../data/decks/minchiate/images').default,
+  //   translations: {
+  //     en: require('../locales/en/decks/minchiate.json'),
+  //     it: require('../locales/it/decks/minchiate.json'),
+  //   },
+  // }),
   // Add new decks here...
   // 'thoth': () => ({ ... })
 };

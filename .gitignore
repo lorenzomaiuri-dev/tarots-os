@@ -39,8 +39,5 @@ yarn-error.*
 # generated native folders
 /ios
 /android
-assets/rider-waite
-assets/marseille
-assets/visconti-sforza
-assets/minchiate
+mine-assets/
 .env

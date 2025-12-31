@@ -23,7 +23,7 @@ const images: Record<string, any> = {
   maj_05: require('../../../../assets/rider-waite/maj_05_hierophant.webp'),
   maj_06: require('../../../../assets/rider-waite/maj_06_lovers.webp'),
   maj_07: require('../../../../assets/rider-waite/maj_07_chariot.webp'),
-  maj_08: require('../../../../assets/rider-waite/maj_08_strentgh.webp'),
+  maj_08: require('../../../../assets/rider-waite/maj_08_strength.webp'),
   maj_09: require('../../../../assets/rider-waite/maj_09_hermit.webp'),
   maj_10: require('../../../../assets/rider-waite/maj_10_wheeloffortune.webp'),
   maj_11: require('../../../../assets/rider-waite/maj_11_justice.webp'),
