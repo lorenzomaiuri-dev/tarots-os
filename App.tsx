@@ -22,6 +22,14 @@ import { AppNavigator } from './src/navigation/AppNavigator';
 import { NotificationService } from './src/services/notifications';
 import { useSettingsStore } from './src/store/useSettingsStore';
 
+if (!__DEV__) {
+  // Replace console.log with an empty function
+  console.log = () => {};
+  console.info = () => {};
+  console.warn = () => {};
+  console.error = () => {};
+}
+
 const MysticalDarkTheme = {
   ...MD3DarkTheme,
   colors: {
